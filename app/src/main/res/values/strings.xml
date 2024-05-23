@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Smart Parts Picker</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Главная</string>
+    <string name="title_catalog">Каталог</string>
+    <string name="title_assemblies">Сборки</string>
+    <string name="title_more">Еще</string>
 </resources>
