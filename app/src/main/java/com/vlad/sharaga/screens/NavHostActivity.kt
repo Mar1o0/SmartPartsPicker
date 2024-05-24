@@ -1,4 +1,4 @@
-package com.vlad.sharaga
+package com.vlad.sharaga.screens
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -8,17 +8,20 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.vlad.sharaga.databinding.ActivityMainBinding
+import com.vlad.sharaga.R
+import com.vlad.sharaga.databinding.ActivityNavHostBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class NavHostActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityNavHostBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityNavHostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
@@ -28,7 +31,10 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_catalog, R.id.navigation_assemblies, R.id.navigation_more
+                R.id.navigation_home,
+                R.id.navigation_catalog,
+                R.id.navigation_assemblies,
+                R.id.navigation_more
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

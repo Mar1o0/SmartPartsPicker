@@ -4,4 +4,7 @@
     <string name="title_catalog">Каталог</string>
     <string name="title_assemblies">Сборки</string>
     <string name="title_more">Еще</string>
+    <string name="accept_location">Подтвердите местоположение</string>
+    <string name="choose_city">Укажите ваш город</string>
+    <string name="accept">Подтвердить</string>
 </resources>
