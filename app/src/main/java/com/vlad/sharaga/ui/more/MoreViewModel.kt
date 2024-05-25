@@ -1,4 +1,4 @@
-package com.vlad.sharaga.ui.home
+package com.vlad.sharaga.ui.more
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,12 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class MoreViewModel @Inject constructor(
 
 ) : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "This is more Fragment"
     }
     val text: LiveData<String> = _text
 }

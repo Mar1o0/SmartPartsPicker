@@ -1,13 +1,18 @@
-package com.vlad.sharaga.screens
+package com.vlad.sharaga.ui
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.TypedValue
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.vlad.sharaga.R
 import com.vlad.sharaga.databinding.ActivityNavHostBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,16 +24,16 @@ class NavHostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
 
         binding = ActivityNavHostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        val navView: BottomNavigationView = binding.navView
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
@@ -39,5 +44,19 @@ class NavHostActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val backgroundShapeModel: ShapeAppearanceModel = ShapeAppearanceModel.builder()
+            .setTopLeftCorner(CornerFamily.ROUNDED, toPx(16))
+            .setTopRightCorner(CornerFamily.ROUNDED, toPx(16))
+            .build()
+        navView.background = MaterialShapeDrawable(backgroundShapeModel).apply {
+            fillColor = ColorStateList.valueOf(0xFF101010.toInt())
+        }
     }
 }
+
+fun Context.toPx(dp: Int): Float = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP,
+    dp.toFloat(),
+    resources.displayMetrics
+)

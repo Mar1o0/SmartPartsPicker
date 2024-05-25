@@ -1,4 +1,4 @@
-package com.vlad.sharaga.viewmodels
+package com.vlad.sharaga.ui.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -14,7 +14,7 @@
         android:theme="@style/Theme.SmartPartsPicker"
         tools:targetApi="31">
         <activity
-            android:name=".screens.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.SmartPartsPicker.Splash">
             <intent-filter>
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".screens.NavHostActivity"
+            android:name=".ui.NavHostActivity"
             android:exported="false" />
     </application>
 

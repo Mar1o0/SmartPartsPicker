@@ -1,4 +1,4 @@
-package com.vlad.sharaga.screens
+package com.vlad.sharaga.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,11 +10,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.vlad.sharaga.R
 import com.vlad.sharaga.databinding.ActivitySplashBinding
 import com.vlad.sharaga.domain.adapters.CitiesSpinnerAdapter
-import com.vlad.sharaga.viewmodels.SplashScreenState
-import com.vlad.sharaga.viewmodels.SplashScreenViewModel
+import com.vlad.sharaga.ui.NavHostActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

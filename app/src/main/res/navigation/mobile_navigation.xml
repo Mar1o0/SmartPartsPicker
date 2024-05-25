@@ -13,13 +13,18 @@
 
     <fragment
         android:id="@+id/navigation_catalog"
-        android:name="com.vlad.sharaga.ui.dashboard.DashboardFragment"
+        android:name="com.vlad.sharaga.ui.catalog.CatalogFragment"
         android:label="@string/title_catalog"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_catalog" />
 
     <fragment
         android:id="@+id/navigation_assemblies"
-        android:name="com.vlad.sharaga.ui.notifications.NotificationsFragment"
+        android:name="com.vlad.sharaga.ui.assemblies.AssembliesFragment"
         android:label="@string/title_assemblies"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_assemblies" />
+    <fragment
+        android:id="@+id/navigation_more"
+        android:name="com.vlad.sharaga.ui.more.MoreFragment"
+        android:label="@string/title_more"
+        tools:layout="@layout/fragment_more" />
 </navigation>
