@@ -1,4 +1,4 @@
-package com.vlad.sharaga.domain.adapters
+package com.vlad.sharaga.domain.adapters.spinner
 
 import android.content.Context
 import android.view.LayoutInflater
