@@ -1,15 +1,15 @@
-package com.vlad.sharaga.domain.adapters.recycler
+package com.vlad.sharaga.domain.adapter.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
 
 class FingerprintAdapter(
     private val fingerprints: List<ItemFingerprint<*, *>>,
-) : RecyclerView.Adapter<ItemViewHolder<ViewBinding, Item>>() {
-
-    private val items = mutableListOf<Item>()
+) : ListAdapter<Item, ItemViewHolder<ViewBinding, Item>>(
+    FingerprintDiffUtil(fingerprints)
+) {
 
     @Suppress("UNCHECKED_CAST")
     override fun onCreateViewHolder(
@@ -24,22 +24,28 @@ class FingerprintAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder<ViewBinding, Item>, position: Int) {
-        holder.bind(items[position])
+        holder.onBind(currentList[position])
     }
 
-    override fun getItemCount(): Int = items.size
+    @Suppress("UselessCallOnNotNull")
+    override fun onBindViewHolder(
+        holder: ItemViewHolder<ViewBinding, Item>,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isNullOrEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+        } else {
+            holder.onBind(currentList[position], payloads)
+        }
+    }
+
+    override fun getItemCount(): Int = currentList.size
 
     override fun getItemViewType(position: Int): Int {
-        val item = items[position]
+        val item = currentList[position]
         return fingerprints.find { it.isRelativeItem(item) }
             ?.getLayoutResId()
             ?: throw IllegalArgumentException("Unknown item: $item")
     }
-
-    fun setItems(newItems: List<Item>) {
-        items.clear()
-        items.addAll(newItems)
-        notifyDataSetChanged()
-    }
-
 }

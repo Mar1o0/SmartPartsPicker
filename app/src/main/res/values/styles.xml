@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="ShapeAppearanceOverlay.RoundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/corner_radius_medium</item>
+    </style>
 
-
+    <style name="Text.Title" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/urbanist_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/secondary_white</item>
+    </style>
 
 </resources>

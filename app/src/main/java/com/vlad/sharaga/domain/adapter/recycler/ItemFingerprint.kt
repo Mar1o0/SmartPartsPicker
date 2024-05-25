@@ -1,9 +1,9 @@
-package com.vlad.sharaga.domain.adapters.recycler
+package com.vlad.sharaga.domain.adapter.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.viewbinding.ViewBinding
 
 interface ItemFingerprint<VB: ViewBinding, I: Item> {
@@ -18,13 +18,7 @@ interface ItemFingerprint<VB: ViewBinding, I: Item> {
         parent: ViewGroup
     ): ItemViewHolder<VB, I>
 
+    fun getDiffUtil(): DiffUtil.ItemCallback<I>
 
 }
 
-abstract class ItemViewHolder<out VB: ViewBinding, in I: Item>(
-    val binding: VB
-) : RecyclerView.ViewHolder(binding.root) {
-
-    abstract fun bind(item: I)
-
-}

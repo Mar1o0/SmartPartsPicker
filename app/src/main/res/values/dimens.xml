@@ -7,4 +7,6 @@
 
     <dimen name="corner_radius">12dp</dimen>
 
+    <dimen name="corner_radius_medium">8dp</dimen>
+
 </resources>

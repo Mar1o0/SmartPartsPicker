@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SizedRatingBar">
+        <attr name="starSize" format="dimension"/>
+        <attr name="gapSize" format="dimension"/>
+        <attr name="numStars" format="integer"/>
+        <attr name="fillColor" format="color"/>
+        <attr name="rating" format="float"/>
+    </declare-styleable>
+
+</resources>

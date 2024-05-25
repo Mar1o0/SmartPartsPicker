@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.TypedValue
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -52,6 +54,15 @@ class NavHostActivity : AppCompatActivity() {
         navView.background = MaterialShapeDrawable(backgroundShapeModel).apply {
             fillColor = ColorStateList.valueOf(0xFF101010.toInt())
         }
+
+//        ViewCompat.setOnApplyWindowInsetsListener(navView) { view, insets ->
+//            val imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
+//            val navigationBarsInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+//
+//            // Apply padding only when IME is not visible to avoid height increase
+//            view.setPadding(0, 0, 0, if (imeVisible) 0 else navigationBarsInsets.bottom)
+//            insets
+//        }
     }
 }
 
