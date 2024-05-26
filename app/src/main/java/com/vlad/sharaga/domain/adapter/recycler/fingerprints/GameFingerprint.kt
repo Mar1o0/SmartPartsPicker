@@ -1,21 +1,27 @@
 package com.vlad.sharaga.domain.adapter.recycler.fingerprints
 
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.Glide
 import com.vlad.sharaga.R
 import com.vlad.sharaga.databinding.ItemGameBinding
 import com.vlad.sharaga.domain.adapter.recycler.Item
 import com.vlad.sharaga.domain.adapter.recycler.ItemFingerprint
 import com.vlad.sharaga.domain.adapter.recycler.ItemViewHolder
+import kotlinx.parcelize.Parcelize
 
+@Keep
+@Parcelize
 data class GameItem(
     val id: Int,
-    val preview: Bitmap
+    val previewUrl: String,
 ) : Item
 
-class GameFingerprint : ItemFingerprint<ItemGameBinding, GameItem> {
+class GameFingerprint(
+    private val onGameClick: (GameItem) -> Unit
+) : ItemFingerprint<ItemGameBinding, GameItem> {
 
     override fun isRelativeItem(item: Item) = item is GameItem
 
@@ -26,7 +32,7 @@ class GameFingerprint : ItemFingerprint<ItemGameBinding, GameItem> {
         parent: ViewGroup
     ): ItemViewHolder<ItemGameBinding, GameItem> {
         val binding = ItemGameBinding.inflate(layoutInflater, parent, false)
-        return GameViewHolder(binding)
+        return GameViewHolder(binding, onGameClick)
     }
 
     override fun getDiffUtil() = diffUtil
@@ -39,12 +45,16 @@ class GameFingerprint : ItemFingerprint<ItemGameBinding, GameItem> {
 }
 
 class GameViewHolder(
-    binding: ItemGameBinding
+    binding: ItemGameBinding,
+    private val onGameClick: (GameItem) -> Unit
 ) : ItemViewHolder<ItemGameBinding, GameItem>(binding) {
 
     override fun onBind(item: GameItem) {
         super.onBind(item)
-        binding.ivPreview.setImageBitmap(item.preview)
+        binding.root.setOnClickListener { onGameClick(item) }
+        Glide.with(binding.root.context)
+            .load(item.previewUrl)
+            .into(binding.ivPreview)
     }
 
 }

@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<SearchView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
+    android:background="@drawable/sh_search_bg"
+    android:fontFamily="@font/urbanist_regular"
+    android:iconifiedByDefault="false"
+    android:queryBackground="@null"
+    android:queryHint="@string/search"
+    android:searchHintIcon="@null"
+    android:searchIcon="@drawable/ic_search"
     android:textColorHint="#A8A6B9"
     app:boxCollapsedPaddingTop="0dp"
     app:boxStrokeWidth="0dp"
     app:boxStrokeWidthFocused="0dp"
-    app:hintEnabled="false"
-    app:startIconDrawable="@drawable/ic_search"
-    app:startIconTint="#A8A6B9">
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/sh_search_bg"
-        android:fontFamily="@font/urbanist_regular"
-        android:hint="@string/search"
-        android:paddingStart="46dp"
-        android:paddingTop="10dp"
-        android:textColorHint="#A8A6B9"
-        tools:ignore="RtlSymmetry" />
-</com.google.android.material.textfield.TextInputLayout>
+    app:hintEnabled="true" />

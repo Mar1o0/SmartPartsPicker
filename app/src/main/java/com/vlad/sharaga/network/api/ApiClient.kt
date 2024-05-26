@@ -15,4 +15,15 @@ class ApiClient @Inject constructor(
         return apiService.fetchHomeFeed()
     }
 
+    suspend fun fetchCatalogItems(): List<Item> {
+        return apiService.fetchCatalogItems()
+    }
+
+    suspend fun fetchGames(): List<Item> {
+        return apiService.fetchGames()
+    }
+
+    suspend fun fetchCategory(categoryId: String): List<Item> {
+        return apiService.fetchCategory(categoryId)
+    }
 }

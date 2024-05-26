@@ -16,6 +16,7 @@ sealed interface HomeState {
     data class Loaded(
         val items: List<Item>
     ) : HomeState
+    data object Error : HomeState
 }
 
 
@@ -29,7 +30,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val feed = mainRepository.fetchHomeFeed()
+            val feed = mainRepository.apiRepository.fetchHomeFeed()
             _state.value = HomeState.Loaded(feed)
         }
     }

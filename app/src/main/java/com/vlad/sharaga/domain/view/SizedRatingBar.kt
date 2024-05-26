@@ -13,6 +13,7 @@ import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.core.content.ContextCompat
 import com.vlad.sharaga.R
+import kotlin.math.floor
 import kotlin.math.min
 import kotlin.math.roundToInt
 
@@ -86,8 +87,9 @@ class SizedRatingBar @JvmOverloads constructor(
         super.onDraw(canvas)
 
         paint.color = fillColor
-        val progressLevel = rating / numStars
-        val progressWidth = (starSize * numStars) * progressLevel + (numStars - 1) * gapSize
+
+        val progressLevel: Float = rating / numStars
+        val progressWidth: Float = (starSize * numStars) * progressLevel + floor(rating) * gapSize
 
         for (i in 0 until numStars) {
             val left = i * starSize + i * gapSize

@@ -9,4 +9,6 @@
 
     <dimen name="corner_radius_medium">8dp</dimen>
 
+    <dimen name="preview_size">150dp</dimen>
+
 </resources>

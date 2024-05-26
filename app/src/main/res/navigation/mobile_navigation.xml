@@ -9,13 +9,36 @@
         android:id="@+id/navigation_home"
         android:name="com.vlad.sharaga.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_gamesFragment"
+            app:destination="@id/gamesFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_catalog"
+            app:destination="@id/navigation_catalog"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_catalog"
         android:name="com.vlad.sharaga.ui.catalog.CatalogFragment"
         android:label="@string/title_catalog"
-        tools:layout="@layout/fragment_catalog" />
+        tools:layout="@layout/fragment_catalog">
+        <argument
+            android:name="game_item"
+            android:defaultValue="@null"
+            app:argType="com.vlad.sharaga.domain.adapter.recycler.fingerprints.GameItem"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_navigation_catalog_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <argument
+            android:name="category_item"
+            app:argType="com.vlad.sharaga.domain.adapter.recycler.fingerprints.CategoryItem"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_assemblies"
@@ -27,4 +50,22 @@
         android:name="com.vlad.sharaga.ui.more.MoreFragment"
         android:label="@string/title_more"
         tools:layout="@layout/fragment_more" />
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.vlad.sharaga.ui.games.GamesFragment"
+        android:label="fragment_games"
+        tools:layout="@layout/fragment_games">
+        <action
+            android:id="@+id/action_gamesFragment_to_navigation_catalog"
+            app:destination="@id/navigation_catalog" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.vlad.sharaga.ui.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category">
+        <argument
+            android:name="categoryItem"
+            app:argType="com.vlad.sharaga.domain.adapter.recycler.fingerprints.CategoryItem" />
+    </fragment>
 </navigation>

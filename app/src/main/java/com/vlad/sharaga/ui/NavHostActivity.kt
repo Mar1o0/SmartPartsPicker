@@ -8,6 +8,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -17,7 +20,10 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.vlad.sharaga.R
 import com.vlad.sharaga.databinding.ActivityNavHostBinding
+import com.vlad.sharaga.domain.util.toPx
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NavHostActivity : AppCompatActivity() {
@@ -64,10 +70,9 @@ class NavHostActivity : AppCompatActivity() {
 //            insets
 //        }
     }
-}
 
-fun Context.toPx(dp: Int): Float = TypedValue.applyDimension(
-    TypedValue.COMPLEX_UNIT_DIP,
-    dp.toFloat(),
-    resources.displayMetrics
-)
+    override fun onSupportNavigateUp(): Boolean {
+        val navController: NavController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main)
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+}

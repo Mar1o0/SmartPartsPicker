@@ -10,10 +10,11 @@
 
     <color name="background">#FF181A20</color>
     <color name="primary">#FF14389D</color>
-    <color name="primaryVariant">#FF4778FF</color>
+    <color name="primary_transparent">#8014389D</color>
+    <color name="primary_variant">#FF4778FF</color>
     <color name="secondary">#FF9F9F9F</color>
     <color name="secondary_white">#FFE1E2EC</color>
     <color name="cover">#FF21242A</color>
-
     <color name="popup">#FF292C33</color>
+    <color name="success">#088752</color>
 </resources>

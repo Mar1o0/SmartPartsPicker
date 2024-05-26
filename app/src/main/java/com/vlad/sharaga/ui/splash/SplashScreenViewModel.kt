@@ -24,7 +24,7 @@ class SplashScreenViewModel @Inject constructor(
     fun onAcceptClicked(cityName: String?) {
         if (cityName != null) {
             viewModelScope.launch(Dispatchers.IO) {
-                mainRepository.savePref(locationKey, cityName)
+                mainRepository.appPreferences.save(locationKey, cityName)
                 _state.value = SplashScreenState.Dispose
             }
         }
@@ -35,10 +35,10 @@ class SplashScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.value = if (mainRepository.getPref(locationKey) != null) {
+            _state.value = if (mainRepository.appPreferences.get(locationKey) != null) {
                 SplashScreenState.Dispose
             } else {
-                val cityNames = mainRepository.fetchCityNames()
+                val cityNames = mainRepository.apiRepository.fetchCityNames()
                 SplashScreenState.LocationChooser(
                     cityNames = cityNames
                 )

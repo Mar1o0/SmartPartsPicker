@@ -1,3 +1,5 @@
 package com.vlad.sharaga.domain.adapter.recycler
 
-interface Item
+import android.os.Parcelable
+
+interface Item : Parcelable

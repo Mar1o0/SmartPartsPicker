@@ -2,13 +2,17 @@ package com.vlad.sharaga.domain.adapter.recycler.fingerprints
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.Keep
 import androidx.recyclerview.widget.DiffUtil
 import com.vlad.sharaga.R
 import com.vlad.sharaga.databinding.ItemIconTitleBinding
 import com.vlad.sharaga.domain.adapter.recycler.Item
 import com.vlad.sharaga.domain.adapter.recycler.ItemFingerprint
 import com.vlad.sharaga.domain.adapter.recycler.ItemViewHolder
+import kotlinx.parcelize.Parcelize
 
+@Keep
+@Parcelize
 data class IconTitleItem(
     val iconResId: Int,
     val title: String

@@ -1,29 +1,12 @@
 package com.vlad.sharaga.data
 
-import androidx.datastore.preferences.core.Preferences
 import com.vlad.sharaga.data.preferences.AppPreferences
-import com.vlad.sharaga.domain.adapter.recycler.Item
 import com.vlad.sharaga.network.ApiRepository
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MainRepository @Inject constructor(
-    private val apiRepository: ApiRepository,
-    private val appPreferences: AppPreferences
-) {
-    suspend fun fetchCityNames(): List<String> {
-        return apiRepository.fetchCityNames()
-    }
-
-    suspend fun fetchHomeFeed(): List<Item> {
-        return apiRepository.fetchHomeFeed()
-    }
-
-    suspend fun <T> savePref(key: Preferences.Key<T>, value: T): Unit =
-        appPreferences.save(key, value)
-
-    suspend fun <T> getPref(key: Preferences.Key<T>): T? =
-        appPreferences.get(key)
-
-    suspend fun <T> getPref(key: Preferences.Key<T>, default: T): T =
-        appPreferences.get(key, default)
-}
+    val apiRepository: ApiRepository,
+    val appPreferences: AppPreferences
+)
