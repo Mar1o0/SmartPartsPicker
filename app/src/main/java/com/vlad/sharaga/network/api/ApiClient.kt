@@ -1,29 +1,46 @@
 package com.vlad.sharaga.network.api
 
-import com.vlad.sharaga.domain.adapter.recycler.Item
+import com.vlad.sharaga.data.ProductId
+import com.vlad.sharaga.models.Game
+import com.vlad.sharaga.models.Product
+import com.vlad.sharaga.models.ProductImage
+import com.vlad.sharaga.models.ProductPrice
+import com.vlad.sharaga.models.ProductSpec
 import javax.inject.Inject
 
 class ApiClient @Inject constructor(
     private val apiService: ApiService
 ) {
 
-    suspend fun fetchCityNames(): List<String> {
+    suspend fun fetchCityNames(): List<String>? {
         return apiService.fetchCityNames()
     }
 
-    suspend fun fetchHomeFeed(): List<Item> {
-        return apiService.fetchHomeFeed()
+    suspend fun fetchProduct(productId: ProductId): Product? {
+        return apiService.fetchProduct(productId)
     }
 
-    suspend fun fetchCatalogItems(): List<Item> {
-        return apiService.fetchCatalogItems()
+    suspend fun fetchProducts(productType: String): List<Product>? {
+        return apiService.fetchProducts(productType)
     }
 
-    suspend fun fetchGames(): List<Item> {
+    suspend fun fetchProductPrices(productId: ProductId): List<ProductPrice>? {
+        return apiService.fetchProductPrices(productId)
+    }
+
+    suspend fun fetchProductImage(productId: ProductId): ProductImage? {
+        return apiService.fetchProductImage(productId)
+    }
+
+    suspend fun fetchProductImages(productId: ProductId): List<ProductImage>? {
+        return apiService.fetchProductImages(productId)
+    }
+
+    suspend fun fetchProductSpecs(productId: ProductId): List<ProductSpec>? {
+        return apiService.fetchProductSpecs(productId)
+    }
+    suspend fun fetchGames(): List<Game>? {
         return apiService.fetchGames()
     }
 
-    suspend fun fetchCategory(categoryId: String): List<Item> {
-        return apiService.fetchCategory(categoryId)
-    }
 }

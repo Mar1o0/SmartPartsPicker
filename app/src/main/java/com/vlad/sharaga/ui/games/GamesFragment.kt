@@ -9,16 +9,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.vlad.sharaga.R
 import com.vlad.sharaga.databinding.FragmentGamesBinding
-import com.vlad.sharaga.domain.adapter.recycler.FingerprintAdapter
-import com.vlad.sharaga.domain.adapter.recycler.decorations.HorizontalDividerItemDecoration
-import com.vlad.sharaga.domain.adapter.recycler.decorations.VerticalDividerItemDecoration
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.GameFingerprint
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.GameItem
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.TitleFingerprint
+import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
+import com.vlad.sharaga.core.adapter.recycler.decorations.HorizontalDividerItemDecoration
+import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.GameFingerprint
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.GameItem
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -76,7 +73,6 @@ class GamesFragment : Fragment() {
     }
 
     private fun getFingerprints() = listOf(
-        TitleFingerprint(),
         GameFingerprint(::onGameClick),
     )
 

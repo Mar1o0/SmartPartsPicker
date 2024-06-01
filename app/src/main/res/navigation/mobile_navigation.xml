@@ -15,9 +15,7 @@
             app:destination="@id/gamesFragment" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_catalog"
-            app:destination="@id/navigation_catalog"
-            app:popUpTo="@id/navigation_home"
-            app:popUpToInclusive="true" />
+            app:destination="@id/navigation_catalog" />
     </fragment>
 
     <fragment
@@ -28,23 +26,32 @@
         <argument
             android:name="game_item"
             android:defaultValue="@null"
-            app:argType="com.vlad.sharaga.domain.adapter.recycler.fingerprints.GameItem"
+            app:argType="com.vlad.sharaga.core.adapter.recycler.fingerprints.GameItem"
             app:nullable="true" />
         <action
             android:id="@+id/action_navigation_catalog_to_categoryFragment"
-            app:destination="@id/categoryFragment" />
+            app:destination="@id/browseFragment" />
         <argument
             android:name="category_item"
-            app:argType="com.vlad.sharaga.domain.adapter.recycler.fingerprints.CategoryItem"
+            app:argType="com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_navigation_catalog_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_assemblies"
         android:name="com.vlad.sharaga.ui.assemblies.AssembliesFragment"
         android:label="@string/title_assemblies"
-        tools:layout="@layout/fragment_assemblies" />
+        tools:layout="@layout/fragment_assemblies" >
+        <action
+            android:id="@+id/action_navigation_assemblies_to_assemblyBrowseFragment"
+            app:destination="@id/assemblyBrowseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_more"
         android:name="com.vlad.sharaga.ui.more.MoreFragment"
@@ -60,12 +67,52 @@
             app:destination="@id/navigation_catalog" />
     </fragment>
     <fragment
-        android:id="@+id/categoryFragment"
-        android:name="com.vlad.sharaga.ui.category.CategoryFragment"
-        android:label="fragment_category"
-        tools:layout="@layout/fragment_category">
+        android:id="@+id/browseFragment"
+        android:name="com.vlad.sharaga.ui.catalog.browse.ProductBrowseFragment"
+        android:label="fragment_browse"
+        tools:layout="@layout/fragment_browse">
         <argument
             android:name="categoryItem"
-            app:argType="com.vlad.sharaga.domain.adapter.recycler.fingerprints.CategoryItem" />
+            app:argType="com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem" />
+        <action
+            android:id="@+id/action_categoryFragment_to_articleFragment"
+            app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_browseFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.vlad.sharaga.ui.product.ArticleFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product">
+        <argument
+            android:name="startTab"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.vlad.sharaga.ui.catalog.filter.FilterFragment"
+        android:label="fragment_filter"
+        tools:layout="@layout/fragment_filter" >
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/assemblyBrowseFragment"
+        android:name="com.vlad.sharaga.ui.assemblies.browse.AssemblyBrowseFragment"
+        android:label="fragment_assembly_browse"
+        tools:layout="@layout/fragment_assembly_browse" >
+        <action
+            android:id="@+id/action_assemblyBrowseFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+        <argument
+            android:name="assemblyId"
+            app:argType="integer" />
     </fragment>
 </navigation>

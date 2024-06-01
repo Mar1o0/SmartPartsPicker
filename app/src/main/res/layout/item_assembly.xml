@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sh_item_bg"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_black"
+        android:maxLines="2"
+        android:text="Сборка для дот"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_regular"
+        android:maxLines="2"
+        android:text="Компонентов в сборке: 5"
+        android:textColor="@color/secondary_white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:constraint_referenced_ids="ivPreview1,ivPreview2,ivPreview3"
+        app:flow_horizontalGap="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivPreview1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/assembly_preview_size"
+        android:background="@color/white"
+        android:scaleType="centerInside"
+        app:layout_constraintHorizontal_weight="1"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivPreview2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/assembly_preview_size"
+        android:background="@color/white"
+        android:scaleType="centerInside"
+        app:layout_constraintHorizontal_weight="1"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivPreview3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/assembly_preview_size"
+        android:background="@color/white"
+        android:scaleType="centerInside"
+        app:layout_constraintHorizontal_weight="1"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

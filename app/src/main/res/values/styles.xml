@@ -12,4 +12,20 @@
         <item name="android:textColor">@color/secondary_white</item>
     </style>
 
+
+    <style name="Tabs.Article" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/white</item>
+<!--        <item name="tabTextAppearance">@style/MainTextAppearance</item>-->
+
+        <item name="tabIndicator">@drawable/sh_counter_bg</item>
+        <item name="tabIndicatorColor">#0B38B5</item>
+        <item name="tabIndicatorGravity">stretch</item>
+        <item name="tabIndicatorFullWidth">true</item>
+
+        <item name="android:background">@null</item>
+<!--        <item name="android:background">@drawable/sh_counter_bg</item>-->
+<!--        <item name="android:backgroundTint">@color/white</item>-->
+    </style>
+
 </resources>

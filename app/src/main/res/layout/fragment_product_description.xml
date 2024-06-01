@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context=".ui.product.description.ProductDescriptionFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvPreview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="16dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vpPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:clipToPadding="false" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tlPreviewIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/preview_indicator"
+                    app:tabBackground="@drawable/selector_pager_dot"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabPaddingEnd="10dp"
+                    app:tabPaddingStart="10dp" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/urbanist_semibold"
+                android:maxLines="2"
+                android:text="Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G "
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/cvPreview"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/cvPreview"
+                app:layout_constraintTop_toBottomOf="@id/cvPreview" />
+
+            <TextView
+                android:id="@+id/tvArticleId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/urbanist_regular"
+                android:text="Код товара: 192384"
+                android:textColor="#A0ABB8"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/cvPreview"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+            <com.vlad.sharaga.core.view.SizedRatingBar
+                android:id="@+id/rbRating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:fillColor="#F5BE3D"
+                app:gapSize="3dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvRating"
+                app:layout_constraintEnd_toStartOf="@+id/tvRating"
+                app:layout_constraintTop_toTopOf="@+id/tvRating"
+                app:numStars="5"
+                app:rating="5"
+                app:starSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/urbanist_regular"
+                android:text="(5.0)"
+                android:textColor="#A0ABB8"
+                app:layout_constraintBottom_toBottomOf="@+id/tvArticleId"
+                app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+                app:layout_constraintTop_toTopOf="@+id/tvArticleId"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/tvMinPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/urbanist_black"
+                android:text="от 2665,72 р."
+                android:textColor="@color/success"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/cvPreview"
+                app:layout_constraintTop_toBottomOf="@+id/tvArticleId" />
+
+            <Button
+                android:id="@+id/btnVariants"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/urbanist_bold"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="10dip"
+                android:paddingVertical="10dp"
+                android:text="25 вариантов"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/corner_radius"
+                app:layout_constraintStart_toStartOf="@+id/cvPreview"
+                app:layout_constraintTop_toBottomOf="@+id/tvMinPrice"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/btnAddToAssembly"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="12dp"
+                android:backgroundTint="@color/primary_variant"
+                android:fontFamily="@font/urbanist_bold"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="10dip"
+                android:paddingVertical="10dp"
+                android:text="Добавить в сборку"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/corner_radius"
+                app:layout_constraintStart_toEndOf="@+id/btnVariants"
+                app:layout_constraintTop_toTopOf="@+id/btnVariants"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/tvDescriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/urbanist_semibold"
+                android:text="Характеристики"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/cvPreview"
+                app:layout_constraintTop_toBottomOf="@+id/btnVariants" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/urbanist_regular"
+                android:text="Видеокарта Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G - это мощное графическое устройство с поддержкой трассировки лучей, идеально подходящее для игр в 4K.\nС поддержкой DirectX 12 Ultimate, эта видеокарта обеспечивает высокую производительность и качество графики.\nС разогнанной версией графического процессора и подсветкой, она предлагает улучшенный игровой опыт.\nС 16 ГБ видеопамяти и 80 RT-ядрами, эта видеокарта обеспечивает высокую производительность и плавную работу в самых требовательных играх."
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/cvPreview"
+                app:layout_constraintStart_toStartOf="@+id/cvPreview"
+                app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel" />
+
+            <HorizontalScrollView
+                android:id="@+id/nsSpecifications"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                app:layout_wrapBehaviorInParent="horizontal_only">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp">
+
+                    <TextView
+                        android:id="@+id/tvSpecificationsLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/urbanist_semibold"
+                        android:paddingHorizontal="26dp"
+                        android:paddingVertical="8dp"
+                        android:text="Основные"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSpecifications"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="100dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvSpecificationsLabel" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nsSpecifications" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/cpiLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone" />
+</FrameLayout>

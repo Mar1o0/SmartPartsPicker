@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sh_item_bg"
+    android:padding="16dp">
+
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flowDelivery"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:orientation="vertical"
+        app:constraint_referenced_ids="tvPrice,tvDeliveryDescription,tvDeliveryPrice"
+        app:flow_horizontalAlign="start"
+        app:flow_verticalStyle="spread_inside"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPreview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivPreview"
+        app:layout_constraintTop_toTopOf="@+id/ivPreview" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivPreview"
+        android:layout_width="@dimen/preview_size"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_black"
+        android:singleLine="false"
+        android:text="2999,40 р."
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintWidth="wrap_content_constrained" />
+
+    <TextView
+        android:id="@+id/tvDeliveryDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_regular"
+        android:singleLine="false"
+        android:text="Доставка по Минску или самовывоз"
+        android:textColor="@color/secondary_white"
+        android:textSize="12sp"
+        app:layout_constraintWidth="wrap_content_constrained" />
+
+    <TextView
+        android:id="@+id/tvDeliveryPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_semibold"
+        android:singleLine="false"
+        android:text="Бесплатно"
+        android:textColor="@color/success"
+        android:textSize="12sp"
+        app:layout_constraintWidth="wrap_content_constrained" />
+
+    <Button
+        android:id="@+id/btnVariants"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/urbanist_bold"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minHeight="10dip"
+        android:paddingVertical="10dp"
+        android:text="Купить сейчас"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPreview"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

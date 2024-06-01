@@ -38,10 +38,14 @@ class SplashScreenViewModel @Inject constructor(
             _state.value = if (mainRepository.appPreferences.get(locationKey) != null) {
                 SplashScreenState.Dispose
             } else {
-                val cityNames = mainRepository.apiRepository.fetchCityNames()
-                SplashScreenState.LocationChooser(
-                    cityNames = cityNames
-                )
+                val cityNames = mainRepository.apiClient.fetchCityNames()
+                if (cityNames == null) {
+                    SplashScreenState.Dispose
+                } else {
+                    SplashScreenState.LocationChooser(
+                        cityNames = cityNames
+                    )
+                }
             }
         }
     }

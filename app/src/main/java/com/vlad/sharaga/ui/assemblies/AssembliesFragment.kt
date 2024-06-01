@@ -4,21 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vlad.sharaga.databinding.FragmentAssembliesBinding
-import com.vlad.sharaga.domain.adapter.recycler.FingerprintAdapter
-import com.vlad.sharaga.domain.adapter.recycler.decorations.HorizontalDividerItemDecoration
-import com.vlad.sharaga.domain.adapter.recycler.decorations.VerticalDividerItemDecoration
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.ArticleFingerprint
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.ButtonFingerprint
-import com.vlad.sharaga.domain.util.toPx
+import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
+import com.vlad.sharaga.core.adapter.recycler.decorations.HorizontalDividerItemDecoration
+import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.AssemblyFingerprint
+import com.vlad.sharaga.core.util.toPx
+import com.vlad.sharaga.ui.assemblies.browse.AssemblyBrowseViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -29,7 +29,15 @@ class AssembliesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: AssembliesViewModel by viewModels()
-    private lateinit var adapter: FingerprintAdapter
+    private val adapter: FingerprintAdapter by lazy {
+        FingerprintAdapter(
+            listOf(
+                AssemblyFingerprint(
+                    onAssemblyClick = ::onAssemblyClick
+                )
+            )
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +51,6 @@ class AssembliesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = FingerprintAdapter(getFingerprints())
         binding.rvAssemblies.layoutManager = LinearLayoutManager(requireContext())
         binding.rvAssemblies.adapter = adapter
         binding.rvAssemblies.addItemDecoration(
@@ -69,6 +76,7 @@ class AssembliesFragment : Fragment() {
                         binding.tvError.isVisible = false
                         binding.rvAssemblies.isVisible = false
                     }
+
                     is AssembliesState.Error -> {
                         binding.cpiLoading.isVisible = false
                         binding.tvError.isVisible = true
@@ -79,6 +87,7 @@ class AssembliesFragment : Fragment() {
                         binding.cpiLoading.isVisible = false
                         binding.tvError.isVisible = false
                         binding.rvAssemblies.isVisible = true
+                        binding.tvCounter.text = state.assemblies.size.toString()
                         adapter.submitList(state.assemblies)
                     }
 
@@ -88,12 +97,21 @@ class AssembliesFragment : Fragment() {
         }
     }
 
-    private fun getFingerprints() = listOf(
-        ButtonFingerprint {}
-    )
+    override fun onResume() {
+        super.onResume()
+        viewModel.load()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun onAssemblyClick(assemblyId: Int) {
+        findNavController().navigate(
+            AssembliesFragmentDirections.actionNavigationAssembliesToAssemblyBrowseFragment(
+                assemblyId
+            )
+        )
     }
 }

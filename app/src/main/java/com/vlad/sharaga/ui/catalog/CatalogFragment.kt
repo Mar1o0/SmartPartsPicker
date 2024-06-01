@@ -4,27 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vlad.sharaga.databinding.FragmentCatalogBinding
-import com.vlad.sharaga.domain.adapter.recycler.FingerprintAdapter
-import com.vlad.sharaga.domain.adapter.recycler.decorations.HorizontalDividerItemDecoration
-import com.vlad.sharaga.domain.adapter.recycler.decorations.VerticalDividerItemDecoration
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.ButtonFingerprint
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.CategoryFingerprint
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.CategoryItem
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.GameFingerprint
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.IconTitleFingerprint
-import com.vlad.sharaga.domain.adapter.recycler.fingerprints.TitleFingerprint
-import com.vlad.sharaga.domain.util.toPx
-import com.vlad.sharaga.ui.category.CategoryType
-import com.vlad.sharaga.ui.home.HomeState
+import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
+import com.vlad.sharaga.core.adapter.recycler.decorations.HorizontalDividerItemDecoration
+import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryFingerprint
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem
+import com.vlad.sharaga.core.util.parcelable
+import com.vlad.sharaga.core.util.toPx
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -36,8 +29,11 @@ class CatalogFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: CatalogViewModel by viewModels()
-    private val args: CatalogFragmentArgs by navArgs()
-    private lateinit var adapter: FingerprintAdapter
+    private val adapter: FingerprintAdapter by lazy {
+        FingerprintAdapter(
+            listOf(CategoryFingerprint(::onCategoryClick))
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,13 +47,13 @@ class CatalogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (arguments?.containsKey("category_item") == true) {
-            args.categoryItem?.let { onCategoryClick(it) }
+        val categoryItem: CategoryItem? = arguments.parcelable("category_item")
+        if (categoryItem != null) {
+            onCategoryClick(categoryItem)
             arguments?.clear()
             return
         }
 
-        adapter = FingerprintAdapter(getFingerprints())
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCategories.adapter = adapter
         binding.rvCategories.addItemDecoration(
@@ -84,7 +80,7 @@ class CatalogFragment : Fragment() {
                         binding.rvCategories.isVisible = true
                         binding.cpiLoading.isVisible = false
                         binding.tvError.isVisible = false
-                        adapter.submitList(state.items)
+                        adapter.submitList(state.categories)
                     }
 
                     CatalogState.Loading -> {
@@ -106,11 +102,6 @@ class CatalogFragment : Fragment() {
             }
         }
     }
-
-    private fun getFingerprints() = listOf(
-        TitleFingerprint(),
-        CategoryFingerprint(::onCategoryClick),
-    )
 
     private fun onCategoryClick(categoryItem: CategoryItem) {
         val action =
