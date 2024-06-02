@@ -43,33 +43,34 @@ class GamesFragment : Fragment() {
         adapter = FingerprintAdapter(getFingerprints())
         binding.rvGames.layoutManager = LinearLayoutManager(requireContext())
         binding.rvGames.adapter = adapter
-        binding.rvGames.addItemDecoration(HorizontalDividerItemDecoration(90))
         binding.rvGames.addItemDecoration(VerticalDividerItemDecoration(50))
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
-                    is GamesState.Loading -> {
-                        binding.rvGames.isVisible = false
-                        binding.tvError.isVisible = false
-                        binding.cpiLoading.isVisible = true
+                    is GamesState.Loading -> with(binding) {
+                        cpiLoading.isVisible = true
+                        nsContent.isVisible = false
+                        tvError.isVisible = false
                     }
 
-                    is GamesState.Loaded -> {
-                        binding.rvGames.isVisible = true
-                        binding.tvError.isVisible = false
-                        binding.cpiLoading.isVisible = false
+                    is GamesState.Content -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = true
+                        tvError.isVisible = false
+
                         adapter.submitList(state.items)
                     }
 
-                    is GamesState.Error -> {
-                        binding.rvGames.isVisible = false
-                        binding.tvError.isVisible = true
-                        binding.cpiLoading.isVisible = false
+                    is GamesState.Error -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = false
+                        tvError.isVisible = true
                     }
                 }
             }
         }
+        viewModel.load()
     }
 
     private fun getFingerprints() = listOf(

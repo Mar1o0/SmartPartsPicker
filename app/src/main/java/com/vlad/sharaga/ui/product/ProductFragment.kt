@@ -39,7 +39,7 @@ class ArticleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.vpContent.adapter = ArticlePagerAdapter(this, args.productId)
+        binding.vpContent.adapter = ArticlePagerAdapter(this, args.productId, ::onChangePage)
         binding.vpContent.isUserInputEnabled = false
         binding.vpContent.currentItem = args.startTab
         setTab(args.startTab)
@@ -64,30 +64,35 @@ class ArticleFragment : Fragment() {
 
     private fun setTab(position: Int) {
         when (position) {
-            0 -> {
-                binding.btnDescription.isEnabled = false
-                binding.btnDescription.setTextColor(0xFFFFFFFF.toInt())
-                binding.btnDescription.setBackgroundColor(
+            0 -> with(binding) {
+                btnDescription.isEnabled = false
+                btnDescription.setTextColor(0xFFFFFFFF.toInt())
+                btnDescription.setBackgroundColor(
                     requireContext().getColor(R.color.primary_variant)
                 )
 
-                binding.btnOffers.isEnabled = true
-                binding.btnOffers.setBackgroundColor(
+                btnOffers.isEnabled = true
+                btnOffers.setBackgroundColor(
                     requireContext().getColor(R.color.primary)
                 )
             }
-            1 -> {
-                binding.btnDescription.isEnabled = true
-                binding.btnDescription.setBackgroundColor(
+
+            1 -> with(binding) {
+                btnDescription.isEnabled = true
+                btnDescription.setBackgroundColor(
                     requireContext().getColor(R.color.primary)
                 )
 
-                binding.btnOffers.isEnabled = false
-                binding.btnOffers.setTextColor(0xFFFFFFFF.toInt())
-                binding.btnOffers.setBackgroundColor(
+                btnOffers.isEnabled = false
+                btnOffers.setTextColor(0xFFFFFFFF.toInt())
+                btnOffers.setBackgroundColor(
                     requireContext().getColor(R.color.primary_variant)
                 )
             }
         }
+    }
+
+    private fun onChangePage(position: Int) {
+        binding.vpContent.currentItem = position
     }
 }

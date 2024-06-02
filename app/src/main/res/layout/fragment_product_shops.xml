@@ -20,19 +20,28 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false">
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/margin_big">
+
+            <Space
+                android:id="@+id/space"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/tab_height"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvCityLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_big"
                 android:fontFamily="@font/urbanist_regular"
-                android:text="Ваш город:"
+                android:text="@string/your_city"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/space" />
 
             <TextView
                 android:id="@+id/tvCityValue"
@@ -40,7 +49,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/urbanist_bold"
-                android:text="Минск"
                 android:textColor="@color/primary_variant"
                 app:layout_constraintBottom_toBottomOf="@+id/tvCityLabel"
                 app:layout_constraintStart_toEndOf="@+id/tvCityLabel"
@@ -50,7 +58,7 @@
                 android:id="@+id/rvOffers"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_big"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

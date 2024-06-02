@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardBackgroundColor="@color/cover"
+    app:cardCornerRadius="24dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_extra">
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:constraint_referenced_ids="ivLogo,tvAcceptLocation,spacer,tiName,btnCreate"
+            app:flow_verticalGap="@dimen/margin_mid"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="@dimen/splash_logo_size"
+            android:layout_height="@dimen/splash_logo_size"
+            android:importantForAccessibility="no"
+            app:srcCompat="@drawable/assembly_logo" />
+
+        <TextView
+            android:id="@+id/tvAcceptLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/urbanist_semibold"
+            android:text="Создать сборку"
+            android:textColor="@color/secondary_white"
+            android:textSize="20sp" />
+
+        <Space
+            android:id="@+id/spacer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:layout_editor_absoluteY="277dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiName"
+            style="@style/CustomTextInputLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Введите название"
+            android:minWidth="280dp"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@color/popup"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:endIconDrawable="@drawable/ic_close"
+            app:endIconMode="clear_text"
+            app:endIconScaleType="centerInside"
+            app:endIconTint="@color/white"
+            app:hintTextColor="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/urbanist_regular"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnCreate"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:enabled="false"
+            android:fontFamily="@font/urbanist_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/accept"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:cornerRadius="@dimen/corner_radius" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

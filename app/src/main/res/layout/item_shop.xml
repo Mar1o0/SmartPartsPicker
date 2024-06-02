@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sh_item_bg"
-    android:padding="16dp">
+    android:padding="@dimen/margin_big">
 
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/flowDelivery"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="@dimen/margin_big"
         android:orientation="vertical"
         app:constraint_referenced_ids="tvPrice,tvDeliveryDescription,tvDeliveryPrice"
         app:flow_horizontalAlign="start"
@@ -73,13 +73,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/margin_mid"
         android:fontFamily="@font/urbanist_bold"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:minHeight="10dip"
         android:paddingVertical="10dp"
-        android:text="Купить сейчас"
+        android:text="@string/buy"
         android:textAllCaps="false"
         android:textSize="12sp"
         app:cornerRadius="@dimen/corner_radius"

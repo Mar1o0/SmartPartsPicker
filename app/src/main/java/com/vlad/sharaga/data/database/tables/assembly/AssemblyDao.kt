@@ -1,6 +1,7 @@
 package com.vlad.sharaga.data.database.tables.assembly
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
@@ -9,11 +10,14 @@ import androidx.room.Upsert
 @Dao
 interface AssemblyDao {
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun update(assemblyData: AssemblyData)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(assemblyData: AssemblyData)
 
     @Upsert
     suspend fun upsert(assemblyData: AssemblyData)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun update(assemblyData: AssemblyData)
 
     @Query("SELECT * FROM $ASSEMBLY_TABLE_NAME")
     suspend fun getAll(): List<AssemblyData>

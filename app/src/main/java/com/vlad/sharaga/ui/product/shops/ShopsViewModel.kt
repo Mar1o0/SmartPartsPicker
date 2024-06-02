@@ -3,6 +3,7 @@ package com.vlad.sharaga.ui.product.shops
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.ShopItem
+import com.vlad.sharaga.core.view.DEFAULT_CITY
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.data.MainRepository
 import com.vlad.sharaga.data.preferences.locationKey
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
 
 sealed interface ShopsState {
     data object Loading : ShopsState
-    data class Loaded(
+    data class Content(
         val article: List<ShopItem>,
         val cityName: String
     ) : ShopsState
@@ -56,9 +57,9 @@ class ShopsViewModel @AssistedInject constructor(
                     url = productPrice.url
                 )
             }
-            val cityName = mainRepository.appPreferences.get(locationKey) ?: "Unknown"
+            val cityName = mainRepository.appPreferences.get(locationKey) ?: DEFAULT_CITY
 
-            _state.value = ShopsState.Loaded(
+            _state.value = ShopsState.Content(
                 shopItems,
                 cityName
             )

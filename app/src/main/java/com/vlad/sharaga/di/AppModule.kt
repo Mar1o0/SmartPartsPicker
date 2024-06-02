@@ -5,12 +5,15 @@ import androidx.room.Room
 import com.vlad.sharaga.data.database.AppDatabase
 import com.vlad.sharaga.data.database.tables.assembly.AssemblyDao
 import com.vlad.sharaga.network.api.ApiService
-import com.vlad.sharaga.network.api.ApiServiceImpl
+import com.vlad.sharaga.test.ApiServiceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -18,10 +21,27 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
+    fun provideOkHttpClient(): OkHttpClient =
+        OkHttpClient.Builder().build()
+
+    @Provides
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl("https://api.example.com")
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+//    @Provides
+//    @Singleton
+//    fun provideApiService(
+//        retrofit: Retrofit
+//    ): ApiService = retrofit.create(ApiService::class.java)
+
+    @Provides
     @Singleton
-    fun provideApiService(
-        @ApplicationContext context: Context
-    ): ApiService = ApiServiceImpl(context)
+    fun provideApiService(): ApiService = ApiServiceImpl()
 
     @Provides
     @Singleton

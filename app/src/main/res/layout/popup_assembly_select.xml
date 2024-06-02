@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardBackgroundColor="@color/cover"
+    app:cardCornerRadius="24dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_extra">
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:constraint_referenced_ids="ivLogo,tvAcceptLocation,spacer,spAssembliesOptions,btnSelect"
+            app:flow_verticalGap="@dimen/margin_mid"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="@dimen/splash_logo_size"
+            android:layout_height="@dimen/splash_logo_size"
+            android:importantForAccessibility="no"
+            app:srcCompat="@drawable/assembly_logo" />
+
+        <TextView
+            android:id="@+id/tvAcceptLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/urbanist_semibold"
+            android:text="Добавить в сборку"
+            android:textColor="@color/secondary_white"
+            android:textSize="20sp" />
+
+        <Space
+            android:id="@+id/spacer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:layout_editor_absoluteY="277dp" />
+
+        <Spinner
+            android:id="@+id/spAssembliesOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sh_medium"
+            android:minWidth="280dp"
+            android:popupBackground="@drawable/sh_medium"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@+id/spacer"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="24dp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="15dp"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@+id/spAssembliesOptions"
+            app:layout_constraintEnd_toEndOf="@+id/spAssembliesOptions"
+            app:layout_constraintTop_toTopOf="@+id/spAssembliesOptions"
+            app:srcCompat="@drawable/ic_down" />
+
+        <Button
+            android:id="@+id/btnSelect"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:enabled="true"
+            android:fontFamily="@font/urbanist_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/accept"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:cornerRadius="@dimen/corner_radius" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

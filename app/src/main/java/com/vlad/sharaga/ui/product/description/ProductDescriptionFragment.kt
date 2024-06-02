@@ -22,6 +22,7 @@ import com.vlad.sharaga.core.adapter.recycler.decorations.LineDivideItemDecorati
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.SpecificationFingerprint
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.SpecificationItem
 import com.vlad.sharaga.core.util.toPx
+import com.vlad.sharaga.core.view.AssemblyPopup
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.databinding.FragmentProductDescriptionBinding
 import com.vlad.sharaga.domain.format
@@ -33,7 +34,9 @@ import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class ProductDescriptionFragment : Fragment() {
+class ProductDescriptionFragment(
+    private val onChangePage: (Int) -> Unit = {}
+) : Fragment() {
 
     private var _binding: FragmentProductDescriptionBinding? = null
     private val binding get() = _binding!!
@@ -61,6 +64,7 @@ class ProductDescriptionFragment : Fragment() {
         override fun onTabSelected(tab: TabLayout.Tab?) {
             binding.vpPreview.currentItem = tab?.position ?: 0
         }
+
         override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
         override fun onTabReselected(tab: TabLayout.Tab?) = Unit
     }
@@ -85,23 +89,41 @@ class ProductDescriptionFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
-                    is ProductDescriptionState.Error -> with(binding) {
-                        cpiLoading.isVisible = false
-                        tvError.isVisible = true
+                    ProductDescriptionState.Loading -> with(binding) {
+                        cpiLoading.isVisible = true
                         nsContent.isVisible = false
+                        tvError.isVisible = false
                     }
 
-                    is ProductDescriptionState.Loaded -> with(binding) {
+                    is ProductDescriptionState.Content -> with(binding) {
                         cpiLoading.isVisible = false
-                        tvError.isVisible = false
                         nsContent.isVisible = true
+                        tvError.isVisible = false
+
                         setup(state.productDescription)
                     }
 
-                    ProductDescriptionState.Loading -> with(binding) {
-                        cpiLoading.isVisible = true
-                        tvError.isVisible = false
+                    is ProductDescriptionState.Error -> with(binding) {
+                        cpiLoading.isVisible = false
                         nsContent.isVisible = false
+                        tvError.isVisible = true
+                    }
+
+                    is ProductDescriptionState.AddToAssemblyPopup -> {
+                        val popup = AssemblyPopup(
+                            context = requireContext(),
+                            assemblies = state.assemblies,
+                            onCreateAssembly = { name ->
+                                viewModel.createAssembly(name)
+                            },
+                            onSelectedAssembly = { assemblyId ->
+                                viewModel.addProductToAssembly(assemblyId)
+                            }
+                        )
+                        popup.setOnDismissListener {
+                            binding.btnAddToAssembly.isEnabled = true
+                        }
+                        popup.show()
                     }
                 }
             }
@@ -136,6 +158,11 @@ class ProductDescriptionFragment : Fragment() {
             rbRating.rating = productDescription.rating
             tvRating.text = getString(R.string.rating_format, productDescription.rating.format(1))
             adapter.submitList(productDescription.specs.map { SpecificationItem(it.key, it.value) })
+            btnVariants.setOnClickListener { onChangePage(1) }
+            btnAddToAssembly.setOnClickListener {
+                btnAddToAssembly.isEnabled = false
+                viewModel.loadPopup()
+            }
 
             val cornerRadius = requireContext().toPx(16)
             val topShape: ShapeAppearanceModel = ShapeAppearanceModel.builder()
@@ -167,8 +194,11 @@ class ProductDescriptionFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            productId: ProductId
-        ): ProductDescriptionFragment = ProductDescriptionFragment().apply {
+            productId: ProductId,
+            onChangePage: (Int) -> Unit
+        ): ProductDescriptionFragment = ProductDescriptionFragment(
+            onChangePage = onChangePage
+        ).apply {
             arguments = Bundle().apply {
                 putInt(ARG_PRODUCT_ID, productId)
             }

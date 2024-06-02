@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    app:cardBackgroundColor="@color/cover"
+    app:cardCornerRadius="24dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_extra">
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:constraint_referenced_ids="ivLocationLogo,tvAcceptLocation,tvChooseCity,spacer,spCitiesOptions,btnAccept"
+            app:flow_verticalGap="@dimen/margin_mid"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <ImageView
+            android:id="@+id/ivLocationLogo"
+            android:layout_width="@dimen/splash_logo_size"
+            android:layout_height="@dimen/splash_logo_size"
+            android:importantForAccessibility="no"
+            app:srcCompat="@drawable/location_logo" />
+
+        <TextView
+            android:id="@+id/tvAcceptLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/urbanist_semibold"
+            android:text="@string/accept_location"
+            android:textColor="@color/secondary_white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvChooseCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/urbanist_regular"
+            android:text="@string/choose_city"
+            android:textColor="@color/secondary_white"
+            android:textSize="15sp" />
+
+        <Space
+            android:id="@+id/spacer"
+            android:layout_width="wrap_content"
+            android:layout_height="8dp" />
+
+        <Spinner
+            android:id="@+id/spCitiesOptions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sh_medium"
+            android:popupBackground="@drawable/sh_medium"
+            android:spinnerMode="dropdown"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@+id/spCitiesOptions"
+            app:layout_constraintStart_toStartOf="@+id/spCitiesOptions"
+            app:layout_constraintTop_toTopOf="@+id/spCitiesOptions"
+            app:srcCompat="@drawable/ic_location" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="15dp"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@+id/spCitiesOptions"
+            app:layout_constraintEnd_toEndOf="@+id/spCitiesOptions"
+            app:layout_constraintTop_toTopOf="@+id/spCitiesOptions"
+            app:srcCompat="@drawable/ic_down" />
+
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:fontFamily="@font/urbanist_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/accept"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:cornerRadius="@dimen/corner_radius" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

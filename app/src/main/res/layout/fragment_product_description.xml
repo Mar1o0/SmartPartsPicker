@@ -20,13 +20,24 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#21242A"
             android:clipToPadding="false">
+
+            <Space
+                android:id="@+id/space"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/tab_height"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvPreview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginHorizontal="@dimen/margin_big"
+                android:layout_marginTop="@dimen/margin_big"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 app:cardCornerRadius="20dp"
@@ -34,7 +45,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/space">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vpPreview"
@@ -61,7 +72,7 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_big"
                 android:ellipsize="end"
                 android:fontFamily="@font/urbanist_semibold"
                 android:maxLines="2"
@@ -77,7 +88,7 @@
                 android:id="@+id/tvArticleId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/margin_mid"
                 android:fontFamily="@font/urbanist_regular"
                 android:text="Код товара: 192384"
                 android:textColor="#A0ABB8"
@@ -96,7 +107,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/tvRating"
                 app:layout_constraintTop_toTopOf="@+id/tvRating"
                 app:numStars="5"
-                app:rating="5"
+                app:rating="3.5"
                 app:starSize="13dp" />
 
             <TextView
@@ -115,7 +126,7 @@
                 android:id="@+id/tvMinPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/margin_mid"
                 android:fontFamily="@font/urbanist_black"
                 android:text="от 2665,72 р."
                 android:textColor="@color/success"
@@ -128,7 +139,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/margin_mid"
                 android:fontFamily="@font/urbanist_bold"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
@@ -146,7 +157,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/margin_mid"
                 android:backgroundTint="@color/primary_variant"
                 android:fontFamily="@font/urbanist_bold"
                 android:insetTop="0dp"
@@ -164,9 +175,9 @@
                 android:id="@+id/tvDescriptionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/margin_mid"
                 android:fontFamily="@font/urbanist_semibold"
-                android:text="Характеристики"
+                android:text="@string/description"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/cvPreview"
@@ -189,7 +200,7 @@
                 android:id="@+id/nsSpecifications"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_big"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:scrollbars="none"
@@ -204,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
                     android:orientation="vertical"
-                    android:paddingHorizontal="16dp">
+                    android:paddingHorizontal="@dimen/margin_big">
 
                     <TextView
                         android:id="@+id/tvSpecificationsLabel"
@@ -213,7 +224,7 @@
                         android:fontFamily="@font/urbanist_semibold"
                         android:paddingHorizontal="26dp"
                         android:paddingVertical="8dp"
-                        android:text="Основные"
+                        android:text="@string/specifications_label"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
@@ -221,7 +232,6 @@
                         android:id="@+id/rvSpecifications"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="100dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvSpecificationsLabel" />
 
@@ -230,7 +240,7 @@
 
             <Space
                 android:layout_width="0dp"
-                android:layout_height="12dp"
+                android:layout_height="@dimen/margin_big"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nsSpecifications" />
 

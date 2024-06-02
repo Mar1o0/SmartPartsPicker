@@ -1,12 +1,16 @@
 package com.vlad.sharaga.core.view
 
 import android.content.Context
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.PorterDuffXfermode
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -51,6 +55,13 @@ class SizedRatingBar @JvmOverloads constructor(
     private val paint = Paint().apply {
         style = Paint.Style.FILL
         xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+    }
+    private val colorFilter by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) BlendModeColorFilter(
+            fillColor,
+            BlendMode.SRC_IN
+        )
+        else PorterDuffColorFilter(fillColor, PorterDuff.Mode.SRC_IN)
     }
 
     init {
@@ -101,7 +112,8 @@ class SizedRatingBar @JvmOverloads constructor(
                 val filledRight = progressWidth.coerceAtMost(right.toFloat()).toInt()
                 canvas.save()
                 canvas.clipRect(left, 0, filledRight, starSize)
-                emptyStar?.setColorFilter(fillColor, PorterDuff.Mode.SRC_ATOP)
+
+                emptyStar?.colorFilter = colorFilter
                 emptyStar?.draw(canvas)
                 emptyStar?.clearColorFilter()
                 canvas.restore()

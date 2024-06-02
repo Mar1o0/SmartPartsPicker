@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 sealed interface BrowseState {
     data object Loading : BrowseState
-    data class Loaded(val products: List<ProductPreviewItem>) : BrowseState
+    data class Content(val products: List<ProductPreviewItem>) : BrowseState
     data object Error : BrowseState
 }
 
@@ -27,7 +27,7 @@ class BrowseViewModel @Inject constructor(
     private val _state = MutableStateFlow<BrowseState>(BrowseState.Loading)
     val state = _state.asStateFlow()
 
-    fun fetchCategory(productType: ProductType) {
+    fun load(productType: ProductType) {
         viewModelScope.launch(Dispatchers.IO) {
             val products = mainRepository.apiClient
                 .fetchProducts(productType.id)
@@ -51,7 +51,7 @@ class BrowseViewModel @Inject constructor(
                 return@launch
             }
 
-            _state.value = BrowseState.Loaded(products)
+            _state.value = BrowseState.Content(products)
         }
     }
 

@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 sealed interface HomeState {
     data object Loading : HomeState
-    data class Loaded(
+    data class Content(
         val games: List<GameItem>,
         val categories: List<CategoryItem>
     ) : HomeState
@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
     private val _state = MutableStateFlow<HomeState>(HomeState.Loading)
     val state = _state.asStateFlow()
 
-    init {
+    fun load() {
         viewModelScope.launch(Dispatchers.IO) {
             val games = mainRepository.apiClient
                 .fetchGames()
@@ -82,7 +82,7 @@ class HomeViewModel @Inject constructor(
                 ),
             )
 
-            _state.value = HomeState.Loaded(games, categories)
+            _state.value = HomeState.Content(games, categories)
         }
     }
 }

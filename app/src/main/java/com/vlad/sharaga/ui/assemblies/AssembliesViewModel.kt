@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vlad.sharaga.data.MainRepository
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.AssemblyItem
+import com.vlad.sharaga.data.database.tables.assembly.AssemblyData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,6 @@ import javax.inject.Inject
 sealed interface AssembliesState {
     data object Loading : AssembliesState
     data class Content(val assemblies: List<AssemblyItem>) : AssembliesState
-    data object Empty : AssembliesState
     data object Error : AssembliesState
 }
 
@@ -47,6 +47,24 @@ class AssembliesViewModel @Inject constructor(
             }
 
             _state.value = AssembliesState.Content(items)
+        }
+    }
+
+    fun createAssembly(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val newAssembly = AssemblyData(
+                title = name,
+                products = emptyList()
+            )
+            mainRepository.assemblyDao.insert(newAssembly)
+            load()
+        }
+    }
+
+    fun deleteAssembly(assemblyId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            mainRepository.assemblyDao.deleteById(assemblyId)
+            load()
         }
     }
 

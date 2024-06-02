@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sh_item_bg"
-    android:padding="16dp">
+    android:padding="@dimen/margin_big">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivPreview"
@@ -23,7 +23,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/margin_mid"
         android:ellipsize="end"
         android:fontFamily="@font/urbanist_semibold"
         android:maxLines="2"
@@ -51,7 +51,7 @@
         android:id="@+id/tvRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/margin_small"
         android:fontFamily="@font/urbanist_regular"
         android:text="(5.0)"
         android:textColor="#A0ABB8"

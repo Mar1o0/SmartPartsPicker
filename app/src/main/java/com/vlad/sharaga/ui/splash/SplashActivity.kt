@@ -11,7 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.vlad.sharaga.databinding.ActivitySplashBinding
-import com.vlad.sharaga.core.adapter.spinner.CitiesSpinnerAdapter
+import com.vlad.sharaga.core.view.CityPopup
+import com.vlad.sharaga.core.view.DEFAULT_CITY
 import com.vlad.sharaga.ui.NavHostActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -24,8 +25,6 @@ class SplashActivity : AppCompatActivity() {
 
     private val viewModel: SplashScreenViewModel by viewModels()
     private var keepSplashScreen = true
-
-    private lateinit var citiesSpinnerAdapter: CitiesSpinnerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,24 +51,23 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-
-        binding.btnAccept.setOnClickListener {
-            binding.btnAccept.isEnabled = false
-            viewModel.onAcceptClicked(
-                citiesSpinnerAdapter.getItem(
-                    binding.spCitiesOptions.selectedItemPosition
-                )
-            )
-        }
     }
 
     private fun setCitiesOptions(cityNames: List<String>) {
-        citiesSpinnerAdapter = CitiesSpinnerAdapter(
-            context = this,
-            cityNames = cityNames
-        )
-        binding.spCitiesOptions.adapter = citiesSpinnerAdapter
         keepSplashScreen = false
+
+        val popup = CityPopup(
+            context = this,
+            cities = cityNames,
+            onSelectedCity = { name ->
+                viewModel.onAcceptClicked(name)
+            }
+        )
+        popup.setOnDismissListener {
+            viewModel.onAcceptClicked(DEFAULT_CITY)
+        }
+        popup.setCancelable(false)
+        popup.show()
     }
 
     private fun openNavHostActivity() {

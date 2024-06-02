@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sh_item_bg"
-    android:padding="16dp">
+    android:padding="@dimen/margin_big">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -14,7 +14,6 @@
         android:ellipsize="end"
         android:fontFamily="@font/urbanist_black"
         android:maxLines="2"
-        android:text="Сборка для дот"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,11 +25,10 @@
         android:id="@+id/tvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/margin_mid"
         android:ellipsize="end"
         android:fontFamily="@font/urbanist_regular"
         android:maxLines="2"
-        android:text="Компонентов в сборке: 5"
         android:textColor="@color/secondary_white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +39,7 @@
     <androidx.constraintlayout.helper.widget.Flow
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/margin_mid"
         android:orientation="horizontal"
         app:constraint_referenced_ids="ivPreview1,ivPreview2,ivPreview3"
         app:flow_horizontalGap="8dp"
@@ -56,8 +54,11 @@
         android:layout_height="@dimen/assembly_preview_size"
         android:background="@color/white"
         android:scaleType="centerInside"
+        android:visibility="gone"
+        app:layout_constraintDimensionRatio=""
         app:layout_constraintHorizontal_weight="1"
-        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView" />
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView"
+        tools:visibility="visible" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivPreview2"
@@ -65,8 +66,10 @@
         android:layout_height="@dimen/assembly_preview_size"
         android:background="@color/white"
         android:scaleType="centerInside"
+        android:visibility="gone"
         app:layout_constraintHorizontal_weight="1"
-        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView" />
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView"
+        tools:visibility="visible" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivPreview3"
@@ -74,7 +77,9 @@
         android:layout_height="@dimen/assembly_preview_size"
         android:background="@color/white"
         android:scaleType="centerInside"
+        android:visibility="gone"
         app:layout_constraintHorizontal_weight="1"
-        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView" />
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

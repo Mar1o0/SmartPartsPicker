@@ -57,13 +57,6 @@ class CatalogFragment : Fragment() {
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCategories.adapter = adapter
         binding.rvCategories.addItemDecoration(
-            HorizontalDividerItemDecoration(
-                requireContext().toPx(
-                    32
-                ).roundToInt()
-            )
-        )
-        binding.rvCategories.addItemDecoration(
             VerticalDividerItemDecoration(
                 requireContext().toPx(
                     16
@@ -74,29 +67,24 @@ class CatalogFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
-                    is CatalogState.Loaded -> {
-                        binding.search.isVisible = true
-                        binding.tvTitle.isVisible = true
-                        binding.rvCategories.isVisible = true
-                        binding.cpiLoading.isVisible = false
-                        binding.tvError.isVisible = false
+                    CatalogState.Loading -> with(binding) {
+                        cpiLoading.isVisible = true
+                        nsContent.isVisible = false
+                        tvError.isVisible = false
+                    }
+
+                    is CatalogState.Content -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = true
+                        tvError.isVisible = false
+
                         adapter.submitList(state.categories)
                     }
 
-                    CatalogState.Loading -> {
-                        binding.search.isVisible = false
-                        binding.tvTitle.isVisible = false
-                        binding.rvCategories.isVisible = false
-                        binding.cpiLoading.isVisible = true
-                        binding.tvError.isVisible = false
-                    }
-
-                    CatalogState.Error -> {
-                        binding.search.isVisible = false
-                        binding.tvTitle.isVisible = false
-                        binding.rvCategories.isVisible = false
-                        binding.cpiLoading.isVisible = false
-                        binding.tvError.isVisible = true
+                    CatalogState.Error -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = false
+                        tvError.isVisible = true
                     }
                 }
             }

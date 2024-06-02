@@ -4,14 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/margin_big"
     tools:context=".ui.more.MoreFragment">
+
+    <TextView
+        android:id="@+id/tvCityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/urbanist_regular"
+        android:text="@string/your_city"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCityValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="@font/urbanist_bold"
+        android:text="London"
+        android:textColor="@color/primary_variant"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCityLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvCityLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvCityLabel" />
+
+    <Button
+        android:id="@+id/btnChangeCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/margin_big"
+        android:fontFamily="@font/urbanist_bold"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minHeight="42dp"
+        android:paddingVertical="10dp"
+        android:text="@string/change_city"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        app:cornerRadius="@dimen/corner_radius"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCityLabel"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_big"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_regular"
+        android:maxLines="2"
+        android:text="Разработал Владислав Дикевич"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:fontFamily="@font/urbanist_semibold"
+        android:fontFamily="@font/urbanist_regular"
         android:maxLines="2"
         android:text="Version 1.0"
         android:textColor="@color/white"
@@ -19,8 +79,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

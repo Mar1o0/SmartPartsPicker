@@ -1,7 +1,11 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="margin_extra">24dp</dimen>
+
+    <dimen name="margin_big">16dp</dimen>
+
+    <dimen name="margin_mid">12dp</dimen>
+
+    <dimen name="margin_small">10dp</dimen>
 
     <dimen name="splash_logo_size">200dp</dimen>
 
@@ -13,6 +17,11 @@
 
     <dimen name="assembly_preview_size">55dp</dimen>
 
-    <dimen name="dot_size">8dp</dimen>
+    <dimen name="dot_size">6dp</dimen>
+
+    <dimen name="search_box_height">40dp</dimen>
+    <dimen name="search_box_width">488dp</dimen>
+
+    <dimen name="tab_height">48dp</dimen>
 
 </resources>

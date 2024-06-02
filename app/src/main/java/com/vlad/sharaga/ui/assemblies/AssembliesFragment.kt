@@ -9,16 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vlad.sharaga.databinding.FragmentAssembliesBinding
 import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
-import com.vlad.sharaga.core.adapter.recycler.decorations.HorizontalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.AssemblyFingerprint
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.AssemblyItem
+import com.vlad.sharaga.core.adapter.recycler.util.SwipeToDelete
 import com.vlad.sharaga.core.util.toPx
-import com.vlad.sharaga.ui.assemblies.browse.AssemblyBrowseViewModel
+import com.vlad.sharaga.core.view.AssemblyPopup
+import com.vlad.sharaga.core.view.AssemblyPopupType
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -54,13 +56,6 @@ class AssembliesFragment : Fragment() {
         binding.rvAssemblies.layoutManager = LinearLayoutManager(requireContext())
         binding.rvAssemblies.adapter = adapter
         binding.rvAssemblies.addItemDecoration(
-            HorizontalDividerItemDecoration(
-                requireContext().toPx(
-                    32
-                ).roundToInt()
-            )
-        )
-        binding.rvAssemblies.addItemDecoration(
             VerticalDividerItemDecoration(
                 requireContext().toPx(
                     16
@@ -68,30 +63,55 @@ class AssembliesFragment : Fragment() {
             )
         )
 
+        val onItemSwipedToDelete: (Int) -> Unit = { positionForRemove: Int ->
+            val removedItem = adapter.currentList[positionForRemove] as? AssemblyItem
+            removedItem?.id?.let {
+                viewModel.deleteAssembly(it)
+            }
+        }
+        val swipeToDeleteCallback = SwipeToDelete(onItemSwipedToDelete)
+        ItemTouchHelper(swipeToDeleteCallback).attachToRecyclerView(binding.rvAssemblies)
+
+        binding.btnNewAssembly.setOnClickListener {
+            binding.btnNewAssembly.isEnabled = false
+            val popup = AssemblyPopup(
+                requireContext(),
+                AssemblyPopupType.CREATE,
+                onCreateAssembly = { name ->
+                    viewModel.createAssembly(name)
+                }
+            )
+            popup.setOnDismissListener {
+                binding.btnNewAssembly.isEnabled = true
+            }
+            popup.show()
+        }
+
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
-                    is AssembliesState.Loading -> {
-                        binding.cpiLoading.isVisible = true
-                        binding.tvError.isVisible = false
-                        binding.rvAssemblies.isVisible = false
+                    is AssembliesState.Loading -> with(binding) {
+                        cpiLoading.isVisible = true
+                        nsContent.isVisible = false
+                        tvError.isVisible = false
                     }
 
-                    is AssembliesState.Error -> {
-                        binding.cpiLoading.isVisible = false
-                        binding.tvError.isVisible = true
-                        binding.rvAssemblies.isVisible = false
-                    }
+                    is AssembliesState.Content -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = true
+                        tvError.isVisible = false
 
-                    is AssembliesState.Content -> {
-                        binding.cpiLoading.isVisible = false
-                        binding.tvError.isVisible = false
-                        binding.rvAssemblies.isVisible = true
-                        binding.tvCounter.text = state.assemblies.size.toString()
+                        tvCounter.text = state.assemblies.size.toString()
                         adapter.submitList(state.assemblies)
                     }
 
-                    AssembliesState.Empty -> Unit
+                    is AssembliesState.Error -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = false
+                        tvError.isVisible = true
+
+//                        tvError.text = state.message
+                    }
                 }
             }
         }

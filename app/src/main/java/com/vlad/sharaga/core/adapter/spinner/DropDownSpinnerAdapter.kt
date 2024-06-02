@@ -5,22 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import com.vlad.sharaga.databinding.ItemCityBinding
+import com.vlad.sharaga.databinding.ItemSpinerTextBinding
 
-class CitiesSpinnerAdapter(
+class DropDownSpinnerAdapter<T>(
     context: Context,
-    cityNames: List<String>
-) : ArrayAdapter<String>(context, 0, cityNames) {
+    cityNames: List<T>,
+    private val map: (T?) -> String = { it?.toString() ?: "" }
+) : ArrayAdapter<T>(context, 0, cityNames) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val binding: ItemCityBinding = if (convertView == null) {
-            ItemCityBinding.inflate(LayoutInflater.from(context), parent, false)
+        val binding: ItemSpinerTextBinding = if (convertView == null) {
+            ItemSpinerTextBinding.inflate(LayoutInflater.from(context), parent, false)
         } else {
-            ItemCityBinding.bind(convertView)
+            ItemSpinerTextBinding.bind(convertView)
         }
 
         val option = getItem(position)
-        binding.tvCityName.text = option
+        binding.tvValue.text = map(option)
 
         return binding.root
     }

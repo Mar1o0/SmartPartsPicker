@@ -7,24 +7,27 @@
     tools:context=".ui.catalog.browse.ProductBrowseFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/margin_big">
 
             <SearchView
                 android:id="@+id/search"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/search_box_height"
+                android:layout_marginTop="@dimen/margin_big"
                 android:background="@drawable/sh_search_bg"
                 android:fontFamily="@font/urbanist_black"
                 android:iconifiedByDefault="false"
+                android:maxWidth="@dimen/search_box_width"
                 android:queryBackground="@null"
                 android:queryHint="@string/search"
                 android:searchHintIcon="@null"
@@ -40,8 +43,7 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_big"
                 android:fontFamily="@font/urbanist_black"
                 android:textColor="@color/white"
                 android:textSize="22sp" />
@@ -50,7 +52,8 @@
                 android:id="@+id/rvArticles"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_big" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

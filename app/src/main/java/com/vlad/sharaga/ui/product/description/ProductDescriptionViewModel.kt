@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.data.MainRepository
+import com.vlad.sharaga.data.database.tables.assembly.AssemblyData
 import com.vlad.sharaga.models.ProductDescription
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -16,8 +17,9 @@ import kotlinx.coroutines.launch
 
 sealed interface ProductDescriptionState {
     data object Loading : ProductDescriptionState
-    data class Loaded(val productDescription: ProductDescription) : ProductDescriptionState
+    data class Content(val productDescription: ProductDescription) : ProductDescriptionState
     data class Error(val message: String) : ProductDescriptionState
+    data class AddToAssemblyPopup(val assemblies: List<AssemblyData>) : ProductDescriptionState
 }
 
 @HiltViewModel(assistedFactory = ProductDescriptionViewModel.Factory::class)
@@ -54,7 +56,32 @@ class ProductDescriptionViewModel @AssistedInject constructor(
                 productSpecs = productSpecs
             )
 
-            _state.value = ProductDescriptionState.Loaded(productDescription)
+            _state.value = ProductDescriptionState.Content(productDescription)
+        }
+    }
+
+    fun createAssembly(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val newAssembly = AssemblyData(
+                title = name,
+                products = listOf(productId!!)
+            )
+            mainRepository.assemblyDao.insert(newAssembly)
+        }
+    }
+
+    fun addProductToAssembly(assemblyId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val assembly = mainRepository.assemblyDao.getById(assemblyId)
+            val updatedAssembly = assembly.copy(products = assembly.products + productId!!)
+            mainRepository.assemblyDao.update(updatedAssembly)
+        }
+    }
+
+    fun loadPopup() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val assemblies = mainRepository.assemblyDao.getAll()
+            _state.value = ProductDescriptionState.AddToAssemblyPopup(assemblies)
         }
     }
 

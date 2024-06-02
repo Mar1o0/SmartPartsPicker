@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.vlad.sharaga.R
 import com.vlad.sharaga.databinding.FragmentHomeBinding
 import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
-import com.vlad.sharaga.core.adapter.recycler.decorations.HorizontalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryFingerprint
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem
@@ -67,11 +66,6 @@ class HomeFragment : Fragment() {
         binding.rvGames.layoutManager = LinearLayoutManager(requireContext())
         binding.rvGames.adapter = gamesAdapter
         binding.rvGames.addItemDecoration(
-            HorizontalDividerItemDecoration(
-                requireContext().toPx(32).roundToInt()
-            )
-        )
-        binding.rvGames.addItemDecoration(
             VerticalDividerItemDecoration(
                 requireContext().toPx(16).roundToInt()
             )
@@ -79,12 +73,7 @@ class HomeFragment : Fragment() {
 
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCategories.adapter = categoriesAdapter
-        binding.rvGames.addItemDecoration(
-            HorizontalDividerItemDecoration(
-                requireContext().toPx(32).roundToInt()
-            )
-        )
-        binding.rvGames.addItemDecoration(
+        binding.rvCategories.addItemDecoration(
             VerticalDividerItemDecoration(
                 requireContext().toPx(16).roundToInt()
             )
@@ -95,36 +84,35 @@ class HomeFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
-                    is HomeState.Loaded -> {
-                        binding.cpiLoading.isVisible = false
-                        binding.tvError.isVisible = false
-                        binding.nsContent.isVisible = true
+                    HomeState.Loading -> with(binding) {
+                        cpiLoading.isVisible = true
+                        nsContent.isVisible = false
+                        tvError.isVisible = false
+                    }
+
+                    is HomeState.Content -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = true
+                        tvError.isVisible = false
 
                         gamesAdapter.submitList(state.games)
                         categoriesAdapter.submitList(state.categories)
                     }
 
-                    HomeState.Loading -> {
-                        binding.nsContent.isVisible = false
-                        binding.tvError.isVisible = false
-                        binding.cpiLoading.isVisible = true
-                    }
+                    is HomeState.Error -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = false
+                        tvError.isVisible = true
 
-                    is HomeState.Error -> {
-                        binding.cpiLoading.isVisible = false
-                        binding.nsContent.isVisible = false
-                        binding.tvError.isVisible = true
-
-                        binding.tvError.text = state.message
+                        tvError.text = state.message
                     }
                 }
             }
         }
-
+        viewModel.load()
     }
 
     override fun onDestroyView() {
@@ -133,7 +121,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun onGameClick(gameItem: GameItem) {
-        val action = HomeFragmentDirections.actionNavigationHomeToNavigationCatalog(gameItem)
+        val action =
+            HomeFragmentDirections
+                .actionNavigationHomeToNavigationCatalog(
+                    gameItem = gameItem
+                )
         findNavController().navigate(action)
     }
 

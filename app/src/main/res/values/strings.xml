@@ -1,4 +1,9 @@
 <resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
     <string name="app_name">Smart Parts Picker</string>
     <string name="title_home">Главная</string>
     <string name="title_catalog">Каталог</string>
@@ -13,7 +18,7 @@
     <string name="preview_indicator">Preview Indicator</string>
     <string name="error">An error occurred</string>
     <string name="categories">Категории</string>
-    <string name="filter">Filter</string>
+    <string name="filter">Фильтр</string>
     <string name="your_assemblies">Ваши сборки</string>
     <string name="assembly_description">Количество в сборке: %1$d</string>
     <string name="create_new_assembly">Создать новую сборку</string>
@@ -22,7 +27,21 @@
     <string name="price">%1$s р.</string>
     <string name="variants">%1$d вариантов</string>
     <string name="value">Value</string>
+    <string name="all_games">Смотреть все игры</string>
+    <string name="games_select_title">Подберите комплектующие\nпод требования игры!</string>
+    <string name="cpu">Процессор</string>
+    <string name="apply_filter">Показать результаты</string>
+    <string name="description">Описание</string>
     <string name="article_id">Код товара: %1$d</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="shops_offers">Предложения продавцов</string>
+    <string name="specifications_label">Основные</string>
+    <string name="your_city">Ваш город:</string>
+    <string name="motherboard">Материнская плата</string>
+    <string name="ram">Оперативная память</string>
+    <string name="storage">Носители информации</string>
+    <string name="gpu">Видеокарта</string>
+    <string name="power_supply">Блок питания</string>
+    <string name="casing">Корпус</string>
+    <string name="buy">Купить сейчас</string>
+    <string name="change_city">Сменить регион</string>
 </resources>

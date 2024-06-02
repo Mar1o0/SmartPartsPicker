@@ -6,11 +6,19 @@ import com.google.gson.Gson
 class DatabaseConverters {
 
     @TypeConverter
-    fun List<Int>.toStringData(): String =
+    fun List<Int>.listToString(): String =
         Gson().toJson(this)
 
     @TypeConverter
-    fun String.toListData(): List<Int> =
+    fun String.stringToList(): List<Int> =
         Gson().fromJson(this, Array<Int>::class.java).toList()
+
+    @TypeConverter
+    fun Set<Int>.setToString(): String =
+        Gson().toJson(this)
+
+    @TypeConverter
+    fun String.stringToSet(): Set<Int> =
+        Gson().fromJson(this, Array<Int>::class.java).toSet()
 
 }

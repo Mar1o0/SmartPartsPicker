@@ -28,4 +28,20 @@
 <!--        <item name="android:backgroundTint">@color/white</item>-->
     </style>
 
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextAppearance">@style/CustomHintTextAppearance</item>
+    </style>
+
+
+    <style name="CustomHintTextAppearance" parent="TextAppearance.AppCompat.Medium">
+        <item name="fontFamily">@font/urbanist_regular</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <style name="CustomTextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:fontFamily">@font/urbanist_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

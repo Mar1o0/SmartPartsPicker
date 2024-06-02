@@ -18,7 +18,6 @@ import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewFingerp
 import com.vlad.sharaga.core.util.toPx
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.databinding.FragmentBrowseBinding
-import com.vlad.sharaga.ui.assemblies.browse.AssemblyBrowseFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -55,13 +54,6 @@ class ProductBrowseFragment : Fragment() {
         binding.rvArticles.layoutManager = LinearLayoutManager(requireContext())
         binding.rvArticles.adapter = adapter
         binding.rvArticles.addItemDecoration(
-            HorizontalDividerItemDecoration(
-                requireContext().toPx(
-                    32
-                ).roundToInt()
-            )
-        )
-        binding.rvArticles.addItemDecoration(
             VerticalDividerItemDecoration(
                 requireContext().toPx(
                     16
@@ -73,28 +65,29 @@ class ProductBrowseFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
-                    BrowseState.Loading -> {
-                        binding.cpiLoading.isVisible = true
-                        binding.rvArticles.isVisible = false
-                        binding.tvError.isVisible = false
+                    BrowseState.Loading -> with(binding) {
+                        cpiLoading.isVisible = true
+                        nsContent.isVisible = false
+                        tvError.isVisible = false
                     }
 
-                    is BrowseState.Loaded -> {
-                        binding.cpiLoading.isVisible = false
-                        binding.rvArticles.isVisible = true
-                        binding.tvError.isVisible = false
+                    is BrowseState.Content -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = true
+                        tvError.isVisible = false
+
                         adapter.submitList(state.products)
                     }
 
-                    BrowseState.Error -> {
-                        binding.cpiLoading.isVisible = false
-                        binding.rvArticles.isVisible = false
-                        binding.tvError.isVisible = true
+                    BrowseState.Error -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = false
+                        tvError.isVisible = true
                     }
                 }
             }
         }
-        viewModel.fetchCategory(args.categoryItem.productType)
+        viewModel.load(args.categoryItem.productType)
     }
 
     private fun onProductClick(productId: ProductId) {

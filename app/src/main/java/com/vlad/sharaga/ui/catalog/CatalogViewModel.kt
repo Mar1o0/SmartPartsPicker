@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 sealed interface CatalogState {
     data object Loading : CatalogState
-    data class Loaded(val categories: List<CategoryItem>) : CatalogState
+    data class Content(val categories: List<CategoryItem>) : CatalogState
     data object Error : CatalogState
 }
 
@@ -67,7 +67,7 @@ class CatalogViewModel @Inject constructor(
                 ),
             )
 
-            _state.value = CatalogState.Loaded(categories)
+            _state.value = CatalogState.Content(categories)
         }
     }
 

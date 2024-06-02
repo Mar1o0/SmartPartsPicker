@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
-import com.vlad.sharaga.core.adapter.recycler.decorations.HorizontalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.ShopFingerprint
 import com.vlad.sharaga.core.util.toPx
@@ -55,13 +55,6 @@ class ProductShopsFragment : Fragment() {
         binding.rvOffers.layoutManager = LinearLayoutManager(requireContext())
         binding.rvOffers.adapter = adapter
         binding.rvOffers.addItemDecoration(
-            HorizontalDividerItemDecoration(
-                requireContext().toPx(
-                    16
-                ).roundToInt()
-            )
-        )
-        binding.rvOffers.addItemDecoration(
             VerticalDividerItemDecoration(
                 requireContext().toPx(
                     16
@@ -72,33 +65,27 @@ class ProductShopsFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
-                    is ShopsState.Error -> {
-                        with(binding) {
-                            tvError.visibility = View.VISIBLE
-                            cpiLoading.visibility = View.GONE
-                            nsContent.visibility = View.GONE
-
-                            tvError.text = state.message
-                        }
+                    ShopsState.Loading -> with(binding) {
+                        cpiLoading.isVisible = true
+                        nsContent.isVisible = false
+                        tvError.isVisible = false
                     }
 
-                    is ShopsState.Loaded -> {
-                        with(binding) {
-                            tvError.visibility = View.GONE
-                            cpiLoading.visibility = View.GONE
-                            nsContent.visibility = View.VISIBLE
+                    is ShopsState.Content -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = true
+                        tvError.isVisible = false
 
-                            tvCityLabel.text = state.cityName
-                            adapter.submitList(state.article)
-                        }
+                        tvCityValue.text = state.cityName
+                        adapter.submitList(state.article)
                     }
 
-                    ShopsState.Loading -> {
-                        with(binding) {
-                            tvError.visibility = View.GONE
-                            cpiLoading.visibility = View.VISIBLE
-                            nsContent.visibility = View.GONE
-                        }
+                    is ShopsState.Error -> with(binding) {
+                        cpiLoading.isVisible = false
+                        nsContent.isVisible = false
+                        tvError.isVisible = true
+
+                        tvError.text = state.message
                     }
                 }
             }

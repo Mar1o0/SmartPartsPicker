@@ -3,6 +3,7 @@ package com.vlad.sharaga.core.adapter.recycler.fingerprints
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.Keep
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.vlad.sharaga.R
@@ -60,9 +61,18 @@ class AssemblyViewHolder(
         binding.tvTitle.text = item.title
         binding.tvDescription.text = context.getString(R.string.assembly_description, item.count)
         val glide = Glide.with(context)
-        item.previewUrl1?.let { glide.load(it).into(binding.ivPreview1) }
-        item.previewUrl2?.let { glide.load(it).into(binding.ivPreview2) }
-        item.previewUrl3?.let { glide.load(it).into(binding.ivPreview3) }
+        item.previewUrl1?.let {
+            binding.ivPreview1.isVisible = true
+            glide.load(it).into(binding.ivPreview1)
+        }
+        item.previewUrl2?.let {
+            binding.ivPreview2.isVisible = true
+            glide.load(it).into(binding.ivPreview2)
+        }
+        item.previewUrl3?.let {
+            binding.ivPreview3.isVisible = true
+            glide.load(it).into(binding.ivPreview3)
+        }
     }
 
 }

@@ -15,7 +15,10 @@ import kotlinx.coroutines.launch
 
 sealed interface AssemblyBrowseState {
     data object Loading : AssemblyBrowseState
-    data class Loaded(val products: List<ProductPreviewItem>) : AssemblyBrowseState
+    data class Content(
+        val assemblyTitle: String,
+        val products: List<ProductPreviewItem>
+    ) : AssemblyBrowseState
     data object Error : AssemblyBrowseState
 }
 
@@ -47,7 +50,7 @@ class AssemblyBrowseViewModel @AssistedInject constructor(
                     productPrices = productPrices
                 )
             }
-            _state.value = AssemblyBrowseState.Loaded(products)
+            _state.value = AssemblyBrowseState.Content(assemblyData.title, products)
         }
     }
 
