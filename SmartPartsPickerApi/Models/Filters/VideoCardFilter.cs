@@ -6,9 +6,11 @@ namespace SmartPartsPickerApi.Models.Filters
 {
     public class VideoCardFilter : IProductFilter
     {
+
         public VideoCardFilter(VideoCardFilterType filterType, string value)
         {
             FilterType = (int)filterType;
+            _filterType = filterType;
             Value = value;
         }
         public ProductType ProductType => ProductType.GPU;
@@ -16,5 +18,32 @@ namespace SmartPartsPickerApi.Models.Filters
         public int FilterType { get; private set; }
 
         public string Value { get; private set; }
+        public string FilterFriendlyName
+        {
+            get
+            {
+                switch (_filterType)
+                {
+                    case VideoCardFilterType.VRAM:
+                        return "Объём видео памяти";
+                        break;
+                    case VideoCardFilterType.Manufacturer:
+                        return "Объём видео памяти";
+                        break; 
+                    case VideoCardFilterType.Width:
+                        return "Объём видео памяти";
+                        break;
+                    case VideoCardFilterType.RT:
+                        return "Объём видео памяти";
+                        break;
+                    case VideoCardFilterType.Fans:
+                        return "Объём видео памяти";
+                        break;
+                }
+
+                return "Другое";
+            }
+        }
+        private readonly VideoCardFilterType _filterType;
     }
 }
