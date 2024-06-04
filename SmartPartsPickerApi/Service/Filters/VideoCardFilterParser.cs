@@ -56,6 +56,11 @@ namespace SmartPartsPickerApi.Service.Filters
                 availableFilters.Add(RT);
             }
 
+            foreach (var vram in vramVariants)
+            {
+                availableFilters.Add(new VideoCardFilter(VideoCardFilterType.VRAM, vram)); // Так для всех
+            }
+
 
             return availableFilters;
         }
