@@ -1,5 +1,6 @@
 
 using SmartPartsPickerApi.Service.Cron;
+using SmartPartsPickerApi.Service.Internal;
 
 namespace SmartPartsPickerApi
 {
@@ -7,7 +8,17 @@ namespace SmartPartsPickerApi
     {
         public static void Main(string[] args)
         {
+
             Database.Database.CreateAllDb().Wait();
+
+
+
+            if (args.Any() && args[0] == "--need-update")
+            {
+                var updater = new UpdateDbService();
+                updater.Reread();
+            }
+
             var builder = WebApplication.CreateBuilder(args);
             // Add services to the container.
             builder.Services.AddSingleton<UpdateProductDb>();
