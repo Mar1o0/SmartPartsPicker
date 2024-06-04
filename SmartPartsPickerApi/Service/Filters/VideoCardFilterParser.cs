@@ -28,7 +28,7 @@ namespace SmartPartsPickerApi.Service.Filters
             foreach (var item in productsToParse)
             {
                 var vram = item.description_list.FirstOrDefault(x => x.Contains(VC_VRAM_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
-                var mfr = item.extended_name.Split(' ').First();
+                var mfr = item.full_name.Split(' ').First();
                 var width = item.description_list.FirstOrDefault(x => x.Contains(VC_WIDTH_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
                 var fans = item.micro_description_list.FirstOrDefault(x => x.Contains(VC_FANS_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
 
