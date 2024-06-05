@@ -33,10 +33,10 @@
             <ImageView
                 android:id="@+id/ivGamesIcon"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:adjustViewBounds="true"
                 android:importantForAccessibility="no"
-                tools:srcCompat="@drawable/ic_game_title_icon" />
+                app:srcCompat="@drawable/ic_game_title_icon" />
 
             <TextView
                 android:id="@+id/tvGamesTitle"

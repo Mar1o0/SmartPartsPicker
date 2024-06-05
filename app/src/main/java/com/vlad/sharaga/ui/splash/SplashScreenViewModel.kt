@@ -2,6 +2,7 @@ package com.vlad.sharaga.ui.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vlad.sharaga.core.view.DEFAULT_CITY
 import com.vlad.sharaga.data.MainRepository
 import com.vlad.sharaga.data.preferences.locationKey
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,6 +15,7 @@ import javax.inject.Inject
 sealed interface SplashScreenState {
     data object Loading : SplashScreenState
     data class LocationChooser(val cityNames: List<String>) : SplashScreenState
+    data object Dismiss : SplashScreenState
     data object Dispose : SplashScreenState
 }
 
@@ -21,10 +23,20 @@ sealed interface SplashScreenState {
 class SplashScreenViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ) : ViewModel() {
+
     fun onAcceptClicked(cityName: String?) {
-        if (cityName != null) {
-            viewModelScope.launch(Dispatchers.IO) {
-                mainRepository.appPreferences.save(locationKey, cityName)
+        viewModelScope.launch(Dispatchers.IO) {
+            mainRepository.appPreferences.save(locationKey, cityName ?: DEFAULT_CITY)
+            _state.value = SplashScreenState.Dismiss
+        }
+    }
+
+    fun onDefault() {
+        viewModelScope.launch(Dispatchers.IO) {
+            mainRepository.appPreferences.get(locationKey)?.let {
+                _state.value = SplashScreenState.Dispose
+            } ?: run {
+                mainRepository.appPreferences.save(locationKey, DEFAULT_CITY)
                 _state.value = SplashScreenState.Dispose
             }
         }

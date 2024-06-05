@@ -24,7 +24,6 @@ class CityPopup(
         binding.btnAccept.setOnClickListener {
             binding.btnAccept.isEnabled = false
             onSelectedCity(cities[binding.spCitiesOptions.selectedItemPosition])
-            dismiss()
         }
         setContentView(binding.root)
     }

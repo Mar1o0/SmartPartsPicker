@@ -25,6 +25,7 @@ class SplashActivity : AppCompatActivity() {
 
     private val viewModel: SplashScreenViewModel by viewModels()
     private var keepSplashScreen = true
+    private var popup: CityPopup? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,8 @@ class SplashActivity : AppCompatActivity() {
                     is SplashScreenState.LocationChooser -> setCitiesOptions(state.cityNames)
 
                     SplashScreenState.Dispose -> openNavHostActivity()
+
+                    SplashScreenState.Dismiss -> popup?.dismiss()
                 }
             }
         }
@@ -55,19 +58,19 @@ class SplashActivity : AppCompatActivity() {
 
     private fun setCitiesOptions(cityNames: List<String>) {
         keepSplashScreen = false
-
-        val popup = CityPopup(
+        popup = CityPopup(
             context = this,
             cities = cityNames,
             onSelectedCity = { name ->
                 viewModel.onAcceptClicked(name)
             }
-        )
-        popup.setOnDismissListener {
-            viewModel.onAcceptClicked(DEFAULT_CITY)
+        ).apply {
+            setOnDismissListener {
+                viewModel.onDefault()
+            }
+            setCancelable(false)
+            show()
         }
-        popup.setCancelable(false)
-        popup.show()
     }
 
     private fun openNavHostActivity() {

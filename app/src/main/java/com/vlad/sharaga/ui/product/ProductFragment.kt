@@ -41,8 +41,9 @@ class ArticleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.vpContent.adapter = ArticlePagerAdapter(this, args.productId, ::onChangePage)
         binding.vpContent.isUserInputEnabled = false
-        binding.vpContent.currentItem = args.startTab
-        setTab(args.startTab)
+        binding.vpContent.post {
+            binding.vpContent.setCurrentItem(args.startTab, true)
+        }
 
         binding.btnDescription.setOnClickListener {
             binding.vpContent.currentItem = 0
@@ -55,6 +56,7 @@ class ArticleFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.vpContent.registerOnPageChangeCallback(onPageChangeCallback)
+//        setTab(args.startTab)
     }
 
     override fun onStop() {

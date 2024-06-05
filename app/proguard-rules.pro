@@ -23,4 +23,6 @@
 -keep class ** implements android.os.Parcelable {
   *;
 }
+
+-keep class com.vlad.sharaga.models.** { *; }
 #smart_parts_picker

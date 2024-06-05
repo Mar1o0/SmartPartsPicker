@@ -47,11 +47,13 @@ class MoreFragment : Fragment() {
                     }
 
                     is MoreState.ChangeCityPopup -> {
-                        val popup = CityPopup(
+                        var popup: CityPopup? = null
+                        popup = CityPopup(
                             context = requireContext(),
                             cities = state.cities,
                             onSelectedCity = { city ->
                                 viewModel.onCityChange(city)
+                                popup?.dismiss()
                             }
                         )
                         popup.setOnDismissListener {
