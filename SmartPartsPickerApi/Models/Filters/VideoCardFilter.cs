@@ -26,19 +26,14 @@ namespace SmartPartsPickerApi.Models.Filters
                 {
                     case VideoCardFilterType.VRAM:
                         return "Объём видео памяти";
-                        break;
                     case VideoCardFilterType.Manufacturer:
-                        return "Объём видео памяти";
-                        break; 
+                        return "Производитель";
                     case VideoCardFilterType.Width:
-                        return "Объём видео памяти";
-                        break;
+                        return "Количество слотов";
                     case VideoCardFilterType.RT:
-                        return "Объём видео памяти";
-                        break;
+                        return "Трассировка лучей";
                     case VideoCardFilterType.Fans:
-                        return "Объём видео памяти";
-                        break;
+                        return "Количество вентиляторов";
                 }
 
                 return "Другое";

@@ -33,7 +33,7 @@
         /// <summary>
         /// Корпус
         /// </summary>
-        CASE = 101,
+        CHASSIS = 101,
         /// <summary>
         /// Кулер для процессора
         /// </summary>

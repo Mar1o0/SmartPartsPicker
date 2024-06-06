@@ -14,12 +14,14 @@ namespace SmartPartsPickerApi.Database.Providers
             await db.Filters.InsertOrUpdateAsync(() => new FilterTable()
             {
                 Id = entity.Id,
+                FilterType = entity.FilterType,
                 ProductType = entity.ProductType,
                 ParamName = entity.ParamName,
             },
             x => new FilterTable()
             {
                 Id = entity.Id,
+                FilterType = entity.FilterType,
                 ProductType = entity.ProductType == x.ProductType ? x.ProductType : entity.ProductType,
                 ParamName = entity.ParamName ?? x.ParamName,
             });

@@ -7,7 +7,6 @@ namespace SmartPartsPickerApi.Database.Tables
     {
         [Column(Name = "id", IsPrimaryKey = true)]
         public int Id { get; set; }
-
         [Column(Name = "productId")]
         public int ProductId { get; set; }
         [Column(Name = "shopName")]

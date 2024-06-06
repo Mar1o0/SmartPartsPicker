@@ -20,7 +20,6 @@ namespace SmartPartsPickerApi.Service.Filters
             var productsToParse = products.Where(x=>x.name_prefix == VC_NAME_PREFIX).ToList();
             var availableFilters = new List<IProductFilter>();
 
-
             var vramVariants = new HashSet<string>(); // если не знаешь что это замени на лист
             var mfrVariants = new HashSet<string>();
             var widthVariants = new HashSet<string>();
@@ -61,9 +60,21 @@ namespace SmartPartsPickerApi.Service.Filters
                 availableFilters.Add(new VideoCardFilter(VideoCardFilterType.VRAM, vram)); // Так для всех
             }
 
+            foreach (var mfr in mfrVariants)
+            {
+                availableFilters.Add(new VideoCardFilter(VideoCardFilterType.Manufacturer, mfr));
+            }
+            
+            foreach (var width in widthVariants)
+            {
+                availableFilters.Add(new VideoCardFilter(VideoCardFilterType.Width, width));
+            }
+            foreach (var flg in fansVariants)
+            {
+                availableFilters.Add(new VideoCardFilter(VideoCardFilterType.Fans, flg));
+            }
 
             return availableFilters;
         }
-
     }
 }

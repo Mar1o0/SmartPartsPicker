@@ -69,8 +69,6 @@ namespace SmartPartsPickerApi.Database
             await Create<GameTable>();
             await Create<GameSpecTable>();
             await Create<FilterTable>();
-            await Create<FilterVariantTable>();
-
         }
         private static void UpgradeDB()
         {
@@ -104,8 +102,6 @@ namespace SmartPartsPickerApi.Database
         public GameProviders Game { get; set; } = new GameProviders();
         public GameSpecProviders GameSpec { get; set; } = new GameSpecProviders();
         public FilterProviders Filter { get; set; } = new FilterProviders();
-        public FilterVariantProviders FilterVariant { get; set; } = new FilterVariantProviders();
-
     }
     public class DbWinbroker : DataConnection, IDisposable
     {
@@ -119,8 +115,6 @@ namespace SmartPartsPickerApi.Database
         public ITable<GameTable> Games => GetTable<GameTable>();
         public ITable<GameSpecTable> GameSpecs => GetTable<GameSpecTable>();
         public ITable<FilterTable> Filters => GetTable<FilterTable>();
-        public ITable<FilterVariantTable> FilterVariants => GetTable<FilterVariantTable>();
-
         #endregion
     }
     public class DBData

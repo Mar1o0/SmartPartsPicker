@@ -18,9 +18,6 @@ namespace SmartPartsPickerApi.Database.Providers
                 FullName = entity.FullName,
                 Description = entity.Description,
                 ApiId = entity.ApiId,
-                ProductImages = entity.ProductImages,
-                ProductPrices = entity.ProductPrices,
-                ProductSpecs = entity.ProductSpecs,
                 Type = entity.Type,
             },
             x => new ProductTable()
@@ -30,9 +27,6 @@ namespace SmartPartsPickerApi.Database.Providers
                 FullName = entity.FullName ?? x.FullName,
                 Description = entity.Description ?? x.Description,
                 ApiId = entity.ApiId ?? x.ApiId ,
-                ProductImages = entity.ProductImages ?? x.ProductImages,
-                ProductPrices = entity.ProductPrices ?? x.ProductPrices,
-                ProductSpecs = entity.ProductSpecs ?? x.ProductSpecs,
                 Type = x.Type,
             });
             return entity;

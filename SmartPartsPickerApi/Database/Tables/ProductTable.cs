@@ -18,11 +18,5 @@ namespace SmartPartsPickerApi.Database.Tables
         public string FullName { get; set; }
         [Column(Name = "description")]
         public string Description { get; set; }
-        [Column(Name = "productPrices")]
-        public List<ProductPriceTable> ProductPrices { get; set; }
-        [Column(Name = "productImages")]
-        public List<ProductImageTable> ProductImages { get; set; }
-        [Column(Name = "productSpecs")]
-        public List<ProductSpecTable> ProductSpecs { get; set; }
     }
 }
