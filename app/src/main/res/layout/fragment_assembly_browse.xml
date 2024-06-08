@@ -19,26 +19,6 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/margin_big">
 
-            <SearchView
-                android:id="@+id/search"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/search_box_height"
-                android:layout_marginTop="@dimen/margin_big"
-                android:background="@drawable/sh_search_bg"
-                android:fontFamily="@font/urbanist_black"
-                android:iconifiedByDefault="false"
-                android:maxWidth="@dimen/search_box_width"
-                android:queryBackground="@null"
-                android:queryHint="@string/search"
-                android:searchHintIcon="@null"
-                android:searchIcon="@drawable/ic_search"
-                android:textColorHint="#A8A6B9"
-                app:boxCollapsedPaddingTop="0dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:fontFamily="@font/urbanist_black"
-                app:hintEnabled="true" />
-
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"

@@ -2,6 +2,7 @@ package com.vlad.sharaga.models
 
 data class Filter(
     val id: Int,
-    val productType: ProductType,
-    val parameterName: String,
+    val filterName: String,
+    val filterType: FilterType,
+    val variants: List<String>,
 )

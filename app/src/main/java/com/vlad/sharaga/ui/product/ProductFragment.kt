@@ -15,12 +15,12 @@ import dagger.hilt.android.AndroidEntryPoint
 const val ARG_PRODUCT_ID = "productId"
 
 @AndroidEntryPoint
-class ArticleFragment : Fragment() {
+class ProductFragment : Fragment() {
 
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
 
-    private val args: ArticleFragmentArgs by navArgs()
+    private val args: ProductFragmentArgs by navArgs()
 
     private val onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {

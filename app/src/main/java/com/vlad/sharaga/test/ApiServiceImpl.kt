@@ -1,11 +1,14 @@
 package com.vlad.sharaga.test
 
 import com.vlad.sharaga.data.ProductId
+import com.vlad.sharaga.models.Filter
+import com.vlad.sharaga.models.FilterType
 import com.vlad.sharaga.models.Game
 import com.vlad.sharaga.models.Product
 import com.vlad.sharaga.models.ProductImage
 import com.vlad.sharaga.models.ProductPrice
 import com.vlad.sharaga.models.ProductSpec
+import com.vlad.sharaga.models.ProductType
 import com.vlad.sharaga.network.api.ApiService
 
 class ApiServiceImpl : ApiService {
@@ -209,6 +212,41 @@ class ApiServiceImpl : ApiService {
                 fullName = "MSI GeForce RTX 4060 Ti Gaming X 8G",
                 description = "Видеокарта Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G - это мощное графическое устройство с поддержкой трассировки лучей, идеально подходящее для игр в 4K.\nС поддержкой DirectX 12 Ultimate, эта видеокарта обеспечивает высокую производительность и качество графики.\nС разогнанной версией графического процессора и подсветкой, она предлагает улучшенный игровой опыт.\nС 16 ГБ видеопамяти и 80 RT-ядрами, эта видеокарта обеспечивает высокую производительность и плавную работу в самых требовательных играх.",
                 rating = 3.4f,
+            ),
+        )
+    }
+
+    override suspend fun fetchFilters(productType: ProductType): List<Filter>? {
+        return listOf(
+            Filter(
+                id = 1,
+                filterName = "Производитель",
+                filterType = FilterType.SELECT,
+                variants = listOf("Palit", "Gigabyte", "MSI", "Asus", "Sapphire", "Zotac", "EVGA", "GALAX"),
+            ),
+            Filter(
+                id = 1,
+                filterName = "Цена",
+                filterType = FilterType.RANGE,
+                variants = listOf("1200", "2500"),
+            ),
+            Filter(
+                id = 2,
+                filterName = "Производитель",
+                filterType = FilterType.SELECT,
+                variants = listOf("Palit", "Gigabyte", "MSI", "Asus", "Sapphire", "Zotac", "EVGA", "GALAX"),
+            ),
+            Filter(
+                id = 3,
+                filterName = "Производитель",
+                filterType = FilterType.SELECT,
+                variants = listOf("Palit", "Gigabyte", "MSI", "Asus", "Sapphire", "Zotac", "EVGA", "GALAX"),
+            ),
+            Filter(
+                id = 4,
+                filterName = "Производитель",
+                filterType = FilterType.SELECT,
+                variants = listOf("Palit", "Gigabyte", "MSI", "Asus", "Sapphire", "Zotac", "EVGA", "GALAX"),
             ),
         )
     }

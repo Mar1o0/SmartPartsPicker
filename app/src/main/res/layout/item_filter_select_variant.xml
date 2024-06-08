@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.checkbox.MaterialCheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cbSelect"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:button="@drawable/selector_checkbox"
+    android:fontFamily="@font/urbanist_regular"
+    android:minWidth="0dp"
+    android:minHeight="0dp"
+    android:paddingLeft="@dimen/margin_small"
+    android:text="Gigabyte"
+    android:textColor="@color/secondary_white"
+    android:textSize="14sp"
+    app:useMaterialThemeColors="false" />

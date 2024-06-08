@@ -11,9 +11,6 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_navigation_home_to_gamesFragment"
-            app:destination="@id/gamesFragment" />
-        <action
             android:id="@+id/action_navigation_home_to_navigation_catalog"
             app:destination="@id/navigation_catalog" />
     </fragment>
@@ -30,7 +27,7 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_navigation_catalog_to_categoryFragment"
-            app:destination="@id/browseFragment" />
+            app:destination="@id/productBrowseFragment" />
         <argument
             android:name="category_item"
             app:argType="com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem"
@@ -58,16 +55,7 @@
         android:label="@string/title_more"
         tools:layout="@layout/fragment_more" />
     <fragment
-        android:id="@+id/gamesFragment"
-        android:name="com.vlad.sharaga.ui.games.GamesFragment"
-        android:label="fragment_games"
-        tools:layout="@layout/fragment_games">
-        <action
-            android:id="@+id/action_gamesFragment_to_navigation_catalog"
-            app:destination="@id/navigation_catalog" />
-    </fragment>
-    <fragment
-        android:id="@+id/browseFragment"
+        android:id="@+id/productBrowseFragment"
         android:name="com.vlad.sharaga.ui.catalog.browse.ProductBrowseFragment"
         android:label="fragment_browse"
         tools:layout="@layout/fragment_browse">
@@ -75,15 +63,15 @@
             android:name="categoryItem"
             app:argType="com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem" />
         <action
-            android:id="@+id/action_categoryFragment_to_articleFragment"
+            android:id="@+id/action_productBrowseFragment_to_productFragment"
             app:destination="@id/productFragment" />
         <action
-            android:id="@+id/action_browseFragment_to_filterFragment"
+            android:id="@+id/action_productBrowseFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
     </fragment>
     <fragment
         android:id="@+id/productFragment"
-        android:name="com.vlad.sharaga.ui.product.ArticleFragment"
+        android:name="com.vlad.sharaga.ui.product.ProductFragment"
         android:label="fragment_product"
         tools:layout="@layout/fragment_product">
         <argument
@@ -100,8 +88,8 @@
         android:label="fragment_filter"
         tools:layout="@layout/fragment_filter" >
         <argument
-            android:name="productId"
-            app:argType="integer" />
+            android:name="productType"
+            app:argType="com.vlad.sharaga.models.ProductType" />
     </fragment>
     <fragment
         android:id="@+id/assemblyBrowseFragment"

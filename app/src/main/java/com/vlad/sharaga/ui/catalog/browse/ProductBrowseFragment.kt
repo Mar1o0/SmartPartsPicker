@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
-import com.vlad.sharaga.core.adapter.recycler.decorations.HorizontalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewFingerprint
 import com.vlad.sharaga.core.util.toPx
@@ -28,7 +27,7 @@ class ProductBrowseFragment : Fragment() {
     private var _binding: FragmentBrowseBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: BrowseViewModel by viewModels()
+    private val viewModel: ProductBrowseViewModel by viewModels()
     private val args: ProductBrowseFragmentArgs by navArgs()
     private val adapter: FingerprintAdapter by lazy {
         FingerprintAdapter(
@@ -62,6 +61,12 @@ class ProductBrowseFragment : Fragment() {
         )
         binding.tvTitle.text = args.categoryItem.title
 
+        binding.fabFilters.setOnClickListener {
+            findNavController().navigate(
+                ProductBrowseFragmentDirections.actionProductBrowseFragmentToFilterFragment(args.categoryItem.productType)
+            )
+        }
+
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
@@ -92,13 +97,16 @@ class ProductBrowseFragment : Fragment() {
 
     private fun onProductClick(productId: ProductId) {
         findNavController().navigate(
-            ProductBrowseFragmentDirections.actionCategoryFragmentToArticleFragment(productId)
+            ProductBrowseFragmentDirections.actionProductBrowseFragmentToProductFragment(productId)
         )
     }
 
     private fun onVariantsClick(productId: ProductId) {
         findNavController().navigate(
-            ProductBrowseFragmentDirections.actionCategoryFragmentToArticleFragment(productId, 1)
+            ProductBrowseFragmentDirections.actionProductBrowseFragmentToProductFragment(
+                productId,
+                1
+            )
         )
     }
 

@@ -44,4 +44,8 @@
     <string name="casing">Корпус</string>
     <string name="buy">Купить сейчас</string>
     <string name="change_city">Сменить регион</string>
+    <string name="show_all">Показать все %1$d</string>
+    <string name="hide_all">Скрыть</string>
+    <string name="min_value">Минимальное значение %1$f</string>
+    <string name="max_value">Максимальное значение %1$f</string>
 </resources>

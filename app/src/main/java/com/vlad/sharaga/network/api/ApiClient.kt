@@ -1,11 +1,13 @@
 package com.vlad.sharaga.network.api
 
 import com.vlad.sharaga.data.ProductId
+import com.vlad.sharaga.models.Filter
 import com.vlad.sharaga.models.Game
 import com.vlad.sharaga.models.Product
 import com.vlad.sharaga.models.ProductImage
 import com.vlad.sharaga.models.ProductPrice
 import com.vlad.sharaga.models.ProductSpec
+import com.vlad.sharaga.models.ProductType
 import javax.inject.Inject
 
 class ApiClient @Inject constructor(
@@ -41,6 +43,10 @@ class ApiClient @Inject constructor(
     }
     suspend fun fetchGames(): List<Game>? {
         return apiService.fetchGames()
+    }
+
+    suspend fun fetchFilters(productType: ProductType): List<Filter>? {
+        return apiService.fetchFilters(productType)
     }
 
 }

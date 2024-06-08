@@ -80,8 +80,8 @@ class HomeFragment : Fragment() {
         )
 
         binding.btnMoreGames.setOnClickListener {
-            val action = HomeFragmentDirections.actionNavigationHomeToGamesFragment()
-            findNavController().navigate(action)
+//            val action = HomeFragmentDirections.actionNavigationHomeToGamesFragment()
+//            findNavController().navigate(action)
         }
 
         lifecycleScope.launch {

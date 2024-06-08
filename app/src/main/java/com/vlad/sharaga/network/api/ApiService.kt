@@ -1,11 +1,13 @@
 package com.vlad.sharaga.network.api
 
 import com.vlad.sharaga.data.ProductId
+import com.vlad.sharaga.models.Filter
 import com.vlad.sharaga.models.Game
 import com.vlad.sharaga.models.Product
 import com.vlad.sharaga.models.ProductImage
 import com.vlad.sharaga.models.ProductPrice
 import com.vlad.sharaga.models.ProductSpec
+import com.vlad.sharaga.models.ProductType
 import retrofit2.http.GET
 
 interface ApiService {
@@ -33,4 +35,7 @@ interface ApiService {
 
     @GET("/product_specs/")
     suspend fun fetchProductSpecs(productId: ProductId): List<ProductSpec>?
+
+    @GET("/filters/")
+    suspend fun fetchFilters(productType: ProductType): List<Filter>?
 }

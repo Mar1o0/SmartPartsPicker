@@ -20,7 +20,7 @@ sealed interface BrowseState {
 }
 
 @HiltViewModel
-class BrowseViewModel @Inject constructor(
+class ProductBrowseViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ) : ViewModel() {
 
