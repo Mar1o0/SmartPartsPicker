@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vlad.sharaga.databinding.FragmentCatalogBinding
 import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
-import com.vlad.sharaga.core.adapter.recycler.decorations.HorizontalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryFingerprint
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem

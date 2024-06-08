@@ -1,5 +1,6 @@
 package com.vlad.sharaga.core.adapter.recycler
 
+import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.vlad.sharaga.core.adapter.Item
@@ -10,7 +11,7 @@ abstract class ItemViewHolder<out VB: ViewBinding, I: Item>(
 
     lateinit var item: I
 
-    protected val context get() = binding.root.context
+    protected val context: Context get() = binding.root.context
 
     open fun onBind(item: I) {
         this.item = item

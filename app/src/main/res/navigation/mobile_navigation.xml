@@ -20,11 +20,6 @@
         android:name="com.vlad.sharaga.ui.catalog.CatalogFragment"
         android:label="@string/title_catalog"
         tools:layout="@layout/fragment_catalog">
-        <argument
-            android:name="game_item"
-            android:defaultValue="@null"
-            app:argType="com.vlad.sharaga.core.adapter.recycler.fingerprints.GameItem"
-            app:nullable="true" />
         <action
             android:id="@+id/action_navigation_catalog_to_categoryFragment"
             app:destination="@id/productBrowseFragment" />

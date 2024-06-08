@@ -18,6 +18,7 @@ import com.vlad.sharaga.R
 import kotlin.math.floor
 import kotlin.math.min
 
+@Suppress("MemberVisibilityCanBePrivate")
 class SizedRatingBar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

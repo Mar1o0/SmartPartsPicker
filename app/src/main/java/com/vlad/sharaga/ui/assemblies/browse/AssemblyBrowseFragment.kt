@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.vlad.sharaga.R
 import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
-import com.vlad.sharaga.core.adapter.recycler.fingerprints.AssemblyItem
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewFingerprint
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewItem
 import com.vlad.sharaga.core.adapter.recycler.util.SwipeToDelete

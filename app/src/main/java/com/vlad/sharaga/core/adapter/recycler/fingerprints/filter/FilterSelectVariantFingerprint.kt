@@ -40,8 +40,7 @@ class FilterSelectVariantFingerprint(
         override fun areItemsTheSame(
             oldItem: FilterSelectVariantItem,
             newItem: FilterSelectVariantItem
-        ) =
-            oldItem.id == newItem.id
+        ) = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
             oldItem: FilterSelectVariantItem,

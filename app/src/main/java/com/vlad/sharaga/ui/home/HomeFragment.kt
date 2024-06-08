@@ -16,8 +16,6 @@ import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryFingerprint
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem
-import com.vlad.sharaga.core.adapter.recycler.fingerprints.GameFingerprint
-import com.vlad.sharaga.core.adapter.recycler.fingerprints.GameItem
 import com.vlad.sharaga.core.util.toPx
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -31,13 +29,6 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
 
-    private val gamesAdapter by lazy {
-        FingerprintAdapter(
-            listOf(
-                GameFingerprint(::onGameClick)
-            )
-        )
-    }
     private val categoriesAdapter by lazy {
         FingerprintAdapter(
             listOf(
@@ -62,14 +53,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.rvGames.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvGames.adapter = gamesAdapter
-        binding.rvGames.addItemDecoration(
-            VerticalDividerItemDecoration(
-                requireContext().toPx(16).roundToInt()
-            )
-        )
 
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCategories.adapter = categoriesAdapter
@@ -98,7 +81,6 @@ class HomeFragment : Fragment() {
                         nsContent.isVisible = true
                         tvError.isVisible = false
 
-                        gamesAdapter.submitList(state.games)
                         categoriesAdapter.submitList(state.categories)
                     }
 
@@ -118,15 +100,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun onGameClick(gameItem: GameItem) {
-        val action =
-            HomeFragmentDirections
-                .actionNavigationHomeToNavigationCatalog(
-                    gameItem = gameItem
-                )
-        findNavController().navigate(action)
     }
 
     private fun onCategoryClick(categoryItem: CategoryItem) {

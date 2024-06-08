@@ -2,9 +2,7 @@ package com.vlad.sharaga.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vlad.sharaga.data.MainRepository
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem
-import com.vlad.sharaga.core.adapter.recycler.fingerprints.GameItem
 import com.vlad.sharaga.models.ProductType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +14,6 @@ import javax.inject.Inject
 sealed interface HomeState {
     data object Loading : HomeState
     data class Content(
-        val games: List<GameItem>,
         val categories: List<CategoryItem>
     ) : HomeState
 
@@ -26,7 +23,7 @@ sealed interface HomeState {
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+//    private val mainRepository: MainRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<HomeState>(HomeState.Loading)
@@ -34,16 +31,6 @@ class HomeViewModel @Inject constructor(
 
     fun load() {
         viewModelScope.launch(Dispatchers.IO) {
-            val games = mainRepository.apiClient
-                .fetchGames()
-                ?.take(3)
-                ?.map { it.toGameItem() }
-
-            if (games == null) {
-                _state.value = HomeState.Error("Failed to load games")
-                return@launch
-            }
-
             val categories = listOf(
                 CategoryItem(
                     productType = ProductType.CPU,
@@ -82,7 +69,7 @@ class HomeViewModel @Inject constructor(
                 ),
             )
 
-            _state.value = HomeState.Content(games, categories)
+            _state.value = HomeState.Content(categories)
         }
     }
 }

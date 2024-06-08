@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.vlad.sharaga.R
-import com.vlad.sharaga.core.adapter.pager.ArticlePagerAdapter
+import com.vlad.sharaga.core.adapter.pager.ProductPagerAdapter
 import com.vlad.sharaga.databinding.FragmentProductBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +39,7 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.vpContent.adapter = ArticlePagerAdapter(this, args.productId, ::onChangePage)
+        binding.vpContent.adapter = ProductPagerAdapter(this, args.productId, ::onChangePage)
         binding.vpContent.isUserInputEnabled = false
         binding.vpContent.post {
             binding.vpContent.setCurrentItem(args.startTab, true)

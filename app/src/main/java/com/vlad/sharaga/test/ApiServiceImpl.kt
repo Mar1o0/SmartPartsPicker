@@ -3,7 +3,6 @@ package com.vlad.sharaga.test
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.models.Filter
 import com.vlad.sharaga.models.FilterType
-import com.vlad.sharaga.models.Game
 import com.vlad.sharaga.models.Product
 import com.vlad.sharaga.models.ProductImage
 import com.vlad.sharaga.models.ProductPrice
@@ -27,7 +26,7 @@ class ApiServiceImpl : ApiService {
         )
     }
 
-    override suspend fun fetchProductImages(productId: ProductId): List<ProductImage>? {
+    override suspend fun fetchProductImages(productId: ProductId): List<ProductImage> {
         return listOf(
             ProductImage(
                 id = 1,
@@ -52,7 +51,7 @@ class ApiServiceImpl : ApiService {
         )
     }
 
-    override suspend fun fetchProductSpecs(productId: ProductId): List<ProductSpec>? {
+    override suspend fun fetchProductSpecs(productId: ProductId): List<ProductSpec> {
         return listOf(
             ProductSpec(
                 id = 1,
@@ -99,7 +98,7 @@ class ApiServiceImpl : ApiService {
         )
     }
 
-    override suspend fun fetchProductImage(productId: ProductId): ProductImage? {
+    override suspend fun fetchProductImage(productId: ProductId): ProductImage {
         return when (productId) {
             192385 -> ProductImage(
                 id = 2,
@@ -133,37 +132,7 @@ class ApiServiceImpl : ApiService {
         )
     }
 
-    override suspend fun fetchGames(): List<Game>? {
-        return listOf(
-            Game(
-                id = 1,
-                name = "Dota 2",
-                imageUrl = "file:///android_asset/preview_dota_2.webp"
-            ),
-            Game(
-                id = 2,
-                name = "Cyberpunk 2077",
-                imageUrl = "file:///android_asset/preview_cyberpunk.webp"
-            ),
-            Game(
-                id = 3,
-                name = "PUBG",
-                imageUrl = "file:///android_asset/preview_pubg.webp"
-            ),
-            Game(
-                id = 4,
-                name = "CS:GO",
-                imageUrl = "file:///android_asset/preview_cs_2.webp"
-            ),
-            Game(
-                id = 5,
-                name = "Destiny 2",
-                imageUrl = "file:///android_asset/preview_destiny_2.webp"
-            ),
-        )
-    }
-
-    override suspend fun fetchProduct(productId: ProductId): Product? {
+    override suspend fun fetchProduct(productId: ProductId): Product {
         return Product(
             id = productId,
             type = "GPU",
@@ -175,7 +144,7 @@ class ApiServiceImpl : ApiService {
         )
     }
 
-    override suspend fun fetchProducts(productType: String): List<Product>? {
+    override suspend fun fetchProducts(productType: String): List<Product> {
         return listOf(
             Product(
                 id = 192384,
@@ -216,7 +185,7 @@ class ApiServiceImpl : ApiService {
         )
     }
 
-    override suspend fun fetchFilters(productType: ProductType): List<Filter>? {
+    override suspend fun fetchFilters(productType: ProductType): List<Filter> {
         return listOf(
             Filter(
                 id = 1,
@@ -232,9 +201,9 @@ class ApiServiceImpl : ApiService {
             ),
             Filter(
                 id = 2,
-                filterName = "Производитель",
-                filterType = FilterType.SELECT,
-                variants = listOf("Palit", "Gigabyte", "MSI", "Asus", "Sapphire", "Zotac", "EVGA", "GALAX"),
+                filterName = "Подсветка",
+                filterType = FilterType.RADIO,
+                variants = listOf("да", "нет"),
             ),
             Filter(
                 id = 3,

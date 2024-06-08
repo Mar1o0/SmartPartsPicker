@@ -2,7 +2,6 @@ package com.vlad.sharaga.network.api
 
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.models.Filter
-import com.vlad.sharaga.models.Game
 import com.vlad.sharaga.models.Product
 import com.vlad.sharaga.models.ProductImage
 import com.vlad.sharaga.models.ProductPrice
@@ -40,9 +39,6 @@ class ApiClient @Inject constructor(
 
     suspend fun fetchProductSpecs(productId: ProductId): List<ProductSpec>? {
         return apiService.fetchProductSpecs(productId)
-    }
-    suspend fun fetchGames(): List<Game>? {
-        return apiService.fetchGames()
     }
 
     suspend fun fetchFilters(productType: ProductType): List<Filter>? {

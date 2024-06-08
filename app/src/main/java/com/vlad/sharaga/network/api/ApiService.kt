@@ -2,7 +2,6 @@ package com.vlad.sharaga.network.api
 
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.models.Filter
-import com.vlad.sharaga.models.Game
 import com.vlad.sharaga.models.Product
 import com.vlad.sharaga.models.ProductImage
 import com.vlad.sharaga.models.ProductPrice
@@ -14,9 +13,6 @@ interface ApiService {
 
     @GET("/cities/")
     suspend fun fetchCityNames(): List<String>?
-
-    @GET("/games/")
-    suspend fun fetchGames(): List<Game>?
 
     @GET("/product/")
     suspend fun fetchProduct(productId: ProductId): Product?

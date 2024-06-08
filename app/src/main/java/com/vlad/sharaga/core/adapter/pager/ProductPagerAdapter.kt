@@ -6,7 +6,7 @@ import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.ui.product.description.ProductDescriptionFragment
 import com.vlad.sharaga.ui.product.shops.ProductShopsFragment
 
-class ArticlePagerAdapter(
+class ProductPagerAdapter(
     fragment: Fragment,
     private val productId: ProductId,
     private val onChangePage: (Int) -> Unit

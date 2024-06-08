@@ -2,7 +2,6 @@ package com.vlad.sharaga.ui.catalog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vlad.sharaga.data.MainRepository
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem
 import com.vlad.sharaga.models.ProductType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +20,7 @@ sealed interface CatalogState {
 
 @HiltViewModel
 class CatalogViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+//    private val mainRepository: MainRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CatalogState>(CatalogState.Loading)

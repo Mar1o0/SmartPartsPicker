@@ -5,7 +5,7 @@
     android:id="@+id/cbSelect"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:button="@drawable/selector_cb_select"
+    android:button="@drawable/selector_cb_radio"
     android:fontFamily="@font/urbanist_regular"
     android:minWidth="0dp"
     android:minHeight="0dp"

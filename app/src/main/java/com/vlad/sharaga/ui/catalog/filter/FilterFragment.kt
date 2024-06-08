@@ -16,12 +16,11 @@ import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.filter.FilterItem
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.filter.FilterPriceRangeFingerprint
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.filter.FilterRadioFingerprint
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.filter.FilterSelectFingerprint
 import com.vlad.sharaga.core.util.toPx
-import com.vlad.sharaga.databinding.FragmentBrowseBinding
 import com.vlad.sharaga.databinding.FragmentFilterBinding
 import com.vlad.sharaga.ui.NavHostViewModel
-import com.vlad.sharaga.ui.catalog.browse.BrowseState
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
@@ -118,5 +117,6 @@ class FilterFragment : Fragment() {
     private fun getFingerprints() = listOf(
         FilterSelectFingerprint(),
         FilterPriceRangeFingerprint(),
+        FilterRadioFingerprint(),
     )
 }

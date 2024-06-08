@@ -20,7 +20,6 @@ import com.vlad.sharaga.core.adapter.pager.ImagePagerAdapter
 import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
 import com.vlad.sharaga.core.adapter.recycler.decorations.LineDivideItemDecoration
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.SpecificationFingerprint
-import com.vlad.sharaga.core.adapter.recycler.fingerprints.SpecificationItem
 import com.vlad.sharaga.core.util.toPx
 import com.vlad.sharaga.core.view.AssemblyPopup
 import com.vlad.sharaga.data.ProductId

@@ -12,7 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.vlad.sharaga.databinding.ActivitySplashBinding
 import com.vlad.sharaga.core.view.CityPopup
-import com.vlad.sharaga.core.view.DEFAULT_CITY
 import com.vlad.sharaga.ui.NavHostActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

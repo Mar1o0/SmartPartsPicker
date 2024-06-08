@@ -11,8 +11,7 @@ interface FilterItem : Item {
             return when (filter.filterType) {
                 FilterType.SELECT -> FilterSelectItem.fromFilter(filter)
                 FilterType.RANGE -> FilterPriceRangeItem.fromFilter(filter)
-
-                FilterType.RADIO -> TODO()
+                FilterType.RADIO -> FilterRadioItem.fromFilter(filter)
             }
         }
     }
