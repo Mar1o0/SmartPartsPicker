@@ -10,10 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vlad.sharaga.R
 import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.AssemblyItem
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewFingerprint
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewItem
+import com.vlad.sharaga.core.adapter.recycler.util.SwipeToDelete
 import com.vlad.sharaga.core.util.toPx
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.databinding.FragmentAssemblyBrowseBinding
@@ -69,6 +74,13 @@ class AssemblyBrowseFragment : Fragment() {
                 ).roundToInt()
             )
         )
+
+        val onItemSwipedToDelete: (Int) -> Unit = { positionForRemove: Int ->
+            val removedItem = adapter.currentList[positionForRemove] as? ProductPreviewItem
+            removedItem?.productId?.let(viewModel::deleteProduct)
+        }
+        val swipeToDeleteCallback = SwipeToDelete(R.layout.item_product_preview, onItemSwipedToDelete)
+        ItemTouchHelper(swipeToDeleteCallback).attachToRecyclerView(binding.rvProducts)
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->

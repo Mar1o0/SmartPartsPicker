@@ -22,7 +22,7 @@ data class AssemblyItem(
     val previewUrl1: String?,
     val previewUrl2: String?,
     val previewUrl3: String?,
-): Item
+) : Item
 
 class AssemblyFingerprint(
     private val onAssemblyClick: (Int) -> Unit
@@ -43,9 +43,11 @@ class AssemblyFingerprint(
     override fun getDiffUtil() = diffUtil
 
     private val diffUtil = object : DiffUtil.ItemCallback<AssemblyItem>() {
-        override fun areItemsTheSame(oldItem: AssemblyItem, newItem: AssemblyItem) = oldItem == newItem
+        override fun areItemsTheSame(oldItem: AssemblyItem, newItem: AssemblyItem) =
+            oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: AssemblyItem, newItem: AssemblyItem) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: AssemblyItem, newItem: AssemblyItem) =
+            oldItem == newItem
     }
 
 }

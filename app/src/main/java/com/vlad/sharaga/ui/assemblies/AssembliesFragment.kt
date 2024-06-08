@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vlad.sharaga.R
 import com.vlad.sharaga.databinding.FragmentAssembliesBinding
 import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
 import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
@@ -65,11 +66,9 @@ class AssembliesFragment : Fragment() {
 
         val onItemSwipedToDelete: (Int) -> Unit = { positionForRemove: Int ->
             val removedItem = adapter.currentList[positionForRemove] as? AssemblyItem
-            removedItem?.id?.let {
-                viewModel.deleteAssembly(it)
-            }
+            removedItem?.id?.let(viewModel::deleteAssembly)
         }
-        val swipeToDeleteCallback = SwipeToDelete(onItemSwipedToDelete)
+        val swipeToDeleteCallback = SwipeToDelete(R.layout.item_assembly, onItemSwipedToDelete)
         ItemTouchHelper(swipeToDeleteCallback).attachToRecyclerView(binding.rvAssemblies)
 
         binding.btnNewAssembly.setOnClickListener {

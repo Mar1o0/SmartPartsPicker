@@ -18,12 +18,13 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 data class ShopItem(
+    val id: Int,
     val logoUrl: String,
     val price: Double,
     val deliveryDescription: String,
     val deliveryPrice: Double,
     val url: String,
-): Item
+) : Item
 
 class ShopFingerprint : ItemFingerprint<ItemShopBinding, ShopItem> {
 
@@ -42,7 +43,8 @@ class ShopFingerprint : ItemFingerprint<ItemShopBinding, ShopItem> {
     override fun getDiffUtil() = diffUtil
 
     private val diffUtil = object : DiffUtil.ItemCallback<ShopItem>() {
-        override fun areItemsTheSame(oldItem: ShopItem, newItem: ShopItem) = oldItem == newItem
+        override fun areItemsTheSame(oldItem: ShopItem, newItem: ShopItem) =
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: ShopItem, newItem: ShopItem) = oldItem == newItem
     }
@@ -56,7 +58,8 @@ class ShopViewHolder(
     override fun onBind(item: ShopItem) {
         super.onBind(item)
         binding.tvPrice.text = context.getString(R.string.price, item.price.format(2))
-        binding.tvDeliveryPrice.text = context.getString(R.string.price, item.deliveryPrice.format(2))
+        binding.tvDeliveryPrice.text =
+            context.getString(R.string.price, item.deliveryPrice.format(2))
         binding.tvDeliveryDescription.text = item.deliveryDescription
         Glide.with(context)
             .load(item.logoUrl)

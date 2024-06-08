@@ -15,9 +15,10 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 data class SpecificationItem(
+    val id: Int,
     val title: String,
     val value: String
-): Item
+) : Item
 
 class SpecificationFingerprint : ItemFingerprint<ItemSpecificationBinding, SpecificationItem> {
 
@@ -36,9 +37,11 @@ class SpecificationFingerprint : ItemFingerprint<ItemSpecificationBinding, Speci
     override fun getDiffUtil() = diffUtil
 
     private val diffUtil = object : DiffUtil.ItemCallback<SpecificationItem>() {
-        override fun areItemsTheSame(oldItem: SpecificationItem, newItem: SpecificationItem) = oldItem == newItem
+        override fun areItemsTheSame(oldItem: SpecificationItem, newItem: SpecificationItem) =
+            oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: SpecificationItem, newItem: SpecificationItem) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: SpecificationItem, newItem: SpecificationItem) =
+            oldItem == newItem
     }
 
 }

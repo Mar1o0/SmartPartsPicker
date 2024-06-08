@@ -14,7 +14,7 @@ class ApiServiceImpl : ApiService {
         return listOf(
             ProductPrice(
                 id = 1,
-                productId = 192384,
+                productId = productId,
                 shopName = "Sigma",
                 url = "https://sigma.by",
                 imageUrl = "file:///android_asset/sigma.png",
@@ -28,22 +28,22 @@ class ApiServiceImpl : ApiService {
         return listOf(
             ProductImage(
                 id = 1,
-                productId = 192384,
+                productId = productId,
                 imageUrl = "file:///android_asset/sapphire.png",
             ),
             ProductImage(
                 id = 2,
-                productId = 192384,
+                productId = productId + 1,
                 imageUrl = "file:///android_asset/palit.png",
             ),
             ProductImage(
                 id = 3,
-                productId = 192384,
+                productId = productId + 2,
                 imageUrl = "file:///android_asset/msi.png",
             ),
             ProductImage(
                 id = 4,
-                productId = 192384,
+                productId = productId + 3,
                 imageUrl = "file:///android_asset/gigabyte.png",
             ),
         )
@@ -53,43 +53,43 @@ class ApiServiceImpl : ApiService {
         return listOf(
             ProductSpec(
                 id = 1,
-                productId = 192384,
+                productId = productId,
                 type = "Подбор в один клик",
                 value = "с трассировкой лучей, для игр в 4K",
             ),
             ProductSpec(
                 id = 2,
-                productId = 192384,
+                productId = productId,
                 type = "Интерфейс",
                 value = "PCI Express x16 4.0",
             ),
             ProductSpec(
                 id = 3,
-                productId = 192384,
+                productId = productId,
                 type = "Производитель графического процессора",
                 value = "AMD",
             ),
             ProductSpec(
                 id = 4,
-                productId = 192384,
+                productId = productId,
                 type = "Микроархитектура",
                 value = "AMD RDNA 3.0",
             ),
             ProductSpec(
                 id = 5,
-                productId = 192384,
+                productId = productId,
                 type = "Кодовое имя чипа",
                 value = "Navi 31",
             ),
             ProductSpec(
                 id = 6,
-                productId = 192384,
+                productId = productId,
                 type = "«Разогнанная» версия",
                 value = "true",
             ),
             ProductSpec(
                 id = 7,
-                productId = 192384,
+                productId = productId,
                 type = "Внешняя видеокарта",
                 value = "false",
             ),
@@ -100,25 +100,25 @@ class ApiServiceImpl : ApiService {
         return when (productId) {
             192385 -> ProductImage(
                 id = 2,
-                productId = 192385,
+                productId = productId,
                 imageUrl = "file:///android_asset/gigabyte.png",
             )
 
             192386 -> ProductImage(
                 id = 3,
-                productId = 192386,
+                productId = productId,
                 imageUrl = "file:///android_asset/palit.png",
             )
 
             192387 -> ProductImage(
                 id = 4,
-                productId = 192387,
+                productId = productId,
                 imageUrl = "file:///android_asset/msi.png",
             )
 
             else -> ProductImage(
                 id = 1,
-                productId = 192384,
+                productId = productId,
                 imageUrl = "file:///android_asset/sapphire.png",
             )
         }
@@ -162,7 +162,7 @@ class ApiServiceImpl : ApiService {
 
     override suspend fun fetchProduct(productId: ProductId): Product? {
         return Product(
-            id = 192384,
+            id = productId,
             type = "GPU",
             apiId = "192384",
             name = "RX 7900",

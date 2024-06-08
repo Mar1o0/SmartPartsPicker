@@ -157,7 +157,7 @@ class ProductDescriptionFragment(
             btnVariants.text = getString(R.string.variants, productDescription.variantsCount)
             rbRating.rating = productDescription.rating
             tvRating.text = getString(R.string.rating_format, productDescription.rating.format(1))
-            adapter.submitList(productDescription.specs.map { SpecificationItem(it.key, it.value) })
+            adapter.submitList(productDescription.specs)
             btnVariants.setOnClickListener { onChangePage(1) }
             btnAddToAssembly.setOnClickListener {
                 btnAddToAssembly.isEnabled = false

@@ -19,7 +19,7 @@ data class CategoryItem(
     val productType: ProductType,
     val title: String,
     val previewUrl: String,
-): Item
+) : Item
 
 class CategoryFingerprint(
     private val onClick: (CategoryItem) -> Unit
@@ -40,9 +40,11 @@ class CategoryFingerprint(
     override fun getDiffUtil() = diffUtil
 
     private val diffUtil = object : DiffUtil.ItemCallback<CategoryItem>() {
-        override fun areItemsTheSame(oldItem: CategoryItem, newItem: CategoryItem) = oldItem == newItem
+        override fun areItemsTheSame(oldItem: CategoryItem, newItem: CategoryItem) =
+            oldItem.productType == newItem.productType
 
-        override fun areContentsTheSame(oldItem: CategoryItem, newItem: CategoryItem) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: CategoryItem, newItem: CategoryItem) =
+            oldItem == newItem
     }
 
 }

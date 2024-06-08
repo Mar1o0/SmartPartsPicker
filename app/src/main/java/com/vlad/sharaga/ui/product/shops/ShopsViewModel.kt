@@ -50,6 +50,7 @@ class ShopsViewModel @AssistedInject constructor(
 
             val shopItems = productPrices.map { productPrice: ProductPrice ->
                 ShopItem(
+                    id = productPrice.id,
                     logoUrl = productPrice.imageUrl,
                     price = productPrice.price,
                     deliveryDescription = productPrice.shopName,

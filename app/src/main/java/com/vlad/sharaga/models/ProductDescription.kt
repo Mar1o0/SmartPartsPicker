@@ -1,5 +1,7 @@
 package com.vlad.sharaga.models
 
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.SpecificationItem
+
 data class ProductDescription(
     val id: Int,
     val title: String,
@@ -8,7 +10,7 @@ data class ProductDescription(
     val minPrice: Double,
     val variantsCount: Int,
     val rating: Float,
-    val specs: Map<String, String>,
+    val specs: List<SpecificationItem>,
 ) {
 
     companion object {
@@ -27,7 +29,13 @@ data class ProductDescription(
                 minPrice = productPrices.minOf { it.price },
                 variantsCount = productPrices.size,
                 rating = product.rating,
-                specs = productSpecs.associate { it.type to it.value }
+                specs = productSpecs.map {
+                    SpecificationItem(
+                        id = it.id,
+                        title = it.type,
+                        value = it.value
+                    )
+                }
             )
         }
 

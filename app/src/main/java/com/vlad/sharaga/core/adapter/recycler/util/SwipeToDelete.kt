@@ -11,7 +11,8 @@ import com.vlad.sharaga.R
 import com.vlad.sharaga.core.util.toPx
 
 class SwipeToDelete(
-    val onItemDelete: (Int) -> Unit
+    private val targetViewType: Int,
+    private val onItemDelete: (Int) -> Unit,
 ) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.ACTION_STATE_IDLE,
     ItemTouchHelper.LEFT
@@ -31,7 +32,7 @@ class SwipeToDelete(
     }
 
     override fun getSwipeDirs(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-        return if (viewHolder.itemViewType != R.layout.item_assembly) {
+        return if (viewHolder.itemViewType != targetViewType) {
             ItemTouchHelper.ACTION_STATE_IDLE
         } else {
             super.getSwipeDirs(recyclerView, viewHolder)

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewItem
 import com.vlad.sharaga.data.MainRepository
+import com.vlad.sharaga.data.ProductId
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -51,6 +52,16 @@ class AssemblyBrowseViewModel @AssistedInject constructor(
                 )
             }
             _state.value = AssemblyBrowseState.Content(assemblyData.title, products)
+        }
+    }
+
+    fun deleteProduct(productId: ProductId) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _state.value = AssemblyBrowseState.Loading
+            val assemblyData = mainRepository.assemblyDao.getById(assemblyId)
+            val newAssemblyData = assemblyData.copy(products = assemblyData.products - productId)
+            mainRepository.assemblyDao.update(newAssemblyData)
+            load()
         }
     }
 

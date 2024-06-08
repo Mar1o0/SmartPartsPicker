@@ -64,7 +64,7 @@ class ProductPreviewFingerprint(
 
     private val diffUtil = object : DiffUtil.ItemCallback<ProductPreviewItem>() {
         override fun areItemsTheSame(oldItem: ProductPreviewItem, newItem: ProductPreviewItem) =
-            oldItem == newItem
+            oldItem.productId == newItem.productId
 
         override fun areContentsTheSame(oldItem: ProductPreviewItem, newItem: ProductPreviewItem) =
             oldItem == newItem
