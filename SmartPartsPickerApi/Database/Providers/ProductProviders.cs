@@ -25,7 +25,7 @@ namespace SmartPartsPickerApi.Database.Providers
                 Description = entity.Description,
                 ApiId = entity.ApiId,
                 Type = entity.Type,
-                Reviews = entity.Reviews,
+                Rating = entity.Rating,
             },
             x => new ProductTable()
             {
@@ -35,7 +35,7 @@ namespace SmartPartsPickerApi.Database.Providers
                 Description = entity.Description ?? x.Description,
                 ApiId = entity.ApiId,
                 Type = x.Type,
-                Reviews = entity.Reviews 
+                Rating = entity.Rating 
             });
             return entity;
         }
