@@ -83,8 +83,7 @@ namespace SmartPartsPickerApi.Database.Providers
             var q = "Select DISTINCT p.*, pi.href From Product p " +
                 "INNER JOIN ProductFilter pf on pf.product_id = p.id " +
                 "INNER JOIN ProductImage pi on pi.productId = p.id " +
-                $"Where {(string.IsNullOrEmpty(filters) ? "" : $"pf.filter_id in ({filters}) AND")} p.type = {(int)productType} " +
-                $"LIMIT {per_page} OFFSET {page * per_page};";
+                $"Where {(string.IsNullOrEmpty(filters) ? "" : $"pf.filter_id in ({filters}) AND")} p.type = {(int)productType};";
 
             var productResponses = db.Query<FilteredProductView>(
                 q
@@ -110,6 +109,8 @@ namespace SmartPartsPickerApi.Database.Providers
 
             productResponses = productResponses
                 .Where(x => priceMin < x.Price.Min(p => p.Price) && priceMax > x.Price.Min(p => p.Price))
+                .Skip(page*per_page)
+                .Take(per_page)
                 .ToList();
 
             return productResponses;
