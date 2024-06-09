@@ -46,6 +46,7 @@ namespace SmartPartsPickerApi
 
             app.UseAuthorization();
 
+            app.Urls.Add("http://+:8080");
 
             app.MapControllers();
 

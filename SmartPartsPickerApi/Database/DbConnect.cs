@@ -121,7 +121,10 @@ namespace SmartPartsPickerApi.Database
         public static string GetPathDb()
         {
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            return path + Database;
+            var dbDir = Path.Combine(path, "DatabaseDir");
+            Directory.CreateDirectory(dbDir);
+
+            return Path.Combine(dbDir, Database);
         }
     }
 }
