@@ -2,6 +2,7 @@
 using SmartPartsPickerApi.Enums;
 using SmartPartsPickerApi.Interfaces;
 using SmartPartsPickerApi.Models.Onliner;
+using SmartPartsPickerApi.Database.Tables;
 
 namespace SmartPartsPickerApi.Models.Filters
 {
@@ -19,6 +20,14 @@ namespace SmartPartsPickerApi.Models.Filters
             _filterType = filterType;
             Value = value;
         }
+
+        public CpuFilter(FilterTable filter)
+        {
+            FilterType = filter.FilterType;
+            _filterType = (CpuFilterType)filter.FilterType;
+            Value = filter.FilterVariat;
+        }
+
         public ProductType ProductType => ProductType.CPU;
 
         public int FilterType { get; private set; }

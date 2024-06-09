@@ -1,5 +1,6 @@
 ﻿using LinqToDB.Mapping;
 using SmartPartsPickerApi.Enums;
+using SmartPartsPickerApi.Interfaces;
 
 namespace SmartPartsPickerApi.Database.Tables
 {

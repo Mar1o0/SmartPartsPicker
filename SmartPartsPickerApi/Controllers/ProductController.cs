@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartPartsPickerApi.Enums;
+using SmartPartsPickerApi.Interfaces;
+using SmartPartsPickerApi.Models.Filters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -46,7 +48,7 @@ namespace SmartPartsPickerApi.Controllers
             }
         }
 
-        [HttpGet("product/budget/{budget:double}")]
+        [HttpGet("product/budget/")]
         public IActionResult GetProductPacksByBudget([FromQuery] double budget)
         {
             try
@@ -59,29 +61,19 @@ namespace SmartPartsPickerApi.Controllers
             }
         }
 
-        [HttpGet("product/spec/{productSpecType}")]
-        public IActionResult GetProductListBySpecType(SpecType productSpecType) // TODO: заменить на нормальные спецификации(т.е. enum) 
-        {
-            try
-            {
-                var product = _db.ProductSpec.GetAllBySpecType(productSpecType);
-
-                return Ok(product);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("product/filter/{productType:regex(CPU|GPU|MB|RAM|SSD|HDD|PSU|CHASSIS)}")]
+        [HttpGet("product/filter/{productType}")]
         public IActionResult GetFiltersByProductType(ProductType productType)
         {
             try
             {
                 var filters = _db.Filter.GetByProductType(productType);
-
-                return Ok(filters);
+                switch (productType)
+                {
+                    case ProductType.CPU:
+                        return Ok(filters.Select(x=> new CpuFilter(x)).ToList());
+                    default:
+                        return Ok(filters);
+                }
             }
             catch (Exception ex)
             {
