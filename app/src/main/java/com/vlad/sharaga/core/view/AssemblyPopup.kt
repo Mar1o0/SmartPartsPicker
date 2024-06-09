@@ -37,9 +37,16 @@ class AssemblyPopup(
 
     private fun setupSelectPopup() {
         val binding = PopupAssemblySelectBinding.inflate(layoutInflater)
-        binding.spAssembliesOptions.adapter = DropDownSpinnerAdapter(context, assemblies) {
-            it?.title ?: ""
-        }
+        binding.spAssembliesOptions.adapter = DropDownSpinnerAdapter(
+            context = context,
+            values = assemblies,
+            map = { it?.title ?: "" },
+            withInput = true,
+            onConfirmClicked = {
+                onCreateAssembly(it)
+                dismiss()
+            },
+        )
         binding.btnSelect.setOnClickListener {
             binding.btnSelect.isEnabled = false
             onSelectedAssembly(assemblies[binding.spAssembliesOptions.selectedItemPosition].id)

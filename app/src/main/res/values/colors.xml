@@ -17,4 +17,5 @@
     <color name="cover">#FF21242A</color>
     <color name="popup">#FF292C33</color>
     <color name="success">#088752</color>
+    <color name="error">#F40202</color>
 </resources>

@@ -3,7 +3,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-
     <string name="app_name">Smart Parts Picker</string>
     <string name="title_home">Главная</string>
     <string name="title_catalog">Каталог</string>
@@ -48,4 +47,14 @@
     <string name="hide_all">Скрыть</string>
     <string name="min_value">Минимальное значение %1$f</string>
     <string name="max_value">Максимальное значение %1$f</string>
+    <string name="enter_budget">Введите бюджет</string>
+    <string name="budget_description">Введите ваш бюджет и нажмите «Поиск»</string>
+    <string name="budget_title">Подберем комплектующие под\nваш бюджет</string>
+    <string name="create_assembly">Создать сборку</string>
+    <string name="enter_name">Введите название</string>
+    <string name="add_to_assembly">Добавить в сборку</string>
+    <string name="enter_positive_number">Введите положительное число</string>
+    <string name="budget_selected">Вот что мы подобрали</string>
+    <string name="average_cost">Средняя стоимость:</string>
+    <string name="budget_error">Введите значение больше 0</string>
 </resources>

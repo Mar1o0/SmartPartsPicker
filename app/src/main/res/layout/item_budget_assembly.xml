@@ -7,47 +7,36 @@
     android:background="@drawable/sh_item_bg"
     android:padding="@dimen/margin_big">
 
+    <androidx.constraintlayout.helper.widget.Flow
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:constraint_referenced_ids="tvTitle,tvPrice"
+        app:flow_wrapMode="chain2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/urbanist_black"
+        android:maxLines="2"
+        android:text="@string/average_cost"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:fontFamily="@font/urbanist_black"
         android:maxLines="2"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvPriceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_mid"
-        android:ellipsize="end"
-        android:fontFamily="@font/urbanist_regular"
-        android:maxLines="2"
-        android:text="@string/average_cost"
-        android:textColor="@color/secondary_white"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-    <TextView
-        android:id="@+id/tvPriceValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
-        android:ellipsize="end"
-        android:fontFamily="@font/urbanist_semibold"
-        android:maxLines="1"
         android:textColor="@color/success"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvPriceLabel"
-        app:layout_constraintStart_toEndOf="@+id/tvPriceLabel"
-        app:layout_constraintTop_toTopOf="@+id/tvPriceLabel" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvDescription"
@@ -62,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <androidx.constraintlayout.helper.widget.Flow
         android:layout_width="0dp"

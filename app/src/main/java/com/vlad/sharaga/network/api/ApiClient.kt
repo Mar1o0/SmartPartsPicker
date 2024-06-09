@@ -1,5 +1,7 @@
 package com.vlad.sharaga.network.api
 
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.BudgetAssemblyItem
+import com.vlad.sharaga.core.adapter.spinner.SearchResultItem
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.models.Filter
 import com.vlad.sharaga.models.Product
@@ -43,6 +45,14 @@ class ApiClient @Inject constructor(
 
     suspend fun fetchFilters(productType: ProductType): List<Filter>? {
         return apiService.fetchFilters(productType)
+    }
+
+    suspend fun fetchAssemblies(budgetPrice: Int): List<BudgetAssemblyItem>? {
+        return apiService.fetchAssemblies(budgetPrice)
+    }
+
+    suspend fun searchProducts(query: String): List<SearchResultItem>? {
+        return apiService.searchProducts(query)
     }
 
 }

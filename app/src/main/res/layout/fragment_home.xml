@@ -6,116 +6,113 @@
     android:layout_height="match_parent"
     tools:context=".ui.catalog.browse.ProductBrowseFragment">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        tools:visibility="visible">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardBackgroundColor="@color/cover"
+        app:cardCornerRadius="24dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingHorizontal="@dimen/margin_big">
+            android:gravity="center"
+            android:minWidth="@dimen/popup_width"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_extra">
 
             <androidx.constraintlayout.helper.widget.Flow
-                android:id="@+id/flowGameTitle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_big"
-                app:constraint_referenced_ids="ivGamesIcon,tvGamesTitle"
-                app:flow_horizontalGap="@dimen/margin_big"
+                android:orientation="vertical"
+                app:constraint_referenced_ids="ivLogo,tvTitle,tvDescription,spacer,tiValue,btnSearch"
+                app:flow_verticalGap="@dimen/margin_mid"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
 
             <ImageView
-                android:id="@+id/ivGamesIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:adjustViewBounds="true"
+                android:id="@+id/ivLogo"
+                android:layout_width="@dimen/splash_logo_size"
+                android:layout_height="@dimen/splash_logo_size"
                 android:importantForAccessibility="no"
-                app:srcCompat="@drawable/ic_game_title_icon" />
+                app:srcCompat="@drawable/ic_logo_budget" />
 
             <TextView
-                android:id="@+id/tvGamesTitle"
-                style="@style/Text.Title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="6dp"
-                android:layout_weight="1"
-                android:text="@string/games_select_title" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvGames"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_mid"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/flowGameTitle" />
-
-            <Button
-                android:id="@+id/btnMoreGames"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/margin_mid"
+                android:fontFamily="@font/urbanist_semibold"
+                android:gravity="center"
+                android:text="@string/budget_title"
+                android:textColor="@color/secondary_white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/urbanist_regular"
+                android:gravity="center"
+                android:text="@string/budget_description"
+                android:textColor="@color/secondary_white"
+                android:textSize="14sp" />
+
+            <Space
+                android:id="@+id/spacer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                tools:layout_editor_absoluteY="277dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tiValue"
+                style="@style/CustomTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_budget"
+                android:minWidth="280dp"
+                android:textColorHint="#99FFFFFF"
+                app:boxBackgroundColor="@color/popup"
+                app:boxCornerRadiusBottomEnd="@dimen/corner_radius"
+                app:boxCornerRadiusBottomStart="@dimen/corner_radius"
+                app:boxCornerRadiusTopEnd="@dimen/corner_radius"
+                app:boxCornerRadiusTopStart="@dimen/corner_radius"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:endIconDrawable="@drawable/ic_close"
+                app:endIconMode="clear_text"
+                app:endIconScaleType="centerInside"
+                app:endIconTint="@color/white"
+                app:hintTextColor="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/urbanist_regular"
+                    android:inputType="number"
+                    android:textColor="@color/white"
+                    android:textColorHint="#99FFFFFF"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:enabled="false"
                 android:fontFamily="@font/urbanist_bold"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:minHeight="10dip"
-                android:paddingVertical="10dp"
-                android:text="@string/all_games"
+                android:text="@string/search"
                 android:textAllCaps="false"
-                android:textSize="12sp"
-                app:cornerRadius="@dimen/corner_radius"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvGames"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCategories"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_big"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnMoreGames" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="@dimen/margin_big"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvCategories" />
+                android:textSize="16sp"
+                app:cornerRadius="@dimen/corner_radius" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/cpiLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/tvError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ellipsize="end"
-        android:fontFamily="@font/urbanist_semibold"
-        android:maxLines="2"
-        android:text="@string/error"
-        android:textColor="@color/secondary_white"
-        android:textSize="16sp"
-        android:visibility="gone"
-        tools:visibility="visible" />
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>

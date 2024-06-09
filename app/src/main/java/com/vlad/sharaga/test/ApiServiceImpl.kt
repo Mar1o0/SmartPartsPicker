@@ -1,5 +1,8 @@
 package com.vlad.sharaga.test
 
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.BudgetAssemblyItem
+import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewItem
+import com.vlad.sharaga.core.adapter.spinner.SearchResultItem
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.models.Filter
 import com.vlad.sharaga.models.FilterType
@@ -216,6 +219,154 @@ class ApiServiceImpl : ApiService {
                 filterName = "Производитель",
                 filterType = FilterType.SELECT,
                 variants = listOf("Palit", "Gigabyte", "MSI", "Asus", "Sapphire", "Zotac", "EVGA", "GALAX"),
+            ),
+        )
+    }
+
+    override suspend fun fetchAssemblies(budgetPrice: Int): List<BudgetAssemblyItem> {
+        return listOf(
+            BudgetAssemblyItem(
+                id = 1,
+                price = 2500.0,
+                products = listOf(
+                    ProductPreviewItem(
+                        productId = 192384,
+                        imageUrl = "file:///android_asset/sapphire.png",
+                        title = "Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                    ProductPreviewItem(
+                        productId = 192385,
+                        imageUrl = "file:///android_asset/gigabyte.png",
+                        title = "Gigabyte GeForce RTX 4060 Gaming OC 8G GV-N4060GAMING OC-8GD",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                    ProductPreviewItem(
+                        productId = 192386,
+                        imageUrl = "file:///android_asset/palit.png",
+                        title = "Palit GeForce RTX 4060 Dual OC NE64060T19P1-1070D",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                    ProductPreviewItem(
+                        productId = 192387,
+                        imageUrl = "file:///android_asset/msi.png",
+                        title = "MSI GeForce RTX 4060 Ti Gaming X 8G",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                )
+            ),
+            BudgetAssemblyItem(
+                id = 2,
+                price = 2700.0,
+                products = listOf(
+                    ProductPreviewItem(
+                        productId = 192384,
+                        imageUrl = "file:///android_asset/sapphire.png",
+                        title = "Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                    ProductPreviewItem(
+                        productId = 192385,
+                        imageUrl = "file:///android_asset/gigabyte.png",
+                        title = "Gigabyte GeForce RTX 4060 Gaming OC 8G GV-N4060GAMING OC-8GD",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                    ProductPreviewItem(
+                        productId = 192386,
+                        imageUrl = "file:///android_asset/palit.png",
+                        title = "Palit GeForce RTX 4060 Dual OC NE64060T19P1-1070D",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                    ProductPreviewItem(
+                        productId = 192387,
+                        imageUrl = "file:///android_asset/msi.png",
+                        title = "MSI GeForce RTX 4060 Ti Gaming X 8G",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                )
+            ),
+            BudgetAssemblyItem(
+                id = 3,
+                price = 3000.0,
+                products = listOf(
+                    ProductPreviewItem(
+                        productId = 192384,
+                        imageUrl = "file:///android_asset/sapphire.png",
+                        title = "Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                    ProductPreviewItem(
+                        productId = 192385,
+                        imageUrl = "file:///android_asset/gigabyte.png",
+                        title = "Gigabyte GeForce RTX 4060 Gaming OC 8G GV-N4060GAMING OC-8GD",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                    ProductPreviewItem(
+                        productId = 192386,
+                        imageUrl = "file:///android_asset/palit.png",
+                        title = "Palit GeForce RTX 4060 Dual OC NE64060T19P1-1070D",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                    ProductPreviewItem(
+                        productId = 192387,
+                        imageUrl = "file:///android_asset/msi.png",
+                        title = "MSI GeForce RTX 4060 Ti Gaming X 8G",
+                        rating = 3.4f,
+                        minPrice = 2665.72,
+                        variants = 3,
+                    ),
+                )
+            ),
+        )
+    }
+
+    override suspend fun searchProducts(query: String): List<SearchResultItem> {
+        return listOf(
+            SearchResultItem(
+                productId = 192384,
+                title = "RX 7900",
+                price = "2665.72",
+                imageUrl = "file:///android_asset/sapphire.png",
+            ),
+            SearchResultItem(
+                productId = 192385,
+                title = "RTX 4060",
+                price = "2665.72",
+                imageUrl = "file:///android_asset/gigabyte.png",
+            ),
+            SearchResultItem(
+                productId = 192386,
+                title = "RTX 4060",
+                price = "2665.72",
+                imageUrl = "file:///android_asset/palit.png",
+            ),
+            SearchResultItem(
+                productId = 192387,
+                title = "RTX 4060 Ti",
+                price = "2665.72",
+                imageUrl = "file:///android_asset/msi.png",
             ),
         )
     }

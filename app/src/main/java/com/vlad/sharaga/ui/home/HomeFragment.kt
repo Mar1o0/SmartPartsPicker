@@ -4,22 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.vlad.sharaga.R
 import com.vlad.sharaga.databinding.FragmentHomeBinding
-import com.vlad.sharaga.core.adapter.recycler.FingerprintAdapter
-import com.vlad.sharaga.core.adapter.recycler.decorations.VerticalDividerItemDecoration
-import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryFingerprint
-import com.vlad.sharaga.core.adapter.recycler.fingerprints.CategoryItem
-import com.vlad.sharaga.core.util.toPx
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -29,18 +20,10 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
 
-    private val categoriesAdapter by lazy {
-        FingerprintAdapter(
-            listOf(
-                CategoryFingerprint(::onCategoryClick)
-            )
-        )
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        findNavController().clearBackStack(R.id.navigation_home)
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        findNavController().clearBackStack(R.id.navigation_home)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,60 +37,29 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvCategories.adapter = categoriesAdapter
-        binding.rvCategories.addItemDecoration(
-            VerticalDividerItemDecoration(
-                requireContext().toPx(16).roundToInt()
-            )
-        )
-
-        binding.btnMoreGames.setOnClickListener {
-//            val action = HomeFragmentDirections.actionNavigationHomeToGamesFragment()
-//            findNavController().navigate(action)
-        }
-
-        lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                when (state) {
-                    HomeState.Loading -> with(binding) {
-                        cpiLoading.isVisible = true
-                        nsContent.isVisible = false
-                        tvError.isVisible = false
-                    }
-
-                    is HomeState.Content -> with(binding) {
-                        cpiLoading.isVisible = false
-                        nsContent.isVisible = true
-                        tvError.isVisible = false
-
-                        categoriesAdapter.submitList(state.categories)
-                    }
-
-                    is HomeState.Error -> with(binding) {
-                        cpiLoading.isVisible = false
-                        nsContent.isVisible = false
-                        tvError.isVisible = true
-
-                        tvError.text = state.message
-                    }
-                }
+        binding.etValue.doOnTextChanged { text, _, _, _ ->
+            val value = text.toString().toIntOrNull() ?: 0
+            if (value <= 0) {
+                binding.btnSearch.isEnabled = false
+                binding.tiValue.error = getString(R.string.budget_error)
+                return@doOnTextChanged
+            } else {
+                binding.btnSearch.isEnabled = true
+                binding.tiValue.error = null
             }
         }
-        viewModel.load()
+
+        binding.btnSearch.setOnClickListener {
+            findNavController().navigate(
+                HomeFragmentDirections.actionNavigationHomeToBudgetAssembliesFragment(
+                    budgetPrice = binding.etValue.text.toString().toIntOrNull() ?: 0
+                )
+            )
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun onCategoryClick(categoryItem: CategoryItem) {
-        val action =
-            HomeFragmentDirections
-                .actionNavigationHomeToNavigationCatalog(
-                    categoryItem = categoryItem
-                )
-        findNavController().navigate(action)
     }
 }

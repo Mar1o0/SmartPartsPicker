@@ -6,21 +6,22 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     app:cardBackgroundColor="@color/cover"
-    app:cardCornerRadius="24dp">
+    app:cardCornerRadius="@dimen/corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:minWidth="@dimen/popup_width"
         android:orientation="vertical"
         android:padding="@dimen/margin_extra">
 
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:constraint_referenced_ids="ivLogo,tvAcceptLocation,spacer,spAssembliesOptions,btnSelect"
+            app:constraint_referenced_ids="ivLogo,tvTitle,spacer,spAssembliesOptions,btnSelect"
             app:flow_verticalGap="@dimen/margin_mid"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,15 +35,15 @@
             android:layout_width="@dimen/splash_logo_size"
             android:layout_height="@dimen/splash_logo_size"
             android:importantForAccessibility="no"
-            app:srcCompat="@drawable/assembly_logo" />
+            app:srcCompat="@drawable/ic_logo_assembly" />
 
         <TextView
-            android:id="@+id/tvAcceptLocation"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/urbanist_semibold"
             android:gravity="center"
-            android:text="Добавить в сборку"
+            android:text="@string/add_to_assembly"
             android:textColor="@color/secondary_white"
             android:textSize="20sp" />
 
@@ -54,7 +55,7 @@
 
         <Spinner
             android:id="@+id/spAssembliesOptions"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/sh_medium"
             android:minWidth="280dp"

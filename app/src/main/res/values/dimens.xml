@@ -22,6 +22,8 @@
     <dimen name="search_box_height">40dp</dimen>
     <dimen name="search_box_width">488dp</dimen>
 
+    <dimen name="popup_width">350dp</dimen>
+
     <dimen name="tab_height">48dp</dimen>
 
 </resources>

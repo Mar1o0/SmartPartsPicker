@@ -1,5 +1,6 @@
 package com.vlad.sharaga.core.adapter.recycler.fingerprints
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.Keep
@@ -57,11 +58,17 @@ class SpecificationViewHolder(
             "true" -> {
                 binding.ivValue.isVisible = true
                 binding.ivValue.setImageResource(R.drawable.ic_check)
+                binding.ivValue.imageTintList = ColorStateList.valueOf(
+                    context.getColor(R.color.success)
+                )
             }
 
             "false" -> {
                 binding.ivValue.isVisible = true
                 binding.ivValue.setImageResource(R.drawable.ic_close)
+                binding.ivValue.imageTintList = ColorStateList.valueOf(
+                    context.getColor(R.color.error)
+                )
             }
 
             else -> {

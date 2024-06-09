@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.catalog.browse.ProductBrowseFragment">
+    tools:context=".ui.budget.browse.BudgetBrowseFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsContent"
@@ -19,40 +18,29 @@
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/margin_big">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_big"
-                android:fontFamily="@font/urbanist_black"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_mid"
+                android:layout_marginTop="@dimen/margin_big"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvPriceLabel"
+                    android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/urbanist_regular"
+                    android:fontFamily="@font/urbanist_black"
                     android:text="@string/average_cost"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/tvPriceValue"
+                    android:id="@+id/tvPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
                     android:fontFamily="@font/urbanist_black"
                     android:textColor="@color/success"
-                    android:textSize="16sp" />
-
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

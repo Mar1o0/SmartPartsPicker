@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.catalog.browse.ProductBrowseFragment">
+    tools:context=".ui.budget.assemblies.BudgetAssembliesFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsContent"
@@ -13,10 +13,9 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:paddingHorizontal="@dimen/margin_big">
 
             <TextView
@@ -25,44 +24,43 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_big"
                 android:fontFamily="@font/urbanist_black"
+                android:text="@string/budget_selected"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvCounter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_mid"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvPriceLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/urbanist_regular"
-                    android:text="@string/average_cost"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tvPriceValue"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_small"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/urbanist_black"
-                    android:textColor="@color/success"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+                android:background="@drawable/sh_counter_bg"
+                android:fontFamily="@font/urbanist_regular"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="5dp"
+                android:textColor="#9C9CA3"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvProducts"
-                android:layout_width="match_parent"
+                android:id="@+id/rvAssemblies"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_mid"
-                android:layout_marginBottom="@dimen/margin_big" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-        </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_big"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvAssemblies" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator

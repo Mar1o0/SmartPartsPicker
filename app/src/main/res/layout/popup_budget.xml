@@ -9,8 +9,8 @@
     app:cardCornerRadius="24dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:minWidth="@dimen/popup_width"
         android:orientation="vertical"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:constraint_referenced_ids="ivLocationLogo,tvAcceptLocation,tvChooseCity,spacer,spCitiesOptions,btnAccept"
+            app:constraint_referenced_ids="ivLogo,tvTitle,tvDescription,spacer,tiValue,btnSearch"
             app:flow_verticalGap="@dimen/margin_mid"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,75 +30,78 @@
             app:layout_constraintVertical_bias="0.5" />
 
         <ImageView
-            android:id="@+id/ivLocationLogo"
+            android:id="@+id/ivLogo"
             android:layout_width="@dimen/splash_logo_size"
             android:layout_height="@dimen/splash_logo_size"
             android:importantForAccessibility="no"
-            app:srcCompat="@drawable/ic_logo_location" />
+            app:srcCompat="@drawable/ic_logo_budget" />
 
         <TextView
-            android:id="@+id/tvAcceptLocation"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/urbanist_semibold"
             android:gravity="center"
-            android:text="@string/accept_location"
+            android:text="@string/budget_title"
             android:textColor="@color/secondary_white"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvChooseCity"
+            android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/urbanist_regular"
             android:gravity="center"
-            android:text="@string/choose_city"
+            android:text="@string/budget_description"
             android:textColor="@color/secondary_white"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <Space
             android:id="@+id/spacer"
-            android:layout_width="wrap_content"
-            android:layout_height="8dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:layout_editor_absoluteY="277dp" />
 
-        <Spinner
-            android:id="@+id/spCitiesOptions"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiValue"
+            style="@style/CustomTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/sh_medium"
-            android:popupBackground="@drawable/sh_medium"
-            android:spinnerMode="dropdown"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:hint="@string/enter_budget"
+            android:minWidth="280dp"
+            android:textColorHint="#9F9F9F"
+            app:boxBackgroundColor="@color/popup"
+            app:boxCornerRadiusBottomEnd="@dimen/corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/corner_radius"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:endIconDrawable="@drawable/ic_close"
+            app:endIconMode="clear_text"
+            app:endIconScaleType="centerInside"
+            app:endIconTint="@color/white"
+            app:hintTextAppearance="@style/CustomHintTextAppearance">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="15dp"
-            android:adjustViewBounds="true"
-            android:importantForAccessibility="no"
-            app:layout_constraintBottom_toBottomOf="@+id/spCitiesOptions"
-            app:layout_constraintStart_toStartOf="@+id/spCitiesOptions"
-            app:layout_constraintTop_toTopOf="@+id/spCitiesOptions"
-            app:srcCompat="@drawable/ic_location" />
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="15dp"
-            android:importantForAccessibility="no"
-            app:layout_constraintBottom_toBottomOf="@+id/spCitiesOptions"
-            app:layout_constraintEnd_toEndOf="@+id/spCitiesOptions"
-            app:layout_constraintTop_toTopOf="@+id/spCitiesOptions"
-            app:srcCompat="@drawable/ic_down" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/urbanist_regular"
+                android:inputType="number"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btnAccept"
+            android:id="@+id/btnSearch"
             android:layout_width="0dp"
             android:layout_height="55dp"
+            android:enabled="false"
             android:fontFamily="@font/urbanist_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="@string/accept"
+            android:text="@string/search"
             android:textAllCaps="false"
             android:textSize="16sp"
             app:cornerRadius="@dimen/corner_radius" />

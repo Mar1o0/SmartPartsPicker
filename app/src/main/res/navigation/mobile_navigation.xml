@@ -11,6 +11,9 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
         <action
+            android:id="@+id/action_navigation_home_to_budgetAssembliesFragment"
+            app:destination="@id/budgetAssembliesFragment" />
+        <action
             android:id="@+id/action_navigation_home_to_navigation_catalog"
             app:destination="@id/navigation_catalog" />
     </fragment>
@@ -30,9 +33,7 @@
             android:defaultValue="@null" />
         <action
             android:id="@+id/action_navigation_catalog_to_navigation_home"
-            app:destination="@id/navigation_home"
-            app:popUpTo="@id/navigation_home"
-            app:popUpToInclusive="true" />
+            app:destination="@id/navigation_home" />
     </fragment>
 
     <fragment
@@ -97,5 +98,29 @@
         <argument
             android:name="assemblyId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/budgetAssembliesFragment"
+        android:name="com.vlad.sharaga.ui.budget.assemblies.BudgetAssembliesFragment"
+        android:label="fragment_budget_assemblies"
+        tools:layout="@layout/fragment_budget_assemblies" >
+        <action
+            android:id="@+id/action_budgetAssembliesFragment_to_budgetBrowseFragment"
+            app:destination="@id/budgetBrowseFragment" />
+        <argument
+            android:name="budgetPrice"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/budgetBrowseFragment"
+        android:name="com.vlad.sharaga.ui.budget.browse.BudgetBrowseFragment"
+        android:label="fragment_budget_browse"
+        tools:layout="@layout/fragment_budget_browse" >
+        <action
+            android:id="@+id/action_budgetBrowseFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+        <argument
+            android:name="assembly"
+            app:argType="com.vlad.sharaga.core.adapter.recycler.fingerprints.BudgetAssemblyItem" />
     </fragment>
 </navigation>
