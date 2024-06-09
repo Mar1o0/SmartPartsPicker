@@ -4,7 +4,7 @@
     {
         Manufacturer,
         Core,
-        Flow,
+        Threads,
         TechProcess,
         Tdp
     }

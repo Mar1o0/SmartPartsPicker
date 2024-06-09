@@ -67,7 +67,7 @@ namespace SmartPartsPickerApi.Service.Filters
 
             foreach (var flow in flowVariants)
             {
-                availableFilters.Add(new CpuFilter(CpuFilterType.Flow, flow));
+                availableFilters.Add(new CpuFilter(CpuFilterType.Threads, flow));
             }
 
             foreach (var techProcess in techProcessVariants)

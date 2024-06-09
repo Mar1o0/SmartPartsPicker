@@ -39,5 +39,10 @@ namespace SmartPartsPickerApi.Models.Filters
             }
         }
         private readonly MotherBoardFilterType _filterType;
+
+        public bool IsSuitable(Product product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

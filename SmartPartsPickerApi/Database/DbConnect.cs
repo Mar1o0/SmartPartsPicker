@@ -66,9 +66,8 @@ namespace SmartPartsPickerApi.Database
             await Create<ProductImageTable>();
             await Create<ProductPriceTable>();
             await Create<ProductSpecTable>();
-            //await Create<GameTable>();
-            //await Create<GameSpecTable>();
             await Create<FilterTable>();
+            await Create<ProductFilterTable>();
         }
         private static void UpgradeDB()
         {
@@ -95,13 +94,14 @@ namespace SmartPartsPickerApi.Database
         }
 
 
-        public ProductProviders Product { get; set; } = new ProductProviders();
-        public ProductPriceProviders ProductPrice { get; set; } = new ProductPriceProviders();
-        public ProductImageProviders ProductImage { get; set; } = new ProductImageProviders();
-        public ProductSpecProviders ProductSpec { get; set; } = new ProductSpecProviders();
-        public GameProviders Game { get; set; } = new GameProviders();
-        public GameSpecProviders GameSpec { get; set; } = new GameSpecProviders();
-        public FilterProviders Filter { get; set; } = new FilterProviders();
+        public ProductProviders Product { get; } = new ProductProviders();
+        public ProductPriceProviders ProductPrice { get; } = new ProductPriceProviders();
+        public ProductImageProviders ProductImage { get; } = new ProductImageProviders();
+        public ProductSpecProviders ProductSpec { get; } = new ProductSpecProviders();
+        public GameProviders Game { get;  } = new GameProviders();
+        public GameSpecProviders GameSpec { get; } = new GameSpecProviders();
+        public FilterProviders Filter { get; } = new FilterProviders();
+        public ProductFilterProvider ProductFilter { get; } = new ProductFilterProvider();
     }
     public class DbWinbroker : DataConnection, IDisposable
     {
@@ -115,6 +115,7 @@ namespace SmartPartsPickerApi.Database
         public ITable<GameTable> Games => GetTable<GameTable>();
         public ITable<GameSpecTable> GameSpecs => GetTable<GameSpecTable>();
         public ITable<FilterTable> Filters => GetTable<FilterTable>();
+        public ITable<ProductFilterTable> ProductFilters => GetTable<ProductFilterTable>();
         #endregion
     }
     public class DBData

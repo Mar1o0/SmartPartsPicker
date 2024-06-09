@@ -40,5 +40,10 @@ namespace SmartPartsPickerApi.Models.Filters
             }
         }
         private readonly VideoCardFilterType _filterType;
+
+        public bool IsSuitable(Product product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

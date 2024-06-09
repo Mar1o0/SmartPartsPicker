@@ -9,8 +9,11 @@ namespace SmartPartsPickerApi.Database.Providers
         public async Task<ProductTable> CreateUpdate(ProductTable entity)
         {
             using var db = new DbWinbroker();
-            var id = db.Products.Any() ? db.Products.Max(x => x.Id) + 1 : 1;
-            entity.Id = id;
+            if(entity.Id == 0)
+            {
+                var id = db.Products.Any() ? db.Products.Max(x => x.Id) + 1 : 1;
+                entity.Id = id;
+            }
             await db.Products.InsertOrUpdateAsync(() => new ProductTable()
             {
                 Id = entity.Id,
@@ -27,7 +30,7 @@ namespace SmartPartsPickerApi.Database.Providers
                 Name = entity.Name ?? x.Name,
                 FullName = entity.FullName ?? x.FullName,
                 Description = entity.Description ?? x.Description,
-                ApiId = entity.ApiId ?? x.ApiId,
+                ApiId = entity.ApiId,
                 Type = x.Type,
                 Reviews = entity.Reviews 
             });

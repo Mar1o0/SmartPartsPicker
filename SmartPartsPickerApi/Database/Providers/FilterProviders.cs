@@ -41,5 +41,10 @@ namespace SmartPartsPickerApi.Database.Providers
             using var db = new DbWinbroker();
             return db.Filters.Where(x => x.ProductType == productType).ToList();
         }
+        public int Delete(ProductType productType)
+        {
+            using var db = new DbWinbroker();
+            return db.Filters.Delete(x=>x.ProductType == productType);
+        }
     }
 }

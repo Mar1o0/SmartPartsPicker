@@ -35,5 +35,10 @@ namespace SmartPartsPickerApi.Models.Filters
             }
         }
         private readonly HddFilterType _filterType;
+
+        public bool IsSuitable(Product product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

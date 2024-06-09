@@ -37,5 +37,10 @@ namespace SmartPartsPickerApi.Models.Filters
             }
         }
         private readonly DramFilterType _filterType;
+
+        public bool IsSuitable(Product product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

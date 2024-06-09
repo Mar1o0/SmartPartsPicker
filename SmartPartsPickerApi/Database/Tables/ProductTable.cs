@@ -12,7 +12,7 @@ namespace SmartPartsPickerApi.Database.Tables
         [Column(Name = "type")]
         public ProductType Type { get; set; }
         [Column(Name = "apiId")]
-        public string ApiId { get; set; }
+        public int ApiId { get; set; }
         [Column(Name = "name")]
         public string Name { get; set; }
         [Column(Name = "fullname")]

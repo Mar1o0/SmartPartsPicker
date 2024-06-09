@@ -7,5 +7,6 @@ namespace SmartPartsPickerApi.Interfaces
         public ProductType ProductType { get; }
         public int FilterType { get; }
         public string Value { get; }
+        public bool IsSuitable(Product product);
     }
 }
