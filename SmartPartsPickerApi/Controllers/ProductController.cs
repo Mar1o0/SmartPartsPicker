@@ -11,7 +11,7 @@ namespace SmartPartsPickerApi.Controllers
     {
         Database.Database _db = new Database.Database();
 
-        [HttpGet("products/{productType:regex(CPU|GPU|MB|RAM|SSD|HDD|PSU|CHASSIS)}")]
+        [HttpGet("products/{productType}")]
         public IActionResult GetProductsByType(ProductType productType,
                                                [FromQuery] double priceMin = 0,
                                                [FromQuery] double priceMax = double.MaxValue,

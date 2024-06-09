@@ -41,7 +41,7 @@ namespace SmartPartsPickerApi.Service.Internal
                     {
                         string jsonContent = File.ReadAllText(jsonFilePath);
                         var productResponse = JsonConvert.DeserializeObject<ProductResponseModel>(jsonContent);
-                        if(productsByTypes.TryGetValue(productType, out var products))
+                        if (productsByTypes.TryGetValue(productType, out var products))
                         {
                             products.AddRange(productResponse.products);
                         }
@@ -58,7 +58,7 @@ namespace SmartPartsPickerApi.Service.Internal
                     }
                 }
 
-                foreach (var productWithType in productsByTypes.Where(x=>x.Key == ProductType.CPU)/*ALARM THAT WAS JUST FOR TEST*/)
+                foreach (var productWithType in productsByTypes.Where(x => x.Key == ProductType.CPU)/*ALARM THAT WAS JUST FOR TEST*/)
                 {
                     var allFilterTabels = new Dictionary<FilterTable, IProductFilter>();
 
@@ -130,13 +130,11 @@ namespace SmartPartsPickerApi.Service.Internal
                             Console.WriteLine($"Ошибка при обработки продукта: {product.id} - {ex.Message}");
                         }
 
-                                Variant = filter.Value
-                            };
 
                     }
                 }
 
-                
+
             }
             catch (Exception ex)
             {
