@@ -18,6 +18,7 @@ namespace SmartPartsPickerApi.Database.Providers
                 Href = entity.Href,
                 ProductId = entity.ProductId,
                 ShopName = entity.ShopName,
+                ShopImage = entity.ShopImage,
             },
             x => new ProductPriceTable()
             {
@@ -27,6 +28,7 @@ namespace SmartPartsPickerApi.Database.Providers
                 Href = entity.Href ?? x.Href,
                 ProductId = entity.ProductId == x.ProductId ? entity.ProductId : x.ProductId,
                 ShopName = entity.ShopName ?? x.ShopName,
+                ShopImage = entity.ShopImage ?? x.ShopImage,
             });
             return entity;
         }

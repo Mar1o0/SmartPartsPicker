@@ -1,5 +1,6 @@
-﻿using SmartPartsPickerApi.Enums.Filters;
+﻿using SmartPartsPickerApi.Database.Tables;
 using SmartPartsPickerApi.Enums;
+using SmartPartsPickerApi.Enums.Filters;
 using SmartPartsPickerApi.Interfaces;
 
 namespace SmartPartsPickerApi.Models.Filters
@@ -12,6 +13,14 @@ namespace SmartPartsPickerApi.Models.Filters
             _filterType = filterType;
             Value = value;
         }
+
+        public HddFilter(FilterTable filter)
+        {
+            FilterType = filter.FilterType;
+            _filterType = (HddFilterType)filter.FilterType;
+            Value = filter.FilterVariat;
+        }
+
         public ProductType ProductType => ProductType.HDD;
 
         public int FilterType { get; private set; }
@@ -38,7 +47,24 @@ namespace SmartPartsPickerApi.Models.Filters
 
         public bool IsSuitable(Product product)
         {
-            throw new NotImplementedException();
+            var mfr = product.full_name.Split(' ').First().Trim();
+            var sata = product.description_list.FirstOrDefault(x => x.Contains(HDD_SATA_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
+            var speed = product.description_list.FirstOrDefault(x => x.Contains(HDD_SPEED_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
+
+            switch (_filterType)
+            {
+                case HddFilterType.Manufacturer:
+                    return mfr == Value;
+                case HddFilterType.Sata:
+                    return sata == Value;
+                case HddFilterType.Speed:
+                    return speed == Value;
+            }
+            return false;
         }
+
+        private const string HDD_NAME_PREFIX = "Жесткий диск";
+        private const string HDD_SATA_DESCRIPTION_PATTERN = "SATA";
+        private const string HDD_SPEED_DESCRIPTION_PATTERN = "об/мин";
     }
 }

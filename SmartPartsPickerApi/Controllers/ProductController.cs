@@ -71,6 +71,20 @@ namespace SmartPartsPickerApi.Controllers
                 {
                     case ProductType.CPU:
                         return Ok(filters.Select(x=> new CpuFilter(x)).ToList());
+                    case ProductType.GPU:
+                        return Ok(filters.Select(x=> new VideoCardFilter(x)).ToList());
+                    case ProductType.PSU:
+                        return Ok(filters.Select(x=> new PowerSupplyFilter(x)).ToList());
+                    case ProductType.RAM:
+                        return Ok(filters.Select(x=> new DramFilter(x)).ToList()); 
+                    case ProductType.CHASSIS:
+                        return Ok(filters.Select(x=> new ChassisFilter(x)).ToList());
+                    case ProductType.MB:
+                        return Ok(filters.Select(x=> new MotherBoardFilter(x)).ToList());
+                    case ProductType.HDD:
+                        return Ok(filters.Select(x=> new HddFilter(x)).ToList());
+                    //case ProductType.SSD:
+                    //    return Ok(filters.Select(x=> new SsdFiter(x)).ToList());
                     default:
                         return Ok(filters);
                 }

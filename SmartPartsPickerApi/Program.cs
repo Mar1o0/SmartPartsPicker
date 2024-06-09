@@ -12,48 +12,8 @@ namespace SmartPartsPickerApi
 
             Database.Database.CreateAllDb().Wait();
 
-            #region MyRegion
-            //var parser = new VideoCardFilterParser();
 
-            //var filters = parser.ParseFilters(null);
 
-            //foreach (var item in filters)
-            //{
-            //    switch (item.ProductType)
-            //    {
-            //        case Enums.ProductType.CPU:
-            //            var cpu = (CpuFilter)item;
-            //            var nameCpu = cpu.FilterFriendlyName;
-            //            break;
-            //        case Enums.ProductType.GPU:
-            //            var gpu = (VideoCardFilter)item;
-            //            var nameGpu = gpu.FilterFriendlyName;
-            //            break;
-            //        case Enums.ProductType.MB:
-            //            var mb = (MotherBoardFilter)item;
-            //            var nameMb = mb.FilterFriendlyName;
-            //            break;
-            //        case Enums.ProductType.RAM:
-            //            var ram = (DramFilter)item;
-            //            var nameRam = ram.FilterFriendlyName;
-            //            break;
-            //        case Enums.ProductType.PSU:
-            //            var psu = (PowerSupplyFilter)item;
-            //            var namePsu = psu.FilterFriendlyName;
-            //            break;
-            //        case Enums.ProductType.CHASSIS:
-            //            var chassis = (ChassisFilter)item;
-            //            var nameChassis = chassis.FilterFriendlyName;
-            //            break;
-            //        case Enums.ProductType.HDD:
-            //            var hdd = (HddFilter)item;
-            //            var nameHdd = hdd.FilterFriendlyName;
-            //            break;
-            //        case Enums.ProductType.SSD:
-            //            break;
-            //    }
-            //} 
-            #endregion
 
             if (args.Any() && args[0] == "--need-update")
             {

@@ -13,6 +13,8 @@ namespace SmartPartsPickerApi.Database.Tables
         public string ShopName { get; set; }
         [Column(Name = "href")]
         public string Href { get; set; }
+        [Column(Name = "shopImage")]
+        public string ShopImage { get; set; }
         [Column(Name = "price")]
         public double Price { get; set; }
         [Column(Name = "currency")]

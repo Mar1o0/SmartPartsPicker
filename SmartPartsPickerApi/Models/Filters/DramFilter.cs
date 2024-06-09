@@ -1,5 +1,6 @@
-﻿using SmartPartsPickerApi.Enums.Filters;
+﻿using SmartPartsPickerApi.Database.Tables;
 using SmartPartsPickerApi.Enums;
+using SmartPartsPickerApi.Enums.Filters;
 using SmartPartsPickerApi.Interfaces;
 
 namespace SmartPartsPickerApi.Models.Filters
@@ -12,6 +13,14 @@ namespace SmartPartsPickerApi.Models.Filters
             _filterType = filterType;
             Value = value;
         }
+
+        public DramFilter(FilterTable filter)
+        {
+            FilterType = filter.FilterType;
+            _filterType = (DramFilterType)filter.FilterType;
+            Value = filter.FilterVariat;
+        }
+
         public ProductType ProductType => ProductType.RAM;
 
         public int FilterType { get; private set; }
@@ -40,7 +49,28 @@ namespace SmartPartsPickerApi.Models.Filters
 
         public bool IsSuitable(Product product)
         {
-            throw new NotImplementedException();
+            var mfr = product.full_name.Split(' ').First().Trim();
+            var size = product.description_list.FirstOrDefault(x => x.Contains(DRAM_SIZE_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
+            var rate = product.description_list.FirstOrDefault(x => x.Contains(DRAM_RATE_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
+            var voltage = product.description_list.FirstOrDefault(x => x.Contains(DRAM_VOLTAGE_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
+
+            switch (_filterType)
+            {
+                case DramFilterType.Manufacturer:
+                    return mfr == Value;
+                case DramFilterType.Size:
+                    return size == Value;
+                case DramFilterType.Rate:
+                    return rate == Value;
+                case DramFilterType.Voltage:
+                    return voltage == Value;
+            }
+            return false;
         }
+
+        private const string DRAM_NAME_PREFIX = "Оперативная память";
+        private const string DRAM_SIZE_DESCRIPTION_PATTERN = "ГБ";
+        private const string DRAM_RATE_DESCRIPTION_PATTERN = "частота";
+        private const string DRAM_VOLTAGE_DESCRIPTION_PATTERN = "напряжение";
     }
 }

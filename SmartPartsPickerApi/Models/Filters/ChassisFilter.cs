@@ -1,4 +1,5 @@
-﻿using SmartPartsPickerApi.Enums;
+﻿using SmartPartsPickerApi.Database.Tables;
+using SmartPartsPickerApi.Enums;
 using SmartPartsPickerApi.Enums.Filters;
 using SmartPartsPickerApi.Interfaces;
 
@@ -12,6 +13,14 @@ namespace SmartPartsPickerApi.Models.Filters
             _filterType = filterType;
             Value = value;
         }
+
+        public ChassisFilter(FilterTable filter)
+        {
+            FilterType = filter.FilterType;
+            _filterType = (ChassisFilterType)filter.FilterType;
+            Value = filter.FilterVariat;
+        }
+
         public ProductType ProductType => ProductType.CHASSIS;
 
         public int FilterType { get; private set; }
@@ -42,7 +51,33 @@ namespace SmartPartsPickerApi.Models.Filters
 
         public bool IsSuitable(Product product)
         {
-            throw new NotImplementedException();
+            var mfr = product.full_name.Split(' ').First().Trim();
+            var width = product.description_list.FirstOrDefault(x => x.Contains(CHASSIS_WIDTH_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
+            var count = product.description_list.FirstOrDefault(x => x.Contains(CHASSIS_COUNT_FANS_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
+            var sizeVD = product.description_list.FirstOrDefault(x => x.Contains(CHASSIS_SIZE_VIDEOCARD_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
+            var color = product.description_list.FirstOrDefault(x => x.Contains(CHASSIS_COLOR_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
+
+            switch (_filterType) // так не делай нигде больше
+            {
+                case ChassisFilterType.Manufacturer:
+                    return mfr == Value;
+                case ChassisFilterType.Width:
+                    return width == Value;
+                case ChassisFilterType.Count_Fans:
+                    return count == Value;
+                case ChassisFilterType.Size_VideoCard:
+                    return sizeVD == Value;
+                case ChassisFilterType.Color:
+                    return color == Value;
+            }
+            return false;
+
         }
+
+        private const string CHASSIS_NAME_PREFIX = "Корпус";
+        private const string CHASSIS_WIDTH_DESCRIPTION_PATTERN = "Tower";
+        private const string CHASSIS_COUNT_FANS_DESCRIPTION_PATTERN = "в комплекте";
+        private const string CHASSIS_SIZE_VIDEOCARD_DESCRIPTION_PATTERN = "видеокарта до";
+        private const string CHASSIS_COLOR_DESCRIPTION_PATTERN = "цвет";
     }
 }
