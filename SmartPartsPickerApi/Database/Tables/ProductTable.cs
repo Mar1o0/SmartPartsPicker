@@ -21,7 +21,5 @@ namespace SmartPartsPickerApi.Database.Tables
         public string Description { get; set; }
         [Column(Name = "reviews")]
         public int Reviews { get; set; }
-        [NotColumn]
-        public List<ProductPriceTable> Price;
     }
 }

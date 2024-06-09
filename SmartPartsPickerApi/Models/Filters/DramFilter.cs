@@ -16,11 +16,13 @@ namespace SmartPartsPickerApi.Models.Filters
 
         public DramFilter(FilterTable filter)
         {
+            Id = filter.Id;
             FilterType = filter.FilterType;
             _filterType = (DramFilterType)filter.FilterType;
             Value = filter.FilterVariat;
         }
 
+        public int Id { get; set; }
         public ProductType ProductType => ProductType.RAM;
 
         public int FilterType { get; private set; }

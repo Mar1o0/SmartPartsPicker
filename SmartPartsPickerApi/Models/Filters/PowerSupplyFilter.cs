@@ -19,10 +19,12 @@ namespace SmartPartsPickerApi.Models.Filters
 
         public PowerSupplyFilter(FilterTable filter)
         {
+            Id = filter.Id;
             FilterType = filter.FilterType;
             _filterType = (PowerSupplyFilterType)filter.FilterType;
             Value = filter.FilterVariat;
         }
+        public int Id { get; set; }
         public ProductType ProductType => ProductType.PSU;
 
         public int FilterType { get; private set; }

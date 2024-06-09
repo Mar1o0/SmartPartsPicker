@@ -23,10 +23,13 @@ namespace SmartPartsPickerApi.Models.Filters
 
         public CpuFilter(FilterTable filter)
         {
+            Id = filter.Id;
             FilterType = filter.FilterType;
             _filterType = (CpuFilterType)filter.FilterType;
             Value = filter.FilterVariat;
         }
+
+        public int Id { get; set; }
 
         public ProductType ProductType => ProductType.CPU;
 
@@ -54,6 +57,8 @@ namespace SmartPartsPickerApi.Models.Filters
                 return "Другое";
             }
         }
+
+
         private readonly CpuFilterType _filterType;
 
         public bool IsSuitable(Product product)

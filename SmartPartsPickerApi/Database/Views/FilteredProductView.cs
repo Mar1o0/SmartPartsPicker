@@ -8,5 +8,7 @@ namespace SmartPartsPickerApi.Database.Views
 
         [Column(Name = "href")]
         public string? Image { get; set; }
+        [NotColumn]
+        public List<ProductPriceTable> Price;
     }
 }

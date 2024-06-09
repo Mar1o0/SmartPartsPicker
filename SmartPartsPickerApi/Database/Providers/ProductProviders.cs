@@ -46,17 +46,6 @@ namespace SmartPartsPickerApi.Database.Providers
             return db.Products.ToList();
         }
 
-        public ProductTable GetById(int id)
-        {
-            using var db = new DbWinbroker();
-            return db.Products.FirstOrDefault(x => x.Id == id);
-        }
-
-        public List<ProductTable> GetAllByType(ProductType type)
-        {
-            using var db = new DbWinbroker();
-            return db.Products.Where(x => x.Type == type).ToList();
-        }
         public FilteredProductView GetProductById(int id)
         {
             using var db = new DbWinbroker();
@@ -67,6 +56,13 @@ namespace SmartPartsPickerApi.Database.Providers
                 "INNER JOIN ProductImage pi on pi.productId = p.id " +
                 $"Where p.id = {id};"
                 ).FirstOrDefault();
+
+            var prices = db.Query<ProductPriceTable>(
+                "SELECT pp.* FROM ProductPrice pp " +
+                $"WHERE pp.productId = {id};" +
+                "").ToList();
+
+
 
             return productResponses;
         }
@@ -91,7 +87,28 @@ namespace SmartPartsPickerApi.Database.Providers
                 $"Where pf.filter_id in ({filters}) AND p.type = {(int)productType} " +
                 $"LIMIT {per_page} OFFSET {page*per_page};"
                 ).ToList();
-           
+
+            var productIds = productResponses.Select(x => x.Id);
+
+            var prices = db.Query<ProductPriceTable>(
+                "SELECT pp.* FROM ProductPrice pp " +
+                $"WHERE pp.productId in ({string.Join(", ", productIds)});" +
+                "").ToList(); // 8ms
+
+            //var q = db.ProductPrices.Where(x => productIds.Contains(x.ProductId));
+
+            //Console.WriteLine(q.ToString());
+
+            //var prices = q.ToList(); // 161ms
+
+            foreach (var product in productResponses)
+            {
+                product.Price = prices.Where(x => x.ProductId == product.Id).ToList();
+            }
+
+            productResponses = productResponses
+                .Where(x => priceMin < x.Price.Min(p => p.Price) && priceMax > x.Price.Min(p => p.Price))
+                .ToList();
 
             return productResponses;
         }
