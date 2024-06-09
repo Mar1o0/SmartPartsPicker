@@ -17,7 +17,6 @@ namespace SmartPartsPickerApi.Database.Providers
                 FilterType = entity.FilterType,
                 FilterVariat = entity.FilterVariat,
                 ProductType = entity.ProductType,
-                ParamName = entity.ParamName,
             },
             x => new FilterTable()
             {
@@ -25,7 +24,6 @@ namespace SmartPartsPickerApi.Database.Providers
                 FilterType = entity.FilterType,
                 FilterVariat = entity.FilterVariat,
                 ProductType = entity.ProductType == x.ProductType ? x.ProductType : entity.ProductType,
-                ParamName = entity.ParamName ?? x.ParamName,
             });
             return entity;
         }

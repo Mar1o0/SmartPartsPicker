@@ -75,12 +75,28 @@ namespace SmartPartsPickerApi.Database.Providers
             return productResponses;
         }
         
-        public List<ProductTable> GetAllProductByType(ProductType type)
+        public List<ProductTable> GetAllProductByFilters(ProductType productType,
+                                                         double priceMin = 0,
+                                                         double priceMax = double.MaxValue,
+                                                         string filters = null,
+                                                         int page = 1,
+                                                         int per_page = 20)
         {
             using var db = new DbWinbroker();
 
-            var products = db.Products.Where(x => x.Type == type).ToList();
+            var productsQuery = db.Products.Where(x => x.Type == productType)
+                                           .Where(p =>
+                                           db.ProductPrices.Any(pr => pr.ProductId == p.Id && pr.Price >= priceMin && pr.Price <= priceMax));
 
+            if (!string.IsNullOrEmpty(filters))
+            {
+                var filterIds = filters.Split(',').Select(int.Parse).ToList();
+                productsQuery = productsQuery.Where(p => db.ProductFilters.Any(pf => pf.ProductId == p.Id && filterIds.Contains(pf.FilterId)));
+            }
+
+            productsQuery = productsQuery.Skip((page - 1) * per_page).Take(per_page);
+
+            var products = productsQuery.ToList();
             var productIds = products.Select(p => p.Id).ToList();
             var allImages = db.ProductImages.Where(i => productIds.Contains(i.ProductId)).ToList();
             var allPrices = db.ProductPrices.Where(pr => productIds.Contains(pr.ProductId)).ToList();

@@ -130,6 +130,8 @@ namespace SmartPartsPickerApi.Service.Internal
                             Console.WriteLine($"Ошибка при обработки продукта: {product.id} - {ex.Message}");
                         }
 
+                                Variant = filter.Value
+                            };
 
                     }
                 }

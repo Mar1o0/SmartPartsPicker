@@ -1,7 +1,6 @@
 ﻿using LinqToDB;
 using LinqToDB.Configuration;
 using LinqToDB.Data;
-using Microsoft.AspNetCore.Mvc.Filters;
 using SmartPartsPickerApi.Database.Providers;
 using SmartPartsPickerApi.Database.Tables;
 using System.Data.SQLite;
@@ -98,8 +97,6 @@ namespace SmartPartsPickerApi.Database
         public ProductPriceProviders ProductPrice { get; } = new ProductPriceProviders();
         public ProductImageProviders ProductImage { get; } = new ProductImageProviders();
         public ProductSpecProviders ProductSpec { get; } = new ProductSpecProviders();
-        public GameProviders Game { get;  } = new GameProviders();
-        public GameSpecProviders GameSpec { get; } = new GameSpecProviders();
         public FilterProviders Filter { get; } = new FilterProviders();
         public ProductFilterProvider ProductFilter { get; } = new ProductFilterProvider();
     }
@@ -112,8 +109,6 @@ namespace SmartPartsPickerApi.Database
         public ITable<ProductImageTable> ProductImages => GetTable<ProductImageTable>();
         public ITable<ProductPriceTable> ProductPrices => GetTable<ProductPriceTable>();
         public ITable<ProductSpecTable> ProductSpecs => GetTable<ProductSpecTable>();
-        public ITable<GameTable> Games => GetTable<GameTable>();
-        public ITable<GameSpecTable> GameSpecs => GetTable<GameSpecTable>();
         public ITable<FilterTable> Filters => GetTable<FilterTable>();
         public ITable<ProductFilterTable> ProductFilters => GetTable<ProductFilterTable>();
         #endregion
