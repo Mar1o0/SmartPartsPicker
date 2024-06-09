@@ -1,0 +1,714 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Smart Parts Picker API",
+    "version": "1.0.0",
+    "description": "API для подбора комплектующих ПК"
+  },
+  "servers": [{
+    "url": "https://localhost:8074"
+  }],
+  "paths": {
+    "/api/products": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "Получить все продукты по типу",
+        "description": "Возвращает список всех продуктов указанного типа.",
+        "parameters": [{
+          "name": "type",
+          "in": "query",
+          "description": "Тип продукта (CPU, GPU, MB, RAM, SSD, HDD, PSU, CHASSIS)",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "CPU",
+              "GPU",
+              "MB",
+              "RAM",
+              "SSD",
+              "HDD",
+              "PSU",
+              "CHASSIS"
+            ]
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Список продуктов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос"
+          }
+        }
+      }
+    },
+    "/api/products/{productType}": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "Получить продукты по типу",
+        "description": "Возвращает продукты по указанному типу.",
+        "parameters": [{
+          "name": "productType",
+          "in": "path",
+          "description": "Тип продукта",
+          "required": true,
+          "schema": {
+            "type": "number",
+            "enum": [
+              "CPU",
+              "GPU",
+              "MB",
+              "RAM",
+              "SSD",
+              "HDD",
+              "PSU",
+              "CHASSIS"
+            ]
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Список продуктов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Продукт не найден"
+          }
+        }
+      }
+    },
+    "/api/product/{id}": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "Получить продукт по ID",
+        "description": "Возвращает продукт с указанным ID.",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "ID продукта",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Продукт",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Продукт не найден"
+          }
+        }
+      }
+    },
+    "/api/productsSpecs": {
+      "get": {
+        "tags": ["ProductSpec"],
+        "summary": "Получить список спецификаций продуктов",
+        "description": "Возвращает список всех спецификаций продуктов.",
+        "responses": {
+          "200": {
+            "description": "Список спецификаций продуктов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductSpec"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос"
+          }
+        }
+      }
+    },
+    "/api/productSpec/{id}": {
+      "get": {
+        "tags": ["ProductSpec"],
+        "summary": "Получить список спецификаций по ID продукта",
+        "description": "Возвращает список всех спецификаций по ID продукта.",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "ID продукта",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Список спецификаций продукта",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductSpec"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос"
+          }
+        }
+      }
+    },
+    "/api/productSpec/{productSpecType}": {
+      "get": {
+        "tags": ["ProductSpec"],
+        "summary": "Получить список продуктов по типу спецификации",
+        "description": "Возвращает список продуктов по типу спецификации.",
+        "parameters": [{
+          "name": "productSpecType",
+          "in": "path",
+          "description": "Тип спецификации",
+          "required": true,
+          "schema": {
+            "type": "number",
+            "enum": [
+              "CoreAmount",
+              "ThreadAmount",
+              "BaseClock",
+              "BoostClock",
+              "CacheSize",
+              "TDP",
+              "MemorySize",
+              "MemoryType",
+              "MemorySpeed",
+              "PCIeVersion",
+              "SATAPorts",
+              "USBPorts",
+              "FormFactor",
+              "PowerOutput",
+              "EfficiencyRating",
+              "FanSize",
+              "FanRPM",
+              "Color",
+              "Weight",
+              "Dimensions"
+            ]
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Список продуктов по спецификации",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductSpec"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос"
+          }
+        }
+      }
+    },
+    "/api/productsSpecs/GetSpec/": {
+      "get": {
+        "tags": ["ProductSpec"],
+        "summary": "Получить список продуктов по типу спецификации и значению",
+        "description": "Возвращает список продуктов по типу спецификации и значению.",
+        "parameters": [{
+            "name": "productSpecType",
+            "in": "header",
+            "description": "Тип спецификации",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "enum": [
+                "CoreAmount",
+                "ThreadAmount",
+                "BaseClock",
+                "BoostClock",
+                "CacheSize",
+                "TDP",
+                "MemorySize",
+                "MemoryType",
+                "MemorySpeed",
+                "PCIeVersion",
+                "SATAPorts",
+                "USBPorts",
+                "FormFactor",
+                "PowerOutput",
+                "EfficiencyRating",
+                "FanSize",
+                "FanRPM",
+                "Color",
+                "Weight",
+                "Dimensions"
+              ]
+            }
+          },
+          {
+            "name": "value",
+            "in": "header",
+            "description": "Значение спецификации",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список продуктов по спецификации",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductSpec"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос"
+          }
+        }
+      }
+    },
+    "/api/productImage": {
+      "get": {
+        "tags": ["ProductImage"],
+        "summary": "Получить список изображений продуктов",
+        "description": "Возвращает список всех изображений продуктов.",
+        "responses": {
+          "200": {
+            "description": "Список изображений продуктов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductImage"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос"
+          }
+        }
+      }
+    },
+    "/api/productImage/{id}": {
+      "get": {
+        "tags": ["ProductImage"],
+        "summary": "Получить изображение продукта по ID продукта",
+        "description": "Возвращает изображение продукта с указанным ID.",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "ID изображения продукта",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Изображение продукта",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductImage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Изображение продукта не найдено"
+          }
+        }
+      }
+    },
+    "/api/productPrice": {
+      "get": {
+        "tags": ["ProductPrice"],
+        "summary": "Получить список цен продуктов",
+        "description": "Возвращает список всех цен продуктов.",
+        "responses": {
+          "200": {
+            "description": "Список цен продуктов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductPrice"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос"
+          }
+        }
+      }
+    },
+    "/api/productPrice/{productId}": {
+      "get": {
+        "tags": ["ProductPrice"],
+        "summary": "Получить цену по ID продукта",
+        "description": "Возвращает цену продукта с указанным ID.",
+        "parameters": [{
+          "name": "productId",
+          "in": "path",
+          "description": "ID продукта",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Цена продукта",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductPrice"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Цена продукта не найдена"
+          }
+        }
+      }
+    },
+    "/api/productPrice/products": {
+      "get": {
+        "tags": ["ProductPrice"],
+        "summary": "Получить продукты в диапазоне цен",
+        "description": "Возвращает список продуктов в заданном ценовом диапазоне",
+        "parameters": [{
+            "name": "minPrice",
+            "in": "header",
+            "description": "Минимальная цена",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "maxPrice",
+            "in": "header",
+            "description": "Максимальная цена",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный запрос",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductPrice"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Изображение продукта не найдено"
+          }
+        }
+      }
+    },
+
+    "/api/filters": {
+      "get": {
+        "tags": ["Filter"],
+        "summary": "Получить список всех фильтров",
+        "description": "Возвращает список всех фильтров.",
+        "responses": {
+          "200": {
+            "description": "Список фильтров",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Filter"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос"
+          }
+        }
+      }
+    },
+    "/api/filter/{productType}": {
+      "get": {
+        "tags": ["Filter"],
+        "summary": "Получить фильтр по типу продукта",
+        "description": "Возвращает фильтр с указанным типом продукта.",
+        "parameters": [{
+          "name": "product type",
+          "in": "path",
+          "description": "Тип продукта",
+          "required": true,
+          "schema": {
+            "type": "number",
+            "enum": [
+              "CPU",
+              "GPU",
+              "MB",
+              "RAM",
+              "SSD",
+              "HDD",
+              "PSU",
+              "CHASSIS"
+            ]
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "Фильтр",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Filter"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Фильтр не найден"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор продукта"
+          },
+          "type": {
+            "type": "number",
+            "description": "Тип продукта",
+            "enum": [
+              "CPU",
+              "GPU",
+              "MB",
+              "RAM",
+              "SSD",
+              "HDD",
+              "PSU",
+              "CHASSIS"
+            ]
+          },
+          "apiId": {
+            "type": "string",
+            "description": "ID продукта из внешнего API"
+          },
+          "name": {
+            "type": "string",
+            "description": "Название продукта"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "Полное название продукта"
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание продукта"
+          }
+        }
+      },
+      "ProductSpec": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор спецификации продукта"
+          },
+          "productId": {
+            "type": "integer",
+            "description": "ID продукта"
+          },
+          "type": {
+            "type": "number",
+            "description": "Тип спецификации (например, CoreAmount, MemorySize)",
+            "enum": [
+              "CoreAmount",
+              "ThreadAmount",
+              "BaseClock",
+              "BoostClock",
+              "CacheSize",
+              "TDP",
+              "MemorySize",
+              "MemoryType",
+              "MemorySpeed",
+              "PCIeVersion",
+              "SATAPorts",
+              "USBPorts",
+              "FormFactor",
+              "PowerOutput",
+              "EfficiencyRating",
+              "FanSize",
+              "FanRPM",
+              "Color",
+              "Weight",
+              "Dimensions"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение спецификации"
+          }
+        }
+      },
+      "ProductImage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор изображения продукта"
+          },
+          "productId": {
+            "type": "integer",
+            "description": "ID продукта"
+          },
+          "href": {
+            "type": "string",
+            "description": "URL изображения"
+          }
+        }
+      },
+      "ProductPrice": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор цены продукта"
+          },
+          "productId": {
+            "type": "integer",
+            "description": "ID продукта"
+          },
+          "shopId": {
+            "type": "integer",
+            "description": "Идентификатор магазина"
+          },
+          "shopName": {
+            "type": "string",
+            "description": "Название магазина"
+          },
+          "shopImage": {
+            "type": "string",
+            "description": "URL изображения магазина"
+          },
+          "href": {
+            "type": "string",
+            "description": "URL страницы продукта"
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "description": "Цена продукта"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Валюта цены"
+          }
+        }
+      },
+      "Filter": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор фильтра"
+          },
+          "productType": {
+            "type": "number",
+            "description": "Тип продукта, к которому относится фильтр",
+            "enum": [
+              "CPU",
+              "GPU",
+              "MB",
+              "RAM",
+              "SSD",
+              "HDD",
+              "PSU",
+              "CHASSIS"
+            ]
+          },
+          "filterType": {
+            "type": "integer",
+            "description": "Тип фильтра (например, производитель, объем памяти)"
+          },
+          "paramName": {
+            "type": "string",
+            "description": "Название параметра фильтра"
+          },
+          "variant": {
+            "type": "string",
+            "description": "Значение варианта фильтра"
+          }
+        }
+      }
+    }
+  }
+}
