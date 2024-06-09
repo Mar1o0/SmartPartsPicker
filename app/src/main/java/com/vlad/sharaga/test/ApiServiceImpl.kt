@@ -1,10 +1,14 @@
 package com.vlad.sharaga.test
 
+import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.BudgetAssemblyItem
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewItem
 import com.vlad.sharaga.core.adapter.spinner.SearchResultItem
 import com.vlad.sharaga.data.ProductId
 import com.vlad.sharaga.models.Filter
+import com.vlad.sharaga.models.FilterDTO
 import com.vlad.sharaga.models.FilterType
 import com.vlad.sharaga.models.Product
 import com.vlad.sharaga.models.ProductImage
@@ -12,6 +16,10 @@ import com.vlad.sharaga.models.ProductPrice
 import com.vlad.sharaga.models.ProductSpec
 import com.vlad.sharaga.models.ProductType
 import com.vlad.sharaga.network.api.ApiService
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 class ApiServiceImpl : ApiService {
 
@@ -135,92 +143,102 @@ class ApiServiceImpl : ApiService {
         )
     }
 
-    override suspend fun fetchProduct(productId: ProductId): Product {
-        return Product(
-            id = productId,
-            type = "GPU",
-            apiId = "192384",
-            name = "RX 7900",
-            fullName = "Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G",
-            description = "Видеокарта Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G - это мощное графическое устройство с поддержкой трассировки лучей, идеально подходящее для игр в 4K.\nС поддержкой DirectX 12 Ultimate, эта видеокарта обеспечивает высокую производительность и качество графики.\nС разогнанной версией графического процессора и подсветкой, она предлагает улучшенный игровой опыт.\nС 16 ГБ видеопамяти и 80 RT-ядрами, эта видеокарта обеспечивает высокую производительность и плавную работу в самых требовательных играх.",
-            rating = 3.4f,
-        )
+    override suspend fun fetchProduct(productId: ProductId): Product? {
+        val url = URL("https://vlad.joomboosick.ru/api/products/$productId")
+
+        val openedConnection = url.openConnection() as HttpURLConnection
+        openedConnection.requestMethod = "GET"
+
+        val responseCode = openedConnection.responseCode
+        try {
+            val reader = BufferedReader(InputStreamReader(openedConnection.inputStream))
+            val response = reader.readText()
+            reader.close()
+
+            val product = Gson().fromJson(response, Product::class.java)
+            return  product
+        } catch (e: Exception) {
+            Log.d("Error", e.message.toString())
+        } finally {
+
+        }
+        return null
     }
 
     override suspend fun fetchProducts(productType: String): List<Product> {
-        return listOf(
-            Product(
-                id = 192384,
-                type = productType,
-                apiId = "192384",
-                name = "RX 7900",
-                fullName = "Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G",
-                description = "Видеокарта Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G - это мощное графическое устройство с поддержкой трассировки лучей, идеально подходящее для игр в 4K.\nС поддержкой DirectX 12 Ultimate, эта видеокарта обеспечивает высокую производительность и качество графики.\nС разогнанной версией графического процессора и подсветкой, она предлагает улучшенный игровой опыт.\nС 16 ГБ видеопамяти и 80 RT-ядрами, эта видеокарта обеспечивает высокую производительность и плавную работу в самых требовательных играх.",
-                rating = 3.4f,
-            ),
-            Product(
-                id = 192385,
-                type = productType,
-                apiId = "192384",
-                name = "RTX 4060",
-                fullName = "Gigabyte GeForce RTX 4060 Gaming OC 8G GV-N4060GAMING OC-8GD",
-                description = "Видеокарта Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G - это мощное графическое устройство с поддержкой трассировки лучей, идеально подходящее для игр в 4K.\nС поддержкой DirectX 12 Ultimate, эта видеокарта обеспечивает высокую производительность и качество графики.\nС разогнанной версией графического процессора и подсветкой, она предлагает улучшенный игровой опыт.\nС 16 ГБ видеопамяти и 80 RT-ядрами, эта видеокарта обеспечивает высокую производительность и плавную работу в самых требовательных играх.",
-                rating = 3.4f,
-            ),
-            Product(
-                id = 192386,
-                type = productType,
-                apiId = "192384",
-                name = "RTX 4060",
-                fullName = "Palit GeForce RTX 4060 Dual OC NE64060T19P1-1070D",
-                description = "Видеокарта Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G - это мощное графическое устройство с поддержкой трассировки лучей, идеально подходящее для игр в 4K.\nС поддержкой DirectX 12 Ultimate, эта видеокарта обеспечивает высокую производительность и качество графики.\nС разогнанной версией графического процессора и подсветкой, она предлагает улучшенный игровой опыт.\nС 16 ГБ видеопамяти и 80 RT-ядрами, эта видеокарта обеспечивает высокую производительность и плавную работу в самых требовательных играх.",
-                rating = 3.4f,
-            ),
-            Product(
-                id = 192387,
-                type = productType,
-                apiId = "192384",
-                name = "RTX 4060 Ti",
-                fullName = "MSI GeForce RTX 4060 Ti Gaming X 8G",
-                description = "Видеокарта Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G - это мощное графическое устройство с поддержкой трассировки лучей, идеально подходящее для игр в 4K.\nС поддержкой DirectX 12 Ultimate, эта видеокарта обеспечивает высокую производительность и качество графики.\nС разогнанной версией графического процессора и подсветкой, она предлагает улучшенный игровой опыт.\nС 16 ГБ видеопамяти и 80 RT-ядрами, эта видеокарта обеспечивает высокую производительность и плавную работу в самых требовательных играх.",
-                rating = 3.4f,
-            ),
-        )
+        var products = listOf<Product>()
+        val url = URL("https://vlad.joomboosick.ru/api/products/$productType?priceMin=0&priceMax=1000&page=1&per_page=1000")
+
+        val openedConnection = url.openConnection() as HttpURLConnection
+        openedConnection.requestMethod = "GET"
+
+        val responseCode = openedConnection.responseCode
+        try {
+            val reader = BufferedReader(InputStreamReader(openedConnection.inputStream))
+            val response = reader.readText()
+            reader.close()
+            val productListType = object : TypeToken<List<Product>>() {}.type
+
+            products = Gson().fromJson(response, productListType)
+        } catch (e: Exception) {
+            Log.d("Error", e.message.toString())
+        } finally {
+
+        }
+        products.forEach{ product ->
+            product.rating /= 10
+        }
+        return products
     }
 
     override suspend fun fetchFilters(productType: ProductType): List<Filter> {
-        return listOf(
-            Filter(
+        /*
+        * Filter(
                 id = 1,
                 filterName = "Производитель",
                 filterType = FilterType.SELECT,
                 variants = listOf("Palit", "Gigabyte", "MSI", "Asus", "Sapphire", "Zotac", "EVGA", "GALAX"),
-            ),
-            Filter(
-                id = 1,
-                filterName = "Цена",
-                filterType = FilterType.RANGE,
-                variants = listOf("1200", "2500"),
-            ),
-            Filter(
-                id = 2,
-                filterName = "Подсветка",
-                filterType = FilterType.RADIO,
-                variants = listOf("да", "нет"),
-            ),
-            Filter(
-                id = 3,
-                filterName = "Производитель",
-                filterType = FilterType.SELECT,
-                variants = listOf("Palit", "Gigabyte", "MSI", "Asus", "Sapphire", "Zotac", "EVGA", "GALAX"),
-            ),
-            Filter(
-                id = 4,
-                filterName = "Производитель",
-                filterType = FilterType.SELECT,
-                variants = listOf("Palit", "Gigabyte", "MSI", "Asus", "Sapphire", "Zotac", "EVGA", "GALAX"),
-            ),
+            )
+        *
+        * */
+        val filters: HashMap<Int, Filter> = hashMapOf<Int, Filter>()
+
+        var filterDtos = listOf<FilterDTO>()
+        val url = URL("https://vlad.joomboosick.ru/api/product/filter/$productType")
+
+        val openedConnection = url.openConnection() as HttpURLConnection
+        openedConnection.requestMethod = "GET"
+
+        val responseCode = openedConnection.responseCode
+        try {
+            val reader = BufferedReader(InputStreamReader(openedConnection.inputStream))
+            val response = reader.readText()
+            reader.close()
+            val productListType = object : TypeToken<List<FilterDTO>>() {}.type
+
+            filterDtos = Gson().fromJson(response, productListType)
+        } catch (e: Exception) {
+            Log.d("Error", e.message.toString())
+        } finally {
+
+        }
+        filterDtos.forEach { dto ->
+            if(filters.containsKey(dto.filterType)){
+                filters[dto.filterType]?.variants?.add(dto.value)
+            }
+            else{
+                filters[dto.filterType] = Filter(dto.id, dto.filterFriendlyName, FilterType.SELECT, mutableListOf<String>(dto.value) )
+            }
+        }
+
+        filters[-1] = Filter(
+            id = 1,
+            filterName = "Цена",
+            filterType = FilterType.RANGE,
+            variants = mutableListOf("150", "3000"),
         )
+
+        return filters.values.toList()
     }
 
     override suspend fun fetchAssemblies(budgetPrice: Int): List<BudgetAssemblyItem> {
