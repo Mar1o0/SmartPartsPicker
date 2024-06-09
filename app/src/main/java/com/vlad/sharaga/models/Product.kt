@@ -7,5 +7,7 @@ data class Product(
     val name: String,
     val fullName: String,
     val description: String,
-    val rating: Float,
+    var rating: Float,
+    val price: List<ProductPrice>,
+    val image: String
 )

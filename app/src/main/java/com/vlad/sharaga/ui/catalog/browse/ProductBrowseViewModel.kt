@@ -6,6 +6,7 @@ import com.vlad.sharaga.data.MainRepository
 import com.vlad.sharaga.core.adapter.recycler.fingerprints.ProductPreviewItem
 import com.vlad.sharaga.core.adapter.spinner.SearchResultItem
 import com.vlad.sharaga.models.Product
+import com.vlad.sharaga.models.ProductImage
 import com.vlad.sharaga.models.ProductType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -34,8 +35,8 @@ class ProductBrowseViewModel @Inject constructor(
             val products = mainRepository.apiClient
                 .fetchProducts(productType.id)
                 ?.mapNotNull { product: Product ->
-                    val productPrices = mainRepository.apiClient.fetchProductPrices(product.id)
-                    val productImage = mainRepository.apiClient.fetchProductImage(product.id)
+                    val productPrices = product.price
+                    val productImage = ProductImage(product.id, product.id, product.image)
 
                     if (productPrices == null || productImage == null) {
                         return@mapNotNull null

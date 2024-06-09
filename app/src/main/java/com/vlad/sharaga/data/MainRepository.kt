@@ -8,5 +8,5 @@ import javax.inject.Inject
 class MainRepository @Inject constructor(
     val apiClient: ApiClient,
     val appPreferences: AppPreferences,
-    val assemblyDao: AssemblyDao,
+    val assemblyDao: AssemblyDao
 )
