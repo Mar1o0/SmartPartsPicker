@@ -80,12 +80,14 @@ namespace SmartPartsPickerApi.Database.Providers
                 throw new Exception("Page must be over 1");
             }
 
-            var productResponses = db.Query<FilteredProductView>(
-                "Select p.*, pi.href From Product p " +
+            var q = "Select p.*, pi.href From Product p " +
                 "INNER JOIN ProductFilter pf on pf.product_id = p.id " +
                 "INNER JOIN ProductImage pi on pi.productId = p.id " +
-                $"Where pf.filter_id in ({filters}) AND p.type = {(int)productType} " +
-                $"LIMIT {per_page} OFFSET {page*per_page};"
+                $"Where {(string.IsNullOrEmpty(filters) ? "" : $"pf.filter_id in ({filters}) AND")} p.type = {(int)productType} " +
+                $"LIMIT {per_page} OFFSET {page * per_page};";
+
+            var productResponses = db.Query<FilteredProductView>(
+                q
                 ).ToList();
 
             var productIds = productResponses.Select(x => x.Id);

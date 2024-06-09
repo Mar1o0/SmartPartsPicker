@@ -2,7 +2,7 @@ using SmartPartsPickerApi.Service.Internal;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using Newtonsoft.Json.Converters;
-
+using System.Diagnostics;
 namespace SmartPartsPickerApi
 {
     public class Program
@@ -32,6 +32,7 @@ namespace SmartPartsPickerApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGenNewtonsoftSupport();
 
             var app = builder.Build();
             
@@ -42,11 +43,17 @@ namespace SmartPartsPickerApi
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseAuthorization();
 
-            app.Urls.Add("http://+:8080");
+            if (Debugger.IsAttached)
+            {
+                app.Urls.Add("http://+:5252");
+            }
+            else
+            {
+                app.Urls.Add("http://+:8080");
+            }
+
 
             app.MapControllers();
 
