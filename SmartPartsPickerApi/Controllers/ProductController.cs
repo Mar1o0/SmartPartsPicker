@@ -53,6 +53,15 @@ namespace SmartPartsPickerApi.Controllers
         {
             try
             {
+                /*
+                 тебе дали 100000 бюджета
+                 
+                 100_000 * 0.075(7.5%) < cpu_price < 100_000 * 0.085 (8.5%)
+
+                 100_000 * 0.345(34.5%) < gpu_price < 100_000 * 0.355 (35.5%)
+                 
+                 */
+
                 return Ok(budget);
             }
             catch (Exception ex)
