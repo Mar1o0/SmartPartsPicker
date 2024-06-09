@@ -108,7 +108,7 @@ namespace SmartPartsPickerApi.Database.Providers
             }
 
             productResponses = productResponses
-                .Where(x => priceMin < x.Price.Min(p => p.Price) && priceMax > x.Price.Min(p => p.Price))
+                .Where(x => x.Price != null && x.Price.Count > 0 && priceMin < x.Price.Min(p => p.Price) && priceMax > x.Price.Min(p => p.Price))
                 .Skip(page*per_page)
                 .Take(per_page)
                 .ToList();
