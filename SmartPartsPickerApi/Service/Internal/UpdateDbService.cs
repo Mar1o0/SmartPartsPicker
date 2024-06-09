@@ -58,7 +58,7 @@ namespace SmartPartsPickerApi.Service.Internal
                     }
                 }
 
-                foreach (var productWithType in productsByTypes.Where(x=>x.Key == ProductType.CPU))
+                foreach (var productWithType in productsByTypes.Where(x=>x.Key == ProductType.CPU)/*ALARM THAT WAS JUST FOR TEST*/)
                 {
                     var allFilterTabels = new Dictionary<FilterTable, IProductFilter>();
 
