@@ -54,8 +54,6 @@ namespace SmartPartsPickerApi
             //} 
             #endregion
 
-            args = new string[] { "--need-update" };
-
             if (args.Any() && args[0] == "--need-update")
             {
                 var updater = new UpdateDbService();

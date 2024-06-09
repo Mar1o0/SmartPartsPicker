@@ -12,13 +12,18 @@ namespace SmartPartsPickerApi.Controllers
         Database.Database _db = new Database.Database();
 
         [HttpGet("products/{productType:regex(CPU|GPU|MB|RAM|SSD|HDD|PSU|CHASSIS)}")]
-        public IActionResult GetProductsByType(ProductType productType)
+        public IActionResult GetProductsByType(ProductType productType,
+                                               [FromQuery] double priceMin = 0,
+                                               [FromQuery] double priceMax = double.MaxValue,
+                                               [FromQuery] string filters = null,
+                                               [FromQuery] int page = 1,
+                                               [FromQuery] int per_page = 20)
         {
             try
             {
-                var product = _db.Product.GetAllProductByType(productType);
+                var response = _db.Product.GetAllProductByFilters(productType, priceMin, priceMax, filters, page, per_page);
 
-                return Ok(product);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -42,11 +47,11 @@ namespace SmartPartsPickerApi.Controllers
         }
 
         [HttpGet("product/budget/{budget:double}")]
-        public IActionResult GetProductPacksByBudget(double budget)
+        public IActionResult GetProductPacksByBudget([FromQuery] double budget)
         {
             try
             {
-                return Ok();
+                return Ok(budget);
             }
             catch (Exception ex)
             {

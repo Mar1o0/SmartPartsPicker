@@ -120,8 +120,6 @@ namespace SmartPartsPickerApi.Service.Internal
                             {
                                 ProductType = filter.ProductType,
                                 FilterType = filter.FilterType,
-                                ParamName = filter.Value,
-                                Variant = filter.Value
                             };
 
                             await db.Filter.CreateUpdate(filterTable);

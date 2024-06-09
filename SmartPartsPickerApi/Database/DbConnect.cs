@@ -1,7 +1,6 @@
 ﻿using LinqToDB;
 using LinqToDB.Configuration;
 using LinqToDB.Data;
-using Microsoft.AspNetCore.Mvc.Filters;
 using SmartPartsPickerApi.Database.Providers;
 using SmartPartsPickerApi.Database.Tables;
 using System.Data.SQLite;
@@ -66,8 +65,7 @@ namespace SmartPartsPickerApi.Database
             await Create<ProductImageTable>();
             await Create<ProductPriceTable>();
             await Create<ProductSpecTable>();
-            //await Create<GameTable>();
-            //await Create<GameSpecTable>();
+            await Create<ProductFiltersTable>();
             await Create<FilterTable>();
         }
         private static void UpgradeDB()
@@ -99,9 +97,8 @@ namespace SmartPartsPickerApi.Database
         public ProductPriceProviders ProductPrice { get; set; } = new ProductPriceProviders();
         public ProductImageProviders ProductImage { get; set; } = new ProductImageProviders();
         public ProductSpecProviders ProductSpec { get; set; } = new ProductSpecProviders();
-        public GameProviders Game { get; set; } = new GameProviders();
-        public GameSpecProviders GameSpec { get; set; } = new GameSpecProviders();
         public FilterProviders Filter { get; set; } = new FilterProviders();
+        public ProductFiltersProviders ProductFilters { get; set; } = new ProductFiltersProviders();
     }
     public class DbWinbroker : DataConnection, IDisposable
     {
@@ -112,9 +109,8 @@ namespace SmartPartsPickerApi.Database
         public ITable<ProductImageTable> ProductImages => GetTable<ProductImageTable>();
         public ITable<ProductPriceTable> ProductPrices => GetTable<ProductPriceTable>();
         public ITable<ProductSpecTable> ProductSpecs => GetTable<ProductSpecTable>();
-        public ITable<GameTable> Games => GetTable<GameTable>();
-        public ITable<GameSpecTable> GameSpecs => GetTable<GameSpecTable>();
         public ITable<FilterTable> Filters => GetTable<FilterTable>();
+        public ITable<ProductFiltersTable> ProductFilters => GetTable<ProductFiltersTable>();
         #endregion
     }
     public class DBData
