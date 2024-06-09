@@ -1,4 +1,5 @@
 ﻿using LinqToDB.Mapping;
+using Newtonsoft.Json;
 using SmartPartsPickerApi.Enums;
 
 namespace SmartPartsPickerApi.Database.Tables
@@ -18,5 +19,13 @@ namespace SmartPartsPickerApi.Database.Tables
         public string FullName { get; set; }
         [Column(Name = "description")]
         public string Description { get; set; }
+        [Column(Name = "reviews")]
+        public int Reviews { get; set; }
+        [NotColumn]
+        public ProductImageTable ProductImage;
+        [NotColumn]
+        public List<ProductPriceTable> Price;
+        [NotColumn]
+        public List<ProductSpecTable> Specs;
     }
 }

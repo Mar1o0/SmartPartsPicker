@@ -66,8 +66,8 @@ namespace SmartPartsPickerApi.Database
             await Create<ProductImageTable>();
             await Create<ProductPriceTable>();
             await Create<ProductSpecTable>();
-            await Create<GameTable>();
-            await Create<GameSpecTable>();
+            //await Create<GameTable>();
+            //await Create<GameSpecTable>();
             await Create<FilterTable>();
         }
         private static void UpgradeDB()

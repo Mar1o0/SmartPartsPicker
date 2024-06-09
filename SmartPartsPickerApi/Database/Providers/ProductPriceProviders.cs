@@ -1,6 +1,5 @@
 ﻿using LinqToDB;
 using SmartPartsPickerApi.Database.Tables;
-using SmartPartsPickerApi.Enums;
 
 namespace SmartPartsPickerApi.Database.Providers
 {
@@ -53,6 +52,12 @@ namespace SmartPartsPickerApi.Database.Providers
         {
             using var db = new DbWinbroker();
             return db.ProductPrices.Where(x => x.Price >= toPrice && x.Price <= fromPrice).ToList();
+        }
+
+        internal List<ProductPriceTable> GetByProductId(int productId)
+        {
+            using var db = new DbWinbroker();
+            return db.ProductPrices.Where(x => x.ProductId == productId).ToList();
         }
     }
 }

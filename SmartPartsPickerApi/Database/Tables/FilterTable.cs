@@ -12,9 +12,9 @@ namespace SmartPartsPickerApi.Database.Tables
         public ProductType ProductType { get; set; }
         [Column(Name = "filterType")]
         public int FilterType { get; set; } // FilterType
+        [Column(Name = "filterVariat")]
+        public int FilterVariat { get; set; }
         [Column(Name = "paramName")]
         public string ParamName { get; set; }
-        [Column(Name = "variant")]
-        public string Variant { get; set; }
     }
 }

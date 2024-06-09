@@ -34,10 +34,10 @@ namespace SmartPartsPickerApi.Database.Providers
             return db.ProductSpecs.ToList();
         }
 
-        public ProductSpecTable GetByProductId(int productId)
+        public List<ProductSpecTable> GetByProductId(int productId)
         {
             using var db = new DbWinbroker();
-            return db.ProductSpecs.FirstOrDefault(x => x.ProductId == productId);
+            return db.ProductSpecs.Where(x => x.ProductId == productId).ToList();
         }
 
         public List<ProductSpecTable> GetAllBySpecType(SpecType type)

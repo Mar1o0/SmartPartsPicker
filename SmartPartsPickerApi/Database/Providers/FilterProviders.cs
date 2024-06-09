@@ -15,6 +15,7 @@ namespace SmartPartsPickerApi.Database.Providers
             {
                 Id = entity.Id,
                 FilterType = entity.FilterType,
+                FilterVariat = entity.FilterVariat,
                 ProductType = entity.ProductType,
                 ParamName = entity.ParamName,
             },
@@ -22,6 +23,7 @@ namespace SmartPartsPickerApi.Database.Providers
             {
                 Id = entity.Id,
                 FilterType = entity.FilterType,
+                FilterVariat = entity.FilterVariat,
                 ProductType = entity.ProductType == x.ProductType ? x.ProductType : entity.ProductType,
                 ParamName = entity.ParamName ?? x.ParamName,
             });
@@ -34,10 +36,10 @@ namespace SmartPartsPickerApi.Database.Providers
             return db.Filters.ToList();
         }
 
-        public FilterTable GetByProductType(ProductType productType)
+        public List<FilterTable> GetByProductType(ProductType productType)
         {
             using var db = new DbWinbroker();
-            return db.Filters.FirstOrDefault(x => x.ProductType == productType);
+            return db.Filters.Where(x => x.ProductType == productType).ToList();
         }
     }
 }

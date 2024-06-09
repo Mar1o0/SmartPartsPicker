@@ -1,4 +1,6 @@
 using SmartPartsPickerApi.Service.Internal;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace SmartPartsPickerApi
 {
@@ -52,6 +54,8 @@ namespace SmartPartsPickerApi
             //} 
             #endregion
 
+            args = new string[] { "--need-update" };
+
             if (args.Any() && args[0] == "--need-update")
             {
                 var updater = new UpdateDbService();
@@ -61,7 +65,7 @@ namespace SmartPartsPickerApi
             var builder = WebApplication.CreateBuilder(args);
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
