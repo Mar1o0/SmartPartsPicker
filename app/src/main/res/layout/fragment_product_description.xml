@@ -77,7 +77,6 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/urbanist_semibold"
                 android:maxLines="2"
-                android:text="Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G "
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/cvPreview"
@@ -91,13 +90,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_mid"
                 android:fontFamily="@font/urbanist_regular"
-                android:text="Код товара: 192384"
                 android:textColor="#A0ABB8"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/cvPreview"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-            <com.vlad.sharaga.core.view.SizedRatingBar
+            <com.smart.parts.picker.core.view.SizedRatingBar
                 android:id="@+id/rbRating"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -108,7 +106,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/tvRating"
                 app:layout_constraintTop_toTopOf="@+id/tvRating"
                 app:numStars="5"
-                app:rating="3.5"
+                app:rating="5"
                 app:starSize="13dp" />
 
             <TextView
@@ -129,7 +127,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_mid"
                 android:fontFamily="@font/urbanist_black"
-                android:text="от 2665,72 р."
                 android:textColor="@color/success"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="@+id/cvPreview"
@@ -146,7 +143,6 @@
                 android:insetBottom="0dp"
                 android:minHeight="10dip"
                 android:paddingVertical="10dp"
-                android:text="25 вариантов"
                 android:textAllCaps="false"
                 app:cornerRadius="@dimen/corner_radius"
                 app:layout_constraintStart_toStartOf="@+id/cvPreview"
@@ -190,7 +186,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/urbanist_regular"
-                android:text="Видеокарта Sapphire Nitro+ Radeon RX 7900 GRE 16GB 11325-02-20G - это мощное графическое устройство с поддержкой трассировки лучей, идеально подходящее для игр в 4K.\nС поддержкой DirectX 12 Ultimate, эта видеокарта обеспечивает высокую производительность и качество графики.\nС разогнанной версией графического процессора и подсветкой, она предлагает улучшенный игровой опыт.\nС 16 ГБ видеопамяти и 80 RT-ядрами, эта видеокарта обеспечивает высокую производительность и плавную работу в самых требовательных играх."
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/cvPreview"

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:constraint_referenced_ids="tvTitle,tvPrice"
+        app:flow_horizontalGap="@dimen/margin_small"
         app:flow_wrapMode="chain2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

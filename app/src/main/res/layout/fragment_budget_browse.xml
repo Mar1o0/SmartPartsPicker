@@ -37,6 +37,7 @@
                     android:id="@+id/tvPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="1"
                     android:fontFamily="@font/urbanist_black"
                     android:textColor="@color/success"

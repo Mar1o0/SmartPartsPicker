@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.vlad.sharaga",
+  "applicationId": "com.smart.parts.picker",
   "variantName": "release",
   "elements": [
     {

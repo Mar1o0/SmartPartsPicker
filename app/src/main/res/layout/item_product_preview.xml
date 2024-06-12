@@ -27,14 +27,13 @@
         android:ellipsize="end"
         android:fontFamily="@font/urbanist_semibold"
         android:maxLines="2"
-        android:text="Gigabyte GeForce RTX 4060 Gaming OC 8G GV-N4060GAMING OC-8GDPalit GeForce RTX 4060 Dual OC NE64060T19P1-1070D"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivPreview"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.vlad.sharaga.core.view.SizedRatingBar
+    <com.smart.parts.picker.core.view.SizedRatingBar
         android:id="@+id/rbRating"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -65,7 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/urbanist_black"
-        android:text="от 1268,06 р."
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tvTitle"
@@ -81,7 +79,6 @@
         android:insetBottom="0dp"
         android:minHeight="10dip"
         android:paddingVertical="10dp"
-        android:text="39 вариантов"
         android:textAllCaps="false"
         android:textSize="12sp"
         app:cornerRadius="@dimen/corner_radius"

@@ -24,5 +24,5 @@
   *;
 }
 
--keep class com.vlad.sharaga.models.** { *; }
+-keep class com.smart.parts.picker.models.** { *; }
 #smart_parts_picker

@@ -58,7 +58,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/urbanist_regular"
             android:inputType="number"
-            android:text="1200"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -99,7 +98,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/urbanist_regular"
             android:inputType="number"
-            android:text="2500"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -114,6 +112,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flow"
-        app:values="@array/default_slider_values" />
+        app:values="@array/default_slider_values"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

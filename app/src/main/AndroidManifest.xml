@@ -26,7 +26,6 @@
         </activity>
         <activity
             android:name=".ui.NavHostActivity"
-            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
     </application>
 

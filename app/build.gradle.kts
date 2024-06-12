@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.vlad.sharaga"
+    namespace = "com.smart.parts.picker"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.vlad.sharaga"
+        applicationId = "com.smart.parts.picker"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
@@ -70,11 +70,15 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
+
+
+    implementation ("com.github.mrmike:ok2curl:0.8.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }
 
-kapt {
-    correctErrorTypes = true
-}
+//kapt {
+//    correctErrorTypes = true
+//}
 
 //hilt {
 //    enableAggregatingTask = true
