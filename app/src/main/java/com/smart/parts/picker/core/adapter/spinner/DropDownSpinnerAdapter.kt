@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.smart.parts.picker.R
 import com.smart.parts.picker.databinding.ItemSpinerBinding
 
 
@@ -15,7 +16,7 @@ class DropDownSpinnerAdapter<T>(
     context: Context,
     private val values: List<T>,
     private val map: (T?) -> String = { it?.toString() ?: "" },
-    private val onConfirmClicked: (String) -> Unit = {},
+    private val onConfirmClicked: () -> Unit = {},
     private val withInput: Boolean = false
 ) : ArrayAdapter<T>(context, 0, values) {
 
@@ -48,25 +49,16 @@ class DropDownSpinnerAdapter<T>(
 
     private fun setupItemView(binding: ItemSpinerBinding, position: Int) {
         val option = getItem(position)
-        binding.containerText.isVisible = true
-        binding.containerText.text = map(option)
+        binding.tvText.isVisible = true
+        binding.tvText.text = map(option)
     }
 
     private fun setupInputView(binding: ItemSpinerBinding) {
-        binding.containerInput.isVisible = true
-
-        binding.etName.addTextChangedListener {
-            binding.btnConfirm.isEnabled = it?.isNotBlank() == true
-        }
-
-        binding.btnConfirm.setOnClickListener {
-            binding.btnConfirm.isEnabled = false
-            onConfirmClicked(binding.etName.text.toString())
-        }
-
-        binding.etName.setOnClickListener {
-            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager?
-            imm?.showSoftInput(binding.tiName, InputMethodManager.SHOW_IMPLICIT)
+        binding.btnButton.isVisible = true
+        binding.btnButton.text = context.getString(R.string.create_assembly)
+        binding.btnButton.setOnClickListener {
+            binding.btnButton.isEnabled = false
+            onConfirmClicked()
         }
     }
 

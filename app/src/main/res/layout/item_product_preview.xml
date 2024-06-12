@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/sh_item_bg"
+    android:orientation="horizontal"
     android:padding="@dimen/margin_big">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -13,77 +14,82 @@
         android:layout_height="@dimen/preview_size"
         android:background="@color/white"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
         app:shapeAppearance="@style/ShapeAppearanceOverlay.RoundedImageView" />
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_mid"
-        android:ellipsize="end"
-        android:fontFamily="@font/urbanist_semibold"
-        android:maxLines="2"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivPreview"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/margin_mid"
+        tools:ignore="RtlSymmetry">
 
-    <com.smart.parts.picker.core.view.SizedRatingBar
-        android:id="@+id/rbRating"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:fillColor="#F5BE3D"
-        app:gapSize="3dp"
-        app:layout_constraintStart_toStartOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        app:numStars="5"
-        app:rating="5"
-        app:starSize="13dp" />
 
-    <TextView
-        android:id="@+id/tvRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
-        android:fontFamily="@font/urbanist_regular"
-        android:text="(5.0)"
-        android:textColor="#A0ABB8"
-        app:layout_constraintBottom_toBottomOf="@+id/rbRating"
-        app:layout_constraintStart_toEndOf="@+id/rbRating"
-        app:layout_constraintTop_toTopOf="@+id/rbRating" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/tvMinPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/urbanist_black"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvRating" />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/urbanist_semibold"
+                android:maxLines="2"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </FrameLayout>
 
-    <Button
-        android:id="@+id/btnVariants"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:fontFamily="@font/urbanist_bold"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:minHeight="10dip"
-        android:paddingVertical="10dp"
-        android:textAllCaps="false"
-        android:textSize="12sp"
-        app:cornerRadius="@dimen/corner_radius"
-        app:layout_constraintBottom_toBottomOf="@+id/ivPreview"
-        app:layout_constraintStart_toStartOf="@+id/tvTitle"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.smart.parts.picker.core.view.SizedRatingBar
+                android:id="@+id/rbRating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:fillColor="#F5BE3D"
+                app:gapSize="3dp"
+                app:numStars="5"
+                app:rating="5"
+                app:starSize="13dp" />
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:fontFamily="@font/urbanist_regular"
+                android:textColor="#A0ABB8" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvMinPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/urbanist_black"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnVariants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/margin_small"
+            android:fontFamily="@font/urbanist_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="10dip"
+            android:paddingVertical="10dp"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            app:cornerRadius="@dimen/corner_radius"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -30,9 +30,9 @@ class ApiClient @Inject constructor(
         page: Int,
         perPage: Int,
     ): List<Product>? = withContext(Dispatchers.IO) {
-//        kotlin.runCatching {
+        kotlin.runCatching {
             apiService.fetchProducts(productType, priceMin, priceMax, filters, page, perPage)
-//        }.getOrNull()
+        }.getOrNull()
     }
 
     suspend fun fetchProduct(

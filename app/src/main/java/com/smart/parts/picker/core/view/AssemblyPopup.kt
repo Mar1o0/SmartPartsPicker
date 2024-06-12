@@ -43,7 +43,12 @@ class AssemblyPopup(
             map = { it?.title ?: "" },
             withInput = true,
             onConfirmClicked = {
-                onCreateAssembly(it)
+                val createPopup = AssemblyPopup(
+                    context = context,
+                    type = AssemblyPopupType.CREATE,
+                    onCreateAssembly = onCreateAssembly,
+                )
+                createPopup.show()
                 dismiss()
             },
         )

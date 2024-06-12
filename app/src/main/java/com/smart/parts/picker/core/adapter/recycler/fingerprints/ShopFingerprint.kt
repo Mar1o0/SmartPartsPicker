@@ -58,10 +58,6 @@ class ShopViewHolder(
     override fun onBind(item: ShopItem) {
         super.onBind(item)
         binding.tvPrice.text = context.getString(R.string.price, item.price.format(2))
-        binding.tvDeliveryPrice.text =
-            if (item.deliveryPrice == 0.0) context.getString(R.string.free_delivery)
-            else context.getString(R.string.price, item.deliveryPrice.format(2))
-            context.getString(R.string.price, item.deliveryPrice.format(2))
         binding.tvDeliveryDescription.text = item.deliveryDescription
         Glide.with(context)
             .load(item.logoUrl)

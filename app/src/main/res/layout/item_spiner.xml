@@ -7,7 +7,7 @@
     android:padding="@dimen/margin_small">
 
     <TextView
-        android:id="@+id/containerText"
+        android:id="@+id/tvText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/urbanist_semibold"
@@ -16,62 +16,20 @@
         android:textColor="@color/white"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:id="@+id/containerInput"
+
+    <Button
+        android:id="@+id/btnButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/sh_medium"
-        android:backgroundTint="#19191B"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_mid"
-        android:visibility="gone">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tiName"
-            style="@style/CustomTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/enter_name"
-            android:minWidth="280dp"
-            android:textColorHint="#99FFFFFF"
-            app:boxBackgroundColor="@color/popup"
-            app:boxCornerRadiusBottomEnd="@dimen/corner_radius"
-            app:boxCornerRadiusBottomStart="@dimen/corner_radius"
-            app:boxCornerRadiusTopEnd="@dimen/corner_radius"
-            app:boxCornerRadiusTopStart="@dimen/corner_radius"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:endIconDrawable="@drawable/ic_close"
-            app:endIconMode="clear_text"
-            app:endIconScaleType="centerInside"
-            app:endIconTint="@color/white"
-            app:hintTextColor="@color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/urbanist_regular"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btnConfirm"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="@dimen/margin_mid"
-            android:enabled="false"
-            android:fontFamily="@font/urbanist_bold"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="Создать сборку"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            app:cornerRadius="@dimen/corner_radius" />
-
-    </LinearLayout>
+        android:layout_height="52dp"
+        android:layout_marginTop="@dimen/margin_mid"
+        android:enabled="true"
+        android:fontFamily="@font/urbanist_bold"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:cornerRadius="@dimen/corner_radius" />
 
 </FrameLayout>
 
