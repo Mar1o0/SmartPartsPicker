@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using SmartPartsPickerApi.Database.Tables;
+using SmartPartsPickerApi.Database.Views;
 using SmartPartsPickerApi.Enums;
 using SmartPartsPickerApi.Interfaces;
 using SmartPartsPickerApi.Models.Filters;
@@ -53,16 +56,50 @@ namespace SmartPartsPickerApi.Controllers
         {
             try
             {
-                /*
-                 тебе дали 100000 бюджета
-                 
-                 100_000 * 0.075(7.5%) < cpu_price < 100_000 * 0.085 (8.5%)
+                Dictionary<ProductType, double> budgetDistribution = new()
+                    {
+                        // Бюджет 2400
+                        { ProductType.CPU, 0.20 },      // Мин: 456     Макс: 504
+                        { ProductType.MB, 0.10 },       // Мин: 228     Макс: 252
+                        { ProductType.CHASSIS, 0.06 },  // Мин: 136,8   Макс: 151,2
+                        { ProductType.PSU, 0.08 },      // Мин: 182,4   Макс: 201,6
+                        { ProductType.GPU, 0.41 },      // Мин: 934,8   Макс: 1033,2
+                        { ProductType.RAM, 0.09 },      // Мин: 205,2   Макс: 226,8
+                        { ProductType.HDD, 0.06 },      // Мин: 136,8   Макс: 151,2
+                        //{ ProductType.SSD, 0.03 }  // TODO: Надо сделать SSD как часть от "Накопителей"
+                    };
+                var productPacks = new List<object>(); // Используем object для гибкости
 
-                 100_000 * 0.345(34.5%) < gpu_price < 100_000 * 0.355 (35.5%)
-                 
-                 */
+                // Получаем списки комплектующих для каждого типа
+                var componentsByType = budgetDistribution.ToDictionary(
+                    kv => kv.Key,
+                    kv => _db.Product.GetAllProductByFilters(kv.Key, budget * kv.Value * 0.95, budget * kv.Value * 1.05/*, per_page: 1000*/)
+                );
 
-                return Ok(budget);
+                // Проверка на наличие комплектующих для каждого типа
+                if (componentsByType.Values.Any(list => list.Count == 0))
+                {
+                    return NotFound("Не удалось найти комплектующие для всех категорий в заданном бюджете.");
+                }
+
+                // Генерируем комбинации (наборы) комплектующих
+                var productTypeValues = budgetDistribution.Keys.ToList();
+
+                var productPack = new List<FilteredProductView>();
+
+                // Создаем начальную комбинацию, в которой каждый тип комплектующего представлен хотя бы одним продуктом
+                foreach (var productType in productTypeValues)
+                {
+                    productPack.Add(componentsByType[productType].First());
+                }
+
+                productPacks.Add(new
+                {
+                    products = productPack,
+                    totalPrice = productPack.Sum(p => p.Price.Min(price => price.Price))
+                });
+
+                return Ok(productPacks);
             }
             catch (Exception ex)
             {

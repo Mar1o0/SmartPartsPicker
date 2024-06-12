@@ -62,7 +62,7 @@ namespace SmartPartsPickerApi.Database.Providers
                 $"WHERE pp.productId = {id};" +
                 "").ToList();
 
-
+            productResponses.Price = prices;
 
             return productResponses;
         }
@@ -80,37 +80,47 @@ namespace SmartPartsPickerApi.Database.Providers
                 throw new Exception("Page must be over 1");
             }
 
-            var q = "Select DISTINCT p.*, pi.href From Product p " +
-                "INNER JOIN ProductFilter pf on pf.product_id = p.id " +
-                "INNER JOIN ProductImage pi on pi.productId = p.id " +
-                $"Where {(string.IsNullOrEmpty(filters) ? "" : $"pf.filter_id in ({filters}) AND")} p.type = {(int)productType} " +
-                $"LIMIT {per_page} OFFSET {page * per_page};";
+            var filterCondition = string.IsNullOrEmpty(filters) ? "" : $"AND pf.filter_id in ({filters})";
 
-            var productResponses = db.Query<FilteredProductView>(
-                q
-                ).ToList();
+            var q = $@"
+                    SELECT DISTINCT p.*, pi.href, price_data.min_price as Price
+                    FROM Product p
+                    INNER JOIN ProductFilter pf ON pf.product_id = p.id
+                    INNER JOIN ProductImage pi ON pi.productId = p.id
+                    INNER JOIN (
+                        SELECT pp.productId, MIN(pp.price) as min_price
+                        FROM ProductPrice pp
+                        GROUP BY pp.productId
+                    ) price_data ON price_data.productId = p.id
+                    WHERE p.type = {(int)productType}
+                    AND price_data.min_price BETWEEN {priceMin.ToString().Replace(',','.')} AND {priceMax.ToString().Replace(',', '.')}
+                    {filterCondition}
+                    LIMIT {per_page} OFFSET {page * per_page};
+                    ";
 
-            var productIds = productResponses.Select(x => x.Id);
+            // Выполнение запроса и получение результата
+            
+            var productResponses = db.Query<FilteredProductView>(q).ToList();
 
-            var prices = db.Query<ProductPriceTable>(
-                "SELECT pp.* FROM ProductPrice pp " +
-                $"WHERE pp.productId in ({string.Join(", ", productIds)});" +
-                "").ToList(); // 8ms
+            if (productResponses.Count == 0)
+            {
+                return productResponses;
+            }
 
-            //var q = db.ProductPrices.Where(x => productIds.Contains(x.ProductId));
+            var productIds = string.Join(", ", productResponses.Select(p => p.Id));
 
-            //Console.WriteLine(q.ToString());
+            var priceQuery = $@"
+                                SELECT pp.*
+                                FROM ProductPrice pp
+                                WHERE pp.productId IN ({productIds});
+                             ";
 
-            //var prices = q.ToList(); // 161ms
+            var prices = db.Query<ProductPriceTable>(priceQuery).ToList();
 
             foreach (var product in productResponses)
             {
                 product.Price = prices.Where(x => x.ProductId == product.Id).ToList();
             }
-
-            productResponses = productResponses
-                .Where(x => priceMin < x.Price.Min(p => p.Price) && priceMax > x.Price.Min(p => p.Price))
-                .ToList();
 
             return productResponses;
         }

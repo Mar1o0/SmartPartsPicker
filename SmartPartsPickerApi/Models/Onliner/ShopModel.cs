@@ -48,7 +48,7 @@ namespace SmartPartsPickerApi.Models.Onliner
         public string Address;
 
         [JsonProperty("registration_date")]
-        public DateTime RegistrationDate;
+        public string RegistrationDate;
 
         [JsonProperty("registration_agency")]
         public string RegistrationAgency;
@@ -150,7 +150,7 @@ namespace SmartPartsPickerApi.Models.Onliner
         public SuccessRating SuccessRating;
 
         [JsonProperty("registration_date")]
-        public DateTime RegistrationDate;
+        public string RegistrationDate;
 
         [JsonProperty("payment_methods")]
         public PaymentMethods PaymentMethods;
