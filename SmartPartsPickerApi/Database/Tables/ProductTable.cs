@@ -20,6 +20,6 @@ namespace SmartPartsPickerApi.Database.Tables
         [Column(Name = "description")]
         public string Description { get; set; }
         [Column(Name = "reviews")]
-        public int Reviews { get; set; }
+        public int Rating { get; set; }
     }
 }

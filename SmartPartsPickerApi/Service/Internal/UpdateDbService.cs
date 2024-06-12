@@ -101,7 +101,7 @@ namespace SmartPartsPickerApi.Service.Internal
                                     FullName = product.full_name,
                                     Description = product.description,
                                     Type = productType,
-                                    Reviews = product.reviews.rating
+                                    Rating = product.reviews.rating
                                 };
 
                                 newProduct = await db.Product.CreateUpdate(newProduct);
