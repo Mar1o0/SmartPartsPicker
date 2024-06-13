@@ -67,6 +67,27 @@ namespace SmartPartsPickerApi.Database.Providers
             return productResponses;
         }
         
+        public List<FilteredProductView> GetProductBySearch(string search, ProductType productType)
+        {
+            using var db = new DbWinbroker();
+
+            var productResponses = db.Query<FilteredProductView>(
+                "Select DISTINCT p.*, pi.href From Product p " +
+                "INNER JOIN ProductImage pi on pi.productId = p.id " +
+                $"Where p.fullname LIKE '%{search}%' AND type = {(int)productType};"
+                ).ToList();
+
+            foreach (var product in productResponses)
+            {
+                product.Price = db.Query<ProductPriceTable>(
+                "SELECT pp.* FROM ProductPrice pp " +
+                $"WHERE pp.productId = {product.Id};" +
+                "").ToList();
+            }
+
+            return productResponses;
+        }
+        
         public List<FilteredProductView> GetAllProductByFilters(ProductType productType,
                                                          double priceMin = 0,
                                                          double priceMax = double.MaxValue,

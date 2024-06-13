@@ -50,6 +50,21 @@ namespace SmartPartsPickerApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpGet("product/search/{productType}")]
+        public IActionResult GetProductBySearch(ProductType productType, [FromQuery] string search)
+        {
+            try
+            {
+                var products = _db.Product.GetProductBySearch(search, productType);
+
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpGet("product/budget/")]
         public IActionResult GetProductPacksByBudget([FromQuery] double budget)
@@ -85,19 +100,23 @@ namespace SmartPartsPickerApi.Controllers
                 // Генерируем комбинации (наборы) комплектующих
                 var productTypeValues = budgetDistribution.Keys.ToList();
 
-                var productPack = new List<FilteredProductView>();
 
                 // Создаем начальную комбинацию, в которой каждый тип комплектующего представлен хотя бы одним продуктом
-                foreach (var productType in productTypeValues)
+                for (int i = 0; i < componentsByType.Min(x => x.Value.Count); i++)
                 {
-                    productPack.Add(componentsByType[productType].First());
-                }
+                    var productPack = new List<FilteredProductView>();
 
-                productPacks.Add(new
-                {
-                    products = productPack,
-                    totalPrice = productPack.Sum(p => p.Price.Min(price => price.Price))
-                });
+                    foreach (var productType in productTypeValues)
+                    {
+                        productPack.Add(componentsByType[productType][i]);
+                    }
+
+                    productPacks.Add(new
+                    {
+                        products = productPack,
+                        totalPrice = productPack.Sum(p => p.Price.Min(price => price.Price))
+                    }); 
+                }
 
                 return Ok(productPacks);
             }
