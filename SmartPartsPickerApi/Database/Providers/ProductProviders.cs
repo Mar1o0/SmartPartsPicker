@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartPartsPickerApi.Database.Tables;
 using SmartPartsPickerApi.Database.Views;
 using SmartPartsPickerApi.Enums;
+using SmartPartsPickerApi.Interfaces;
+using SmartPartsPickerApi.Models.Filters;
 
 namespace SmartPartsPickerApi.Database.Providers
 {
@@ -57,10 +59,40 @@ namespace SmartPartsPickerApi.Database.Providers
                 $"Where p.id = {id};"
                 ).FirstOrDefault();
 
+            var filters = db.Query<FilterTable>("" +
+                "Select f.* from Filter f " +
+                "Inner JOIN ProductFilter pf on pf.filter_id = f.id " +
+                $"Where pf.product_id = {id};").ToList();
+
             var prices = db.Query<ProductPriceTable>(
                 "SELECT pp.* FROM ProductPrice pp " +
                 $"WHERE pp.productId = {id};" +
                 "").ToList();
+
+            switch (productResponses.Type)
+            {
+                case ProductType.CPU:
+                    productResponses.Specs = (filters.Select(x => (new CpuFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    break;
+                case ProductType.GPU:
+                    productResponses.Specs = (filters.Select(x => (new VideoCardFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    break;
+                case ProductType.PSU:
+                    productResponses.Specs = (filters.Select(x => (new PowerSupplyFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    break;
+                case ProductType.RAM:
+                    productResponses.Specs = (filters.Select(x => (new DramFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    break;
+                case ProductType.CHASSIS:
+                    productResponses.Specs = (filters.Select(x => (new ChassisFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    break;
+                case ProductType.MB:
+                    productResponses.Specs = (filters.Select(x => (new MotherBoardFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    break;
+                case ProductType.HDD:
+                    productResponses.Specs = (filters.Select(x => (new HddFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    break;
+            }
 
             productResponses.Price = prices;
 
