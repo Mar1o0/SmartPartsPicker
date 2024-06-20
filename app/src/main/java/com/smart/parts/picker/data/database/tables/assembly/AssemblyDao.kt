@@ -11,7 +11,7 @@ import androidx.room.Upsert
 interface AssemblyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(assemblyData: AssemblyData)
+    suspend fun insert(assemblyData: AssemblyData): Long
 
     @Upsert
     suspend fun upsert(assemblyData: AssemblyData)
@@ -23,10 +23,10 @@ interface AssemblyDao {
     suspend fun getAll(): List<AssemblyData>
 
     @Query("SELECT * FROM $ASSEMBLY_TABLE_NAME WHERE $COLUMN_ASSEMBLY_ID = :id")
-    suspend fun getById(id: Int): AssemblyData
+    suspend fun getById(id: Long): AssemblyData
 
     @Query("DELETE FROM $ASSEMBLY_TABLE_NAME WHERE $COLUMN_ASSEMBLY_ID = :id")
-    suspend fun deleteById(id: Int)
+    suspend fun deleteById(id: Long)
 
     @Query("DELETE FROM $ASSEMBLY_TABLE_NAME")
     suspend fun deleteAll()

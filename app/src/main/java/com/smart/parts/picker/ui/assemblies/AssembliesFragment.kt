@@ -126,7 +126,7 @@ class AssembliesFragment : Fragment() {
         _binding = null
     }
 
-    private fun onAssemblyClick(assemblyId: Int) {
+    private fun onAssemblyClick(assemblyId: Long) {
         findNavController().navigate(
             AssembliesFragmentDirections.actionNavigationAssembliesToAssemblyBrowseFragment(
                 assemblyId

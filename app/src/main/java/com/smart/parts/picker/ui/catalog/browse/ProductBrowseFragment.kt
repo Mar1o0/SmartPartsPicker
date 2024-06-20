@@ -97,7 +97,12 @@ class ProductBrowseFragment : Fragment() {
 
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let(viewModel::search)
+                query?.let { search ->
+                    viewModel.search(
+                        args.categoryItem.productType,
+                        search
+                    )
+                }
                 return true
             }
 
@@ -125,6 +130,7 @@ class ProductBrowseFragment : Fragment() {
                         cpiLoading.isVisible = true
                         cpiLoadingMore.isVisible = false
                         nsContent.isVisible = false
+                        fabFilters.isVisible = false
                         tvError.isVisible = false
                     }
 
@@ -132,6 +138,7 @@ class ProductBrowseFragment : Fragment() {
                         cpiLoading.isVisible = false
                         cpiLoadingMore.isVisible = false
                         nsContent.isVisible = true
+                        fabFilters.isVisible = true
                         tvError.isVisible = false
 
                         adapter.submitList(state.products)
@@ -147,6 +154,7 @@ class ProductBrowseFragment : Fragment() {
                         cpiLoading.isVisible = false
                         cpiLoadingMore.isVisible = false
                         nsContent.isVisible = false
+                        fabFilters.isVisible = false
                         tvError.isVisible = true
                     }
 

@@ -28,7 +28,7 @@ sealed interface AssemblyBrowseState {
 
 @HiltViewModel(assistedFactory = AssemblyBrowseViewModel.Factory::class)
 class AssemblyBrowseViewModel @AssistedInject constructor(
-    @Assisted("assemblyId") private val assemblyId: Int,
+    @Assisted("assemblyId") private val assemblyId: Long,
     private val mainRepository: MainRepository
 ) : ViewModel() {
 
@@ -86,7 +86,7 @@ class AssemblyBrowseViewModel @AssistedInject constructor(
     @AssistedFactory
     interface Factory {
         fun create(
-            @Assisted("assemblyId") assemblyId: Int
+            @Assisted("assemblyId") assemblyId: Long
         ): AssemblyBrowseViewModel
     }
 }

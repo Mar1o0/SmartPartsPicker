@@ -79,6 +79,7 @@
         android:layout_gravity="center"
         android:ellipsize="end"
         android:fontFamily="@font/urbanist_semibold"
+        android:gravity="center"
         android:maxLines="2"
         android:text="@string/error"
         android:textColor="@color/secondary_white"

@@ -60,12 +60,11 @@ class ApiClient @Inject constructor(
     }
 
     suspend fun searchProducts(
+        productType: ProductType,
         query: String,
-        page: Int,
-        perPage: Int,
     ): List<Product>? = withContext(Dispatchers.IO) {
         kotlin.runCatching {
-            apiService.searchProducts(query, page, perPage)
+            apiService.searchProducts(productType, query)
         }.getOrNull()
     }
 

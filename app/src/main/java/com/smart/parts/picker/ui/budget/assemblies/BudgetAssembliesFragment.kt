@@ -41,7 +41,10 @@ class BudgetAssembliesFragment : Fragment() {
     private val adapter by lazy {
         FingerprintAdapter(
             listOf(
-                BudgetAssemblyFingerprint(::onBudgetAssemblyClick)
+                BudgetAssemblyFingerprint(
+                    ::onBudgetAssemblyClick,
+                    viewModel::onSaveClick
+                )
             )
         )
     }

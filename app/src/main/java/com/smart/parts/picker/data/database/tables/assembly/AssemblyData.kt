@@ -13,7 +13,7 @@ const val COLUMN_ASSEMBLY_PRODUCTS = "products"
 data class AssemblyData(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(COLUMN_ASSEMBLY_ID)
-    val id: Int = 0,
+    val id: Long = 0,
     @ColumnInfo(COLUMN_ASSEMBLY_TITLE)
     val title: String,
     @ColumnInfo(COLUMN_ASSEMBLY_PRODUCTS)

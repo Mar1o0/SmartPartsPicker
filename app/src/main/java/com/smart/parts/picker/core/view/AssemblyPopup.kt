@@ -18,7 +18,7 @@ class AssemblyPopup(
     type: AssemblyPopupType? = null,
     private val assemblies: List<AssemblyData> = emptyList(),
     private val onCreateAssembly: (String) -> Unit = {},
-    private val onSelectedAssembly: (Int) -> Unit = {},
+    private val onSelectedAssembly: (Long) -> Unit = {},
 ) : Dialog(context) {
 
     private val assemblyPopupType: AssemblyPopupType = type ?: if (assemblies.isEmpty()) {

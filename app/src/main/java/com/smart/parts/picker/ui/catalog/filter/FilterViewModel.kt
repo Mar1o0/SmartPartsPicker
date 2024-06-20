@@ -25,6 +25,9 @@ sealed interface FilterState {
     data class Error(val message: String) : FilterState
 }
 
+const val FILTER_PRICE_MIN = 0f
+const val FILTER_PRICE_MAX = 100000f
+
 @HiltViewModel(assistedFactory = FilterViewModel.Factory::class)
 class FilterViewModel @AssistedInject constructor(
     @Assisted("sharedViewModel") private val sharedViewModel: NavHostViewModel,
@@ -52,11 +55,11 @@ class FilterViewModel @AssistedInject constructor(
                 val filterItems = mutableListOf<FilterItem>()
                 filterItems.add(
                     FilterPriceRangeItem(
-                        -1,
-                        0f,
-                        500000f,
-                        0f,
-                        500000f,
+                        id = -1,
+                        min = FILTER_PRICE_MIN,
+                        max = FILTER_PRICE_MAX,
+                        from = FILTER_PRICE_MIN,
+                        to = FILTER_PRICE_MAX,
                     )
                 )
 

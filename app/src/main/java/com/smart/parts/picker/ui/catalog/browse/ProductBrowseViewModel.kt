@@ -66,9 +66,12 @@ class ProductBrowseViewModel @Inject constructor(
         }
     }
 
-    fun search(query: String) {
+    fun search(
+        productType: ProductType,
+        query: String
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val products = mainRepository.apiClient.searchProducts(query, 1, 20) ?: emptyList()
+            val products = mainRepository.apiClient.searchProducts(productType, query) ?: emptyList()
             _state.value =
                 BrowseState.Autocomplete(products.mapNotNull { SearchResultItem.create(it) })
         }

@@ -80,7 +80,7 @@ class AssembliesViewModel @Inject constructor(
         }
     }
 
-    fun deleteAssembly(assemblyId: Int) {
+    fun deleteAssembly(assemblyId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             mainRepository.assemblyDao.deleteById(assemblyId)
             load()

@@ -17,7 +17,7 @@ import kotlinx.parcelize.Parcelize
 @Keep
 @Parcelize
 data class AssemblyItem(
-    val id: Int,
+    val id: Long,
     val title: String,
     val count: Int,
     val price: Double,
@@ -27,7 +27,7 @@ data class AssemblyItem(
 ) : Item
 
 class AssemblyFingerprint(
-    private val onAssemblyClick: (Int) -> Unit
+    private val onAssemblyClick: (Long) -> Unit
 ) : ItemFingerprint<ItemAssemblyBinding, AssemblyItem> {
 
     override fun isRelativeItem(item: Item) = item is AssemblyItem
@@ -56,7 +56,7 @@ class AssemblyFingerprint(
 
 class AssemblyViewHolder(
     binding: ItemAssemblyBinding,
-    private val onAssemblyClick: (Int) -> Unit
+    private val onAssemblyClick: (Long) -> Unit
 ) : ItemViewHolder<ItemAssemblyBinding, AssemblyItem>(binding) {
 
     override fun onBind(item: AssemblyItem) {

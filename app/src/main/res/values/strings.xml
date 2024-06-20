@@ -54,4 +54,7 @@
     <string name="average_cost">Средняя стоимость:</string>
     <string name="budget_error">Введите значение больше 0</string>
     <string name="free_delivery">Бесплатно</string>
+    <string name="v">v%1$s</string>
+    <string name="save_assembly">Сохранить сборку</string>
+    <string name="saved">Сохранено</string>
 </resources>

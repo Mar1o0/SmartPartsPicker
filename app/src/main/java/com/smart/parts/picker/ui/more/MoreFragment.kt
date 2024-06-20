@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.smart.parts.picker.BuildConfig
+import com.smart.parts.picker.R
 import com.smart.parts.picker.core.view.CityPopup
 import com.smart.parts.picker.databinding.FragmentMoreBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,6 +67,8 @@ class MoreFragment : Fragment() {
             }
         }
         viewModel.load()
+
+        binding.tvVersion.text = getString(R.string.v, BuildConfig.VERSION_NAME)
     }
 
     override fun onDestroyView() {

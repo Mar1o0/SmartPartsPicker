@@ -98,7 +98,9 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:contentDescription="@string/filter"
-        android:src="@drawable/ic_filter" />
+        android:src="@drawable/ic_filter"
+        android:visibility="gone"
+        tools:visibility="visible" />
 </FrameLayout>
 
 

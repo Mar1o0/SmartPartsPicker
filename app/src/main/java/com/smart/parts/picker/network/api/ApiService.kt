@@ -40,11 +40,10 @@ interface ApiService {
         @Path("productType") productType: ProductType,
     ): List<Filter>?
 
-    @GET("api/search/")
+    @GET("api/product/search/{productType}")
     suspend fun searchProducts(
-        @Query("query") query: String,
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int,
+        @Path("productType") productType: ProductType,
+        @Query("search") search: String,
     ): List<Product>?
 
     @GET("api/product/{productId}/specs")

@@ -37,7 +37,8 @@ data class BudgetAssemblyItem(
 }
 
 class BudgetAssemblyFingerprint(
-    private val onBudgetAssemblyClick: (BudgetAssemblyItem) -> Unit
+    private val onBudgetAssemblyClick: (BudgetAssemblyItem) -> Unit,
+    private val onSaveClick: (BudgetAssemblyItem) -> Unit,
 ) : ItemFingerprint<ItemBudgetAssemblyBinding, BudgetAssemblyItem> {
 
     override fun isRelativeItem(item: Item) = item is BudgetAssemblyItem
@@ -49,7 +50,7 @@ class BudgetAssemblyFingerprint(
         parent: ViewGroup
     ): ItemViewHolder<ItemBudgetAssemblyBinding, BudgetAssemblyItem> {
         val binding = ItemBudgetAssemblyBinding.inflate(layoutInflater, parent, false)
-        return BudgetAssemblyViewHolder(binding, onBudgetAssemblyClick)
+        return BudgetAssemblyViewHolder(binding, onBudgetAssemblyClick, onSaveClick)
     }
 
     override fun getDiffUtil() = diffUtil
@@ -65,7 +66,8 @@ class BudgetAssemblyFingerprint(
 
 class BudgetAssemblyViewHolder(
     binding: ItemBudgetAssemblyBinding,
-    private val onBudgetAssemblyClick: (BudgetAssemblyItem) -> Unit
+    private val onBudgetAssemblyClick: (BudgetAssemblyItem) -> Unit,
+    private val onSaveClick: (BudgetAssemblyItem) -> Unit,
 ) : ItemViewHolder<ItemBudgetAssemblyBinding, BudgetAssemblyItem>(binding) {
 
     override fun onBind(item: BudgetAssemblyItem) {
@@ -73,6 +75,11 @@ class BudgetAssemblyViewHolder(
         binding.root.setOnClickListener { onBudgetAssemblyClick(item) }
         binding.tvPrice.text = context.getString(R.string.price, item.price.format(2))
         binding.tvDescription.text = context.getString(R.string.assembly_description, item.products.size)
+        binding.btnSave.setOnClickListener {
+            binding.btnSave.isEnabled = false
+            binding.btnSave.text = context.getString(R.string.saved)
+            onSaveClick(item)
+        }
 
         val glide = Glide.with(context)
         val previewImages = listOf(binding.ivPreview1, binding.ivPreview2, binding.ivPreview3)

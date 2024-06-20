@@ -66,7 +66,7 @@ class ProductDescriptionViewModel @AssistedInject constructor(
         }
     }
 
-    fun addProductToAssembly(assemblyId: Int) {
+    fun addProductToAssembly(assemblyId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             if (product?.id == null) {
                 return@launch
