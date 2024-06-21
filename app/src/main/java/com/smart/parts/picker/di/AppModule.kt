@@ -25,15 +25,15 @@ class AppModule {
     @Provides
     fun provideOkHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(
-                CurlInterceptor(
-                    object : Logger {
-                        override fun log(message: String) {
-                            android.util.Log.e("BBB", message)
-                        }
-                    }
-                )
-            )
+//            .addInterceptor(
+//                CurlInterceptor(
+//                    object : Logger {
+//                        override fun log(message: String) {
+//                            android.util.Log.e("BBB", message)
+//                        }
+//                    }
+//                )
+//            )
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
 
@@ -44,7 +44,7 @@ class AppModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient
     ): Retrofit = Retrofit.Builder()
-        .baseUrl("https://vlad.joomboosick.ru/")
+        .baseUrl("https://pzt35vip.uk/")
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
