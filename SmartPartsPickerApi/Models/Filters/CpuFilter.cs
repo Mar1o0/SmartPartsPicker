@@ -1,19 +1,13 @@
-﻿using SmartPartsPickerApi.Enums.Filters;
+﻿using SmartPartsPickerApi.Database.Tables;
 using SmartPartsPickerApi.Enums;
+using SmartPartsPickerApi.Enums.Filters;
 using SmartPartsPickerApi.Interfaces;
-using SmartPartsPickerApi.Models.Onliner;
-using SmartPartsPickerApi.Database.Tables;
+using System.Text.RegularExpressions;
 
 namespace SmartPartsPickerApi.Models.Filters
 {
     public class CpuFilter : IProductFilter
     {
-
-        private const string CPU_CORE_DESCRIPTION_PATTERN = "ядер";
-        private const string CPU_THREADS_DESCRIPTION_PATTERN = "потоков";
-        private const string CPU_TECH_PROCESS_DESCRIPTION_PATTERN = "техпроцесс";
-        private const string CPU_TDP_DESCRIPTION_PATTERN = "TDP";
-
         public CpuFilter(CpuFilterType filterType, string value)
         {
             FilterType = (int)filterType;
@@ -51,40 +45,105 @@ namespace SmartPartsPickerApi.Models.Filters
                     case CpuFilterType.TechProcess:
                         return "Техпроцесс";
                     case CpuFilterType.Tdp:
-                        return "TDP";
+                        return "Энергопотребление";
+                    case CpuFilterType.Socket:
+                        return "Сокет";
                 }
 
                 return "Другое";
             }
         }
 
-
         private readonly CpuFilterType _filterType;
 
         public bool IsSuitable(Product product)
         {
-
-            var mfr = product.full_name.Split(' ').First().Trim();
-            var core = product.description_list.FirstOrDefault(x => x.Contains(CPU_CORE_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
-            var threads = product.description_list.FirstOrDefault(x => x.Contains(CPU_THREADS_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
-            var techProcess = product.description_list.FirstOrDefault(x => x.Contains(CPU_TECH_PROCESS_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
-            var tdp = product.description_list.FirstOrDefault(x => x.Contains(CPU_TDP_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
-
-
-            switch (_filterType) // так не делай нигде больше
+            switch (_filterType)
             {
                 case CpuFilterType.Manufacturer:
-                    return mfr == Value;
+                    return product.full_name.Split(' ').First().Trim() == Value;
                 case CpuFilterType.Core:
-                    return core == Value;
+                    return GetCores(product) == Value;
                 case CpuFilterType.Threads:
-                    return threads == Value;
+                    return GetThreads(product) == Value;
                 case CpuFilterType.TechProcess:
-                    return techProcess == Value;
+                    return GetTechProcess(product) == Value;
                 case CpuFilterType.Tdp:
-                    return tdp == Value;
+                    return GetTdp(product) == Value;
+                case CpuFilterType.Socket:
+                    return GetSocket(product) == Value;
             }
+
             return false;
+        }
+
+        private string? GetCores(Product product)
+        {
+            foreach (var description in product.description_list)
+            {
+                var match = Regex.Match(description, @"(\d+)\s*ядер");
+                if (match.Success)
+                {
+                    return match.Groups[1].Value;
+                }
+            }
+
+            return null;
+        }
+
+        private string? GetThreads(Product product)
+        {
+            foreach (var description in product.description_list)
+            {
+                var match = Regex.Match(description, @"(\d+)\s*потоков");
+                if (match.Success)
+                {
+                    return match.Groups[1].Value;
+                }
+            }
+
+            return null;
+        }
+        private string? GetTechProcess(Product product)
+        {
+            foreach (var description in product.description_list)
+            {
+                var match = Regex.Match(description, @"техпроцесс\s+(\d+)\s+нм");
+                if (match.Success)
+                {
+                    return match.Groups[1].Value;
+                }
+            }
+
+            return null;
+        }
+
+        private string? GetTdp(Product product)
+        {
+            foreach (var description in product.description_list)
+            {
+                var match = Regex.Match(description, @"TDP\s+(\d+)\s*W");
+                if (match.Success)
+                {
+                    return match.Groups[1].Value;
+                }
+            }
+
+            return null;
+        }
+
+        private string GetSocket(Product product)
+        {
+            foreach (var description in product.description_list)
+            {
+                var match = Regex.Match(description, @"^(LGA|AM)\d+$");
+                if (match.Success)
+                {
+                    return description;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using SmartPartsPickerApi.Database.Tables;
 using SmartPartsPickerApi.Database.Views;
 using SmartPartsPickerApi.Enums;
-using SmartPartsPickerApi.Interfaces;
 using SmartPartsPickerApi.Models.Filters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -50,7 +47,7 @@ namespace SmartPartsPickerApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
         [HttpGet("product/search/{productType}")]
         public IActionResult GetProductBySearch(ProductType productType, [FromQuery] string search)
         {
@@ -80,8 +77,7 @@ namespace SmartPartsPickerApi.Controllers
                         { ProductType.PSU, 0.08 },      // Мин: 182,4   Макс: 201,6
                         { ProductType.GPU, 0.41 },      // Мин: 934,8   Макс: 1033,2
                         { ProductType.RAM, 0.09 },      // Мин: 205,2   Макс: 226,8
-                        { ProductType.HDD, 0.06 },      // Мин: 136,8   Макс: 151,2
-                        //{ ProductType.SSD, 0.03 }  // TODO: Надо сделать SSD как часть от "Накопителей"
+                        { ProductType.STORAGE, 0.06 },      // Мин: 136,8   Макс: 151,2
                     };
                 var productPacks = new List<object>(); // Используем object для гибкости
 
@@ -100,9 +96,8 @@ namespace SmartPartsPickerApi.Controllers
                 // Генерируем комбинации (наборы) комплектующих
                 var productTypeValues = budgetDistribution.Keys.ToList();
 
-
                 // Создаем начальную комбинацию, в которой каждый тип комплектующего представлен хотя бы одним продуктом
-                for (int i = 0; i < componentsByType.Min(x => x.Value.Count); i++)
+                for (var i = 0; i < componentsByType.Min(x => x.Value.Count); i++)
                 {
                     var productPack = new List<FilteredProductView>();
 
@@ -115,7 +110,7 @@ namespace SmartPartsPickerApi.Controllers
                     {
                         products = productPack,
                         totalPrice = productPack.Sum(p => p.Price.Min(price => price.Price))
-                    }); 
+                    });
                 }
 
                 return Ok(productPacks);
@@ -135,21 +130,19 @@ namespace SmartPartsPickerApi.Controllers
                 switch (productType)
                 {
                     case ProductType.CPU:
-                        return Ok(filters.Select(x=> new CpuFilter(x)).ToList());
+                        return Ok(filters.Select(x => new CpuFilter(x)).ToList());
                     case ProductType.GPU:
-                        return Ok(filters.Select(x=> new VideoCardFilter(x)).ToList());
+                        return Ok(filters.Select(x => new VideoCardFilter(x)).ToList());
                     case ProductType.PSU:
-                        return Ok(filters.Select(x=> new PowerSupplyFilter(x)).ToList());
+                        return Ok(filters.Select(x => new PowerSupplyFilter(x)).ToList());
                     case ProductType.RAM:
-                        return Ok(filters.Select(x=> new DramFilter(x)).ToList()); 
+                        return Ok(filters.Select(x => new DramFilter(x)).ToList());
                     case ProductType.CHASSIS:
-                        return Ok(filters.Select(x=> new ChassisFilter(x)).ToList());
+                        return Ok(filters.Select(x => new ChassisFilter(x)).ToList());
                     case ProductType.MB:
-                        return Ok(filters.Select(x=> new MotherBoardFilter(x)).ToList());
-                    case ProductType.HDD:
-                        return Ok(filters.Select(x=> new HddFilter(x)).ToList());
-                    //case ProductType.SSD:
-                    //    return Ok(filters.Select(x=> new SsdFiter(x)).ToList());
+                        return Ok(filters.Select(x => new MotherBoardFilter(x)).ToList());
+                    case ProductType.STORAGE:
+                        return Ok(filters.Select(x => new StorageFilter(x)).ToList());
                     default:
                         return Ok(filters);
                 }

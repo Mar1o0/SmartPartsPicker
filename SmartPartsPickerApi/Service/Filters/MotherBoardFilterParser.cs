@@ -1,17 +1,14 @@
-﻿using SmartPartsPickerApi.Enums.Filters;
-using SmartPartsPickerApi.Enums;
+﻿using SmartPartsPickerApi.Enums;
+using SmartPartsPickerApi.Enums.Filters;
 using SmartPartsPickerApi.Interfaces;
 using SmartPartsPickerApi.Models.Filters;
+using System.Text.RegularExpressions;
 
 namespace SmartPartsPickerApi.Service.Filters
 {
     public class MotherBoardFilterParser : IProductFilterParser
     {
         private const string MB_NAME_PREFIX = "Материнская плата";
-        private const string MB_SOKET_DESCRIPTION_PATTERN = "сокет";
-        private const string MB_CHIPSET_DESCRIPTION_PATTERN = "чипсет";
-        private const string MB_MEMORY_DESCRIPTION_PATTERN = "память";
-        private const string MB_SLOTS_DESCRIPTION_PATTERN = "слоты";
 
         public ProductType ProductType => ProductType.MB;
 
@@ -20,65 +17,81 @@ namespace SmartPartsPickerApi.Service.Filters
             var productsToParse = products.Where(x => x.name_prefix == MB_NAME_PREFIX).ToList();
             var availableFilters = new List<IProductFilter>();
 
-            var soketVariants = new HashSet<string>(); // если не знаешь что это замени на лист
+            var socketVariants = new HashSet<string>();
             var mfrVariants = new HashSet<string>();
             var chipsetVariants = new HashSet<string>();
             var memoryVariants = new HashSet<string>();
             var slotsVariants = new HashSet<string>();
+            var formFactorVariants = new HashSet<string>();
             foreach (var item in productsToParse)
             {
-                var mfr = item.full_name.Split(' ').First();
-                var chipset = item.description_list.FirstOrDefault(x => x.Contains(MB_CHIPSET_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
-                var memory = item.description_list.FirstOrDefault(x => x.Contains(MB_MEMORY_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
-                var soket = item.description_list.FirstOrDefault(x => x.Contains(MB_SOKET_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
-                var slots = item.description_list.FirstOrDefault(x => x.Contains(MB_SLOTS_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
-
-                if (chipset != null && !soketVariants.Contains(chipset))
+                mfrVariants.Add(item.full_name.Split(' ').First());
+                foreach (var description in item.description_list)
                 {
-                    soketVariants.Add(chipset);
-                }
-                if (mfr != null && !mfrVariants.Contains(mfr))
-                {
-                    mfrVariants.Add(mfr);
-                }
-                if (memory != null && !chipsetVariants.Contains(memory))
-                {
-                    chipsetVariants.Add(memory);
-                }
-                if (slots != null && !memoryVariants.Contains(slots))
-                {
-                    memoryVariants.Add(slots);
-                }
-                if (soket != null && !soketVariants.Contains(soket))
-                {
-                    soketVariants.Add(soket);
+                    ParseSocket(description, socketVariants);
+                    ParseChipset(description, chipsetVariants);
+                    ParseMemory(description, memoryVariants);
+                    ParseSlots(description, slotsVariants);
                 }
             }
 
-            foreach (var soket in soketVariants)
-            {
-                availableFilters.Add(new MotherBoardFilter(MotherBoardFilterType.Soket, soket)); // Так для всех
-            }
-
-            foreach (var mfr in mfrVariants)
-            {
-                availableFilters.Add(new MotherBoardFilter(MotherBoardFilterType.Manufacturer, mfr));
-            }
-
-            foreach (var chipset in chipsetVariants)
-            {
-                availableFilters.Add(new MotherBoardFilter(MotherBoardFilterType.Chipset, chipset));
-            }
-            foreach (var memory in memoryVariants)
-            {
-                availableFilters.Add(new MotherBoardFilter(MotherBoardFilterType.Memory, memory));
-            }
-            foreach (var slots in slotsVariants)
-            {
-                availableFilters.Add(new MotherBoardFilter(MotherBoardFilterType.Slots, slots));
-            }
+            AddFilters(availableFilters, socketVariants, MotherBoardFilterType.Socket);
+            AddFilters(availableFilters, mfrVariants, MotherBoardFilterType.Manufacturer);
+            AddFilters(availableFilters, chipsetVariants, MotherBoardFilterType.Chipset);
+            AddFilters(availableFilters, memoryVariants, MotherBoardFilterType.Memory);
+            AddFilters(availableFilters, slotsVariants, MotherBoardFilterType.Slots);
 
             return availableFilters;
+        }
+        private void AddFilters<T>(List<IProductFilter> filters, HashSet<T> values, MotherBoardFilterType filterType)
+        {
+            foreach (var value in values)
+            {
+                filters.Add(new MotherBoardFilter(filterType, value.ToString()));
+            }
+        }
+
+        private void ParseSocket(string description, HashSet<string> socketVariants)
+        {
+            var match = Regex.Match(description, @"сокет\s+(?<socket>(?:AMD|Intel)\s+[^,]+)");
+            if (match.Success)
+            {
+                socketVariants.Add(match.Groups["socket"].Value.Trim());
+            }
+        }
+
+        private void ParseChipset(string description, HashSet<string> chipsetVariants)
+        {
+            var match = Regex.Match(description, @"чипсет\s+(?<chipset>(?:AMD|Intel)\s+[^,]+)");
+            if (match.Success)
+            {
+                chipsetVariants.Add(match.Groups["chipset"].Value.Trim());
+            }
+        }
+
+        private void ParseMemory(string description, HashSet<string> memoryTypeVariants)
+        {
+            var match = Regex.Match(description, @"(?<type>DDR\d)");
+            if (match.Success)
+            {
+                memoryTypeVariants.Add(match.Groups["type"].Value);
+            }
+        }
+
+        private void ParseSlots(string description, HashSet<string> pcieSlotsVariants)
+        {
+            var match = Regex.Match(description, @"слоты:\s+(?<slots>.+)");
+            if (match.Success)
+            {
+                var slotsDescription = match.Groups["slots"].Value;
+                // Extract PCIe slots information
+                var pcieMatch = Regex.Match(slotsDescription, @"(?<count>\d+)xPCIe\s+x(?<width>\d+)\s+(?<version>\d+(?:\.\d+)?)");
+                while (pcieMatch.Success)
+                {
+                    pcieSlotsVariants.Add($"{pcieMatch.Groups["count"].Value}xPCIe x{pcieMatch.Groups["width"].Value} {pcieMatch.Groups["version"].Value}");
+                    pcieMatch = pcieMatch.NextMatch();
+                }
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Features;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
 using SmartPartsPickerApi.Database.Tables;
 using SmartPartsPickerApi.Enums;
@@ -19,8 +18,8 @@ namespace SmartPartsPickerApi.Service.Internal
             { "cpu", ProductType.CPU },
             { "motherboard", ProductType.MB },
             { "videocard", ProductType.GPU },
-            { "hdd", ProductType.HDD },
-            { "ssd", ProductType.SSD },
+            { "hdd", ProductType.STORAGE },
+            { "ssd", ProductType.STORAGE },
             { "powersupply", ProductType.PSU },
         };
 
@@ -29,20 +28,19 @@ namespace SmartPartsPickerApi.Service.Internal
             try
             {
                 var db = new Database.Database();
-                string jsonDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), "onlinerParser");
-                string[] jsonFilePaths = Directory.GetFiles(jsonDirectoryPath, "*.json");
+                var jsonDirectoryPath = Path.Combine(Directory.GetCurrentDirectory(), "onlinerParser");
+                var jsonFilePaths = Directory.GetFiles(jsonDirectoryPath, "*.json");
                 var existingProducts = db.Product.GetAll().ToDictionary(x => x.ApiId, x => x);
                 var productsByTypes = new Dictionary<ProductType, List<Product>>();
-                foreach (string jsonFilePath in jsonFilePaths)
+                foreach (var jsonFilePath in jsonFilePaths)
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(jsonFilePath);
+                    var fileName = Path.GetFileNameWithoutExtension(jsonFilePath);
 
-                    string filePrefix = Regex.Match(fileName, @"^([a-zA-Z]+)").Value;
-
+                    var filePrefix = Regex.Match(fileName, @"^([a-zA-Z]+)").Value;
 
                     if (_filePrefixToProductType.TryGetValue(filePrefix, out var productType))
                     {
-                        string jsonContent = File.ReadAllText(jsonFilePath);
+                        var jsonContent = File.ReadAllText(jsonFilePath);
                         var productResponse = JsonConvert.DeserializeObject<ProductResponseModel>(jsonContent);
                         if (productsByTypes.TryGetValue(productType, out var products))
                         {
@@ -116,9 +114,9 @@ namespace SmartPartsPickerApi.Service.Internal
 
                                 var client = new RestClient();
                                 var request = new RestRequest(product.prices.url);
-                                request.AddHeader("Cookie", "stid=59830b471eee1955b77a0832b795bc9fbfaef08c43b85052158ba004589bfcaa; fingerprint=26725356-73dd-46b1-b1aa-e2edd175d18c; oss=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMzY1NDg4LCJ1c2VyX3R5cGUiOiJ1c2VyIiwiZmluZ2VycHJpbnQiOiI2ODgxZWVjNDQ5NTdkN2ZlY2U5OTk4YjdiZDJmNjgzMiIsImV4cCI6MjAzMDY3MDAyOCwiaWF0IjoxNzE1MzEwMDI4fQ.FMtjECjn0R5jy0ZmJW8vUXrF4VlfzzNiWVuRiqYkibjIgX-lOFMJfl8IxnuYJNDdrU5kG8J25Vn4k7AF0RZEJg; logged_in=1; compare=%5B%5D; delivery-region-id=17030; catalog_session=hcOAtAVR7nHrJ7sDDGOSe1cZxCRpcNS9IkFOCOzz; ouid=snyBDmZlC8cNP2bbEKjoAg==; ADC_REQ_2E94AF76E7=A85C8405B9155D4A3CC968B3C0F8B6468E8ADB23F48F6DF1355FD91475FB2E56ACFA083D6A26C59E");
-                                request.AddHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36");
-                                request.AddHeader("sec-ch-ua", "\"Brave\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\"");
+                                request.AddHeader("Cookie", "stid=59830b471eee1955b77a0832b795bc9fbfaef08c43b85052158ba004589bfcaa; fingerprint=26725356-73dd-46b1-b1aa-e2edd175d18c; oss=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozMzY1NDg4LCJ1c2VyX3R5cGUiOiJ1c2VyIiwiZmluZ2VycHJpbnQiOiI2ODgxZWVjNDQ5NTdkN2ZlY2U5OTk4YjdiZDJmNjgzMiIsImV4cCI6MjAzMDY3MDAyOCwiaWF0IjoxNzE1MzEwMDI4fQ.FMtjECjn0R5jy0ZmJW8vUXrF4VlfzzNiWVuRiqYkibjIgX-lOFMJfl8IxnuYJNDdrU5kG8J25Vn4k7AF0RZEJg; logged_in=1; ouid=snyBDmZlC8cNP2bbEKjoAg==; delivery-region-id=17025");
+                                request.AddHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36");
+                                request.AddHeader("Sec-Ch-Ua", "\"Brave\";v=\"126\", \"Chromium\";v=\"126\", \"Not.A/Brand\";v=\"8\"");
                                 var response = await client.GetAsync(request);
                                 var responseJson = JsonConvert.DeserializeObject<ProductPositionsModel>(response.Content);
 
@@ -135,7 +133,7 @@ namespace SmartPartsPickerApi.Service.Internal
                                             ProductId = newProduct.Id,
                                             ShopImage = responseJsonNew.Logo,
                                             Href = responseJsonNew.HtmlUrl,
-                                            Price = double.Parse(item.PositionPrice.Amount.Replace('.',',')),
+                                            Price = double.Parse(item.PositionPrice.Amount.Replace('.', ',')),
                                             ShopName = responseJsonNew.Title,
                                             Currency = "BYN"
                                         };

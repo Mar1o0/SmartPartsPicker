@@ -1,7 +1,5 @@
-using SmartPartsPickerApi.Service.Internal;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 using Newtonsoft.Json.Converters;
+using SmartPartsPickerApi.Service.Internal;
 using System.Diagnostics;
 namespace SmartPartsPickerApi
 {
@@ -12,9 +10,7 @@ namespace SmartPartsPickerApi
 
             Database.Database.CreateAllDb().Wait();
 
-
-
-
+            //args = new string[] { "--need-update" };
             if (args.Any() && args[0] == "--need-update")
             {
                 var updater = new UpdateDbService();
@@ -35,7 +31,7 @@ namespace SmartPartsPickerApi
             builder.Services.AddSwaggerGenNewtonsoftSupport();
 
             var app = builder.Build();
-            
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -53,7 +49,6 @@ namespace SmartPartsPickerApi
             {
                 app.Urls.Add("http://+:8080");
             }
-
 
             app.MapControllers();
 

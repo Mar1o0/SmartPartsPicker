@@ -3,7 +3,7 @@
     public enum MotherBoardFilterType
     {
         Manufacturer,
-        Soket,
+        Socket,
         Chipset,
         Memory,
         Slots

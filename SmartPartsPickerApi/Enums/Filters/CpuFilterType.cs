@@ -6,6 +6,7 @@
         Core,
         Threads,
         TechProcess,
-        Tdp
+        Tdp,
+        Socket
     }
 }

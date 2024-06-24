@@ -1,9 +1,11 @@
 ﻿namespace SmartPartsPickerApi.Enums.Filters
 {
-    public enum HddFilterType
+    public enum StorageFilterType
     {
         Manufacturer,
         Sata,
-        Speed
+        Speed,
+        Size,
+        FormFactor
     }
 }

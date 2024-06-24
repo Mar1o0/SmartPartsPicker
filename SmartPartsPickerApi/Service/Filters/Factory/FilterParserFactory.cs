@@ -4,7 +4,7 @@ using SmartPartsPickerApi.Interfaces;
 namespace SmartPartsPickerApi.Service.Filters.Factory
 {
 
-    class FilterParserFactory : IProductFilterParser // это паттерн фабрика, знакомимся
+    class FilterParserFactory : IProductFilterParser // это паттерн фабрика
     {
 
         public FilterParserFactory(ProductType type)
@@ -24,8 +24,8 @@ namespace SmartPartsPickerApi.Service.Filters.Factory
                 case ProductType.RAM:
                     _impl = new DramFilterParser();
                     break;
-                case ProductType.HDD:
-                    _impl = new HddFilterParser();
+                case ProductType.STORAGE:
+                    _impl = new StorageFilterParser();
                     break;
                 case ProductType.MB:
                     _impl = new MotherBoardFilterParser();
@@ -33,10 +33,8 @@ namespace SmartPartsPickerApi.Service.Filters.Factory
                 case ProductType.PSU:
                     _impl = new PowerSupplyFilterParser();
                     break;
-                case ProductType.SSD:
-                    _impl = null;
-                    break;
             }
+
             if (_impl == null)
             {
                 throw new InvalidDataException("Not realized product filter");

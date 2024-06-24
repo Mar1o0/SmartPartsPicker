@@ -1,6 +1,5 @@
 ﻿using LinqToDB;
 using LinqToDB.Data;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using SmartPartsPickerApi.Database.Tables;
 using SmartPartsPickerApi.Database.Views;
 using SmartPartsPickerApi.Enums;
@@ -14,11 +13,12 @@ namespace SmartPartsPickerApi.Database.Providers
         public async Task<ProductTable> CreateUpdate(ProductTable entity)
         {
             using var db = new DbWinbroker();
-            if(entity.Id == 0)
+            if (entity.Id == 0)
             {
                 var id = db.Products.Any() ? db.Products.Max(x => x.Id) + 1 : 1;
                 entity.Id = id;
             }
+
             await db.Products.InsertOrUpdateAsync(() => new ProductTable()
             {
                 Id = entity.Id,
@@ -37,7 +37,7 @@ namespace SmartPartsPickerApi.Database.Providers
                 Description = entity.Description ?? x.Description,
                 ApiId = entity.ApiId,
                 Type = x.Type,
-                Rating = entity.Rating 
+                Rating = entity.Rating
             });
             return entity;
         }
@@ -59,9 +59,9 @@ namespace SmartPartsPickerApi.Database.Providers
                 $"Where p.id = {id};"
                 ).FirstOrDefault();
 
-            var filters = db.Query<FilterTable>("" +
+            var filters = db.Query<FilterTable>(
                 "Select f.* from Filter f " +
-                "Inner JOIN ProductFilter pf on pf.filter_id = f.id " +
+                "INNER JOIN ProductFilter pf on pf.filter_id = f.id " +
                 $"Where pf.product_id = {id};").ToList();
 
             var prices = db.Query<ProductPriceTable>(
@@ -72,25 +72,25 @@ namespace SmartPartsPickerApi.Database.Providers
             switch (productResponses.Type)
             {
                 case ProductType.CPU:
-                    productResponses.Specs = (filters.Select(x => (new CpuFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    productResponses.Specs = filters.Select(x => new CpuFilter(x)).Select(x => (IProductFilter)x).ToList();
                     break;
                 case ProductType.GPU:
-                    productResponses.Specs = (filters.Select(x => (new VideoCardFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    productResponses.Specs = filters.Select(x => new VideoCardFilter(x)).Select(x => (IProductFilter)x).ToList();
                     break;
                 case ProductType.PSU:
-                    productResponses.Specs = (filters.Select(x => (new PowerSupplyFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    productResponses.Specs = filters.Select(x => new PowerSupplyFilter(x)).Select(x => (IProductFilter)x).ToList();
                     break;
                 case ProductType.RAM:
-                    productResponses.Specs = (filters.Select(x => (new DramFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    productResponses.Specs = filters.Select(x => new DramFilter(x)).Select(x => (IProductFilter)x).ToList();
                     break;
                 case ProductType.CHASSIS:
-                    productResponses.Specs = (filters.Select(x => (new ChassisFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    productResponses.Specs = filters.Select(x => new ChassisFilter(x)).Select(x => (IProductFilter)x).ToList();
                     break;
                 case ProductType.MB:
-                    productResponses.Specs = (filters.Select(x => (new MotherBoardFilter(x))).Select(x => (IProductFilter)x).ToList());
+                    productResponses.Specs = filters.Select(x => new MotherBoardFilter(x)).Select(x => (IProductFilter)x).ToList();
                     break;
-                case ProductType.HDD:
-                    productResponses.Specs = (filters.Select(x => (new HddFilter(x))).Select(x => (IProductFilter)x).ToList());
+                case ProductType.STORAGE:
+                    productResponses.Specs = filters.Select(x => new StorageFilter(x)).Select(x => (IProductFilter)x).ToList();
                     break;
             }
 
@@ -98,7 +98,7 @@ namespace SmartPartsPickerApi.Database.Providers
 
             return productResponses;
         }
-        
+
         public List<FilteredProductView> GetProductBySearch(string search, ProductType productType)
         {
             using var db = new DbWinbroker();
@@ -115,11 +115,41 @@ namespace SmartPartsPickerApi.Database.Providers
                 "SELECT pp.* FROM ProductPrice pp " +
                 $"WHERE pp.productId = {product.Id};" +
                 "").ToList();
+
+                var filtersSpec = db.Query<FilterTable>(
+                                "Select f.* from Filter f " +
+                                "INNER JOIN ProductFilter pf on pf.filter_id = f.id " +
+                                $"Where pf.product_id = {product.Id};").ToList();
+
+                switch (product.Type) // не надо так делать больше  (((
+                {
+                    case ProductType.CPU:
+                        product.Specs = filtersSpec.Select(x => new CpuFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.GPU:
+                        product.Specs = filtersSpec.Select(x => new VideoCardFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.PSU:
+                        product.Specs = filtersSpec.Select(x => new PowerSupplyFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.RAM:
+                        product.Specs = filtersSpec.Select(x => new DramFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.CHASSIS:
+                        product.Specs = filtersSpec.Select(x => new ChassisFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.MB:
+                        product.Specs = filtersSpec.Select(x => new MotherBoardFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.STORAGE:
+                        product.Specs = filtersSpec.Select(x => new StorageFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                }
             }
 
             return productResponses;
         }
-        
+
         public List<FilteredProductView> GetAllProductByFilters(ProductType productType,
                                                          double priceMin = 0,
                                                          double priceMax = double.MaxValue,
@@ -128,7 +158,7 @@ namespace SmartPartsPickerApi.Database.Providers
                                                          int per_page = 20)
         {
             using var db = new DbWinbroker();
-            if(--page < 0)
+            if (--page < 0)
             {
                 throw new Exception("Page must be over 1");
             }
@@ -146,13 +176,13 @@ namespace SmartPartsPickerApi.Database.Providers
                         GROUP BY pp.productId
                     ) price_data ON price_data.productId = p.id
                     WHERE p.type = {(int)productType}
-                    AND price_data.min_price BETWEEN {priceMin.ToString().Replace(',','.')} AND {priceMax.ToString().Replace(',', '.')}
+                    AND price_data.min_price BETWEEN {priceMin.ToString().Replace(',', '.')} AND {priceMax.ToString().Replace(',', '.')}
                     {filterCondition}
                     LIMIT {per_page} OFFSET {page * per_page};
                     ";
 
             // Выполнение запроса и получение результата
-            
+
             var productResponses = db.Query<FilteredProductView>(q).ToList();
 
             if (productResponses.Count == 0)
@@ -173,6 +203,36 @@ namespace SmartPartsPickerApi.Database.Providers
             foreach (var product in productResponses)
             {
                 product.Price = prices.Where(x => x.ProductId == product.Id).ToList();
+
+                var filtersSpec = db.Query<FilterTable>(
+                                "Select f.* from Filter f " +
+                                "INNER JOIN ProductFilter pf on pf.filter_id = f.id " +
+                                $"Where pf.product_id = {product.Id};").ToList();
+
+                switch (product.Type) // не надо так делать больше  (((
+                {
+                    case ProductType.CPU:
+                        product.Specs = filtersSpec.Select(x => new CpuFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.GPU:
+                        product.Specs = filtersSpec.Select(x => new VideoCardFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.PSU:
+                        product.Specs = filtersSpec.Select(x => new PowerSupplyFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.RAM:
+                        product.Specs = filtersSpec.Select(x => new DramFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.CHASSIS:
+                        product.Specs = filtersSpec.Select(x => new ChassisFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.MB:
+                        product.Specs = filtersSpec.Select(x => new MotherBoardFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                    case ProductType.STORAGE:
+                        product.Specs = filtersSpec.Select(x => new StorageFilter(x)).Select(x => (IProductFilter)x).ToList();
+                        break;
+                }
             }
 
             return productResponses;

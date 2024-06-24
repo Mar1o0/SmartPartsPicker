@@ -25,7 +25,7 @@
         /// <summary>
         /// Жесткий диск
         /// </summary>
-        HDD = 97,
+        STORAGE = 97,
         /// <summary>
         /// Блок питания
         /// </summary>
@@ -34,9 +34,5 @@
         /// Корпус
         /// </summary>
         CHASSIS = 101,
-        /// <summary>
-        /// Кулер для процессора
-        /// </summary>
-        //COOLER = 103
     }
 }

@@ -17,7 +17,7 @@ namespace SmartPartsPickerApi.Service.Filters
 
         public List<IProductFilter> ParseFilters(List<Product> products)
         {
-            var productsToParse = products.Where(x=>x.name_prefix == VC_NAME_PREFIX).ToList();
+            var productsToParse = products.Where(x => x.name_prefix == VC_NAME_PREFIX).ToList();
             var availableFilters = new List<IProductFilter>();
 
             var vramVariants = new HashSet<string>(); // если не знаешь что это замени на лист
@@ -31,25 +31,28 @@ namespace SmartPartsPickerApi.Service.Filters
                 var width = item.description_list.FirstOrDefault(x => x.Contains(VC_WIDTH_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
                 var fans = item.micro_description_list.FirstOrDefault(x => x.Contains(VC_FANS_DESCRIPTION_PATTERN, StringComparison.InvariantCultureIgnoreCase));
 
-                if(vram != null && !vramVariants.Contains(vram))
+                if (vram != null && !vramVariants.Contains(vram))
                 {
                     vramVariants.Add(vram);
                 }
-                if(mfr != null && !mfrVariants.Contains(mfr))
+
+                if (mfr != null && !mfrVariants.Contains(mfr))
                 {
                     mfrVariants.Add(mfr);
                 }
-                if(width != null && !widthVariants.Contains(width))
+
+                if (width != null && !widthVariants.Contains(width))
                 {
                     widthVariants.Add(width);
                 }
-                if(fans != null && !fansVariants.Contains(fans))
+
+                if (fans != null && !fansVariants.Contains(fans))
                 {
                     fansVariants.Add(fans);
                 }
             }
 
-            if (productsToParse.Any(x => x.description_list.Contains(VC_RT_SUPPORT_DESCRIPTION)))
+            if (productsToParse.Any(x => x.description_list.Contains(VC_RT_SUPPORT_DESCRIPTION)) || productsToParse.Any(x => x.full_name.Contains(" RTX ")))
             {
                 var RT = new VideoCardFilter(VideoCardFilterType.RT, VC_RT_SUPPORT_DESCRIPTION);
                 availableFilters.Add(RT);
@@ -64,11 +67,12 @@ namespace SmartPartsPickerApi.Service.Filters
             {
                 availableFilters.Add(new VideoCardFilter(VideoCardFilterType.Manufacturer, mfr));
             }
-            
+
             foreach (var width in widthVariants)
             {
                 availableFilters.Add(new VideoCardFilter(VideoCardFilterType.Width, width));
             }
+
             foreach (var flg in fansVariants)
             {
                 availableFilters.Add(new VideoCardFilter(VideoCardFilterType.Fans, flg));
