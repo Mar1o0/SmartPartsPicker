@@ -5,8 +5,7 @@ enum class ProductType {
     CPU,
     MB,
     RAM,
-    HDD,
-    SSD,
+    STORAGE,
     CHASSIS,
     PSU;
 
@@ -16,8 +15,7 @@ enum class ProductType {
             "CPU" -> CPU
             "MB" -> MB
             "RAM" -> RAM
-            "HDD" -> HDD
-            "SSD" -> SSD
+            "STORAGE" -> STORAGE
             "CHASSIS" -> CHASSIS
             "PSU" -> PSU
             else -> throw IllegalArgumentException("Unknown product type: $type")

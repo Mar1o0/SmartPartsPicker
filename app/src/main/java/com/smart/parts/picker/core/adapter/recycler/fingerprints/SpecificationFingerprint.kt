@@ -28,7 +28,7 @@ data class SpecificationItem(
             if (!productSpec.isValid) return null
             return SpecificationItem(
                 id = productSpec.id!!,
-                title = productSpec.type!!,
+                title = productSpec.filterFriendlyName!!,
                 value = productSpec.value!!
             )
         }

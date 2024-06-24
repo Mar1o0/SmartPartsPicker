@@ -46,7 +46,7 @@ class ProductDescriptionViewModel @AssistedInject constructor(
                 return@launch
             }
 
-            val productSpec = mainRepository.apiClient.fetchProductSpecs(product.id) ?: emptyList()
+            val productSpec = product.specs ?: emptyList()
             _state.value = ProductDescriptionState.Content(
                 product = product,
                 specs = productSpec.mapNotNull(SpecificationItem::create)

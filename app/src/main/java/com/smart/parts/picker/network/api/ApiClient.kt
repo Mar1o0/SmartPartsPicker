@@ -67,13 +67,4 @@ class ApiClient @Inject constructor(
             apiService.searchProducts(productType, query)
         }.getOrNull()
     }
-
-    suspend fun fetchProductSpecs(
-        productId: ProductId
-    ): List<ProductSpec>? = withContext(Dispatchers.IO) {
-        kotlin.runCatching {
-            apiService.fetchProductSpec(productId)
-        }.getOrNull()
-    }
-
 }

@@ -54,16 +54,10 @@ class CatalogViewModel @Inject constructor(
                         previewUrl = "file:///android_asset/ram.png",
                     )
 
-                    ProductType.HDD -> CategoryItem(
+                    ProductType.STORAGE -> CategoryItem(
                         productType = productType,
-                        title = "Жесткие диски",
+                        title = "Носители информации",
                         previewUrl = "file:///android_asset/hdd.jpg",
-                    )
-
-                    ProductType.SSD -> CategoryItem(
-                        productType = productType,
-                        title = "SSD накопители",
-                        previewUrl = "file:///android_asset/storage.png",
                     )
 
                     ProductType.CHASSIS -> CategoryItem(

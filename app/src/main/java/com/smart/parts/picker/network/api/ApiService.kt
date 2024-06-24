@@ -45,9 +45,4 @@ interface ApiService {
         @Path("productType") productType: ProductType,
         @Query("search") search: String,
     ): List<Product>?
-
-    @GET("api/product/{productId}/specs")
-    fun fetchProductSpec(
-        productId: ProductId
-    ): List<ProductSpec>?
 }

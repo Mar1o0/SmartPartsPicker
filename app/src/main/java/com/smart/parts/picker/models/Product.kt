@@ -8,6 +8,7 @@ data class Product(
     val id: Int?,
     val type: String?,
     val price: List<ProductPrice>?,
+    val specs: List<ProductSpec>?,
     val image: String?,
     val apiId: Int?,
     val name: String?,
