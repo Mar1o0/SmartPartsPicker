@@ -90,7 +90,8 @@ class ProductFragment : Fragment() {
                         flContent.isVisible = false
                         tvError.isVisible = true
 
-                        tvError.text = state.message
+                        tvError.text = getString(R.string.error_no_internet)
+//                        tvError.text = state.message
                     }
                 }
             }

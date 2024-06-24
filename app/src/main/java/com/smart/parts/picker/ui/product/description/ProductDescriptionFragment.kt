@@ -112,6 +112,7 @@ class ProductDescriptionFragment(
                         cpiLoading.isVisible = false
                         nsContent.isVisible = false
                         tvError.isVisible = true
+                        tvError.text = getString(R.string.error_no_internet)
                     }
 
                     is ProductDescriptionState.AddToAssemblyPopup -> {

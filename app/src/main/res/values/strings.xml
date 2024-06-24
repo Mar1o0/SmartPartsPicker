@@ -57,4 +57,5 @@
     <string name="v">v%1$s</string>
     <string name="save_assembly">Сохранить сборку</string>
     <string name="saved">Сохранено</string>
+    <string name="error_no_internet">Отсутствует подключение к интернету</string>
 </resources>

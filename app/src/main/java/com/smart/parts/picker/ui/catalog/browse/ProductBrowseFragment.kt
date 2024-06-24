@@ -156,6 +156,7 @@ class ProductBrowseFragment : Fragment() {
                         nsContent.isVisible = false
                         fabFilters.isVisible = false
                         tvError.isVisible = true
+                        tvError.text = getString(R.string.error_no_internet)
                     }
 
                     BrowseState.LoadMore -> with(binding) {

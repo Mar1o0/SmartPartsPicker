@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.smart.parts.picker.R
 import com.smart.parts.picker.core.adapter.recycler.FingerprintAdapter
 import com.smart.parts.picker.core.adapter.recycler.decorations.VerticalDividerItemDecoration
 import com.smart.parts.picker.core.adapter.recycler.fingerprints.filter.FilterPriceRangeFingerprint
@@ -105,7 +106,7 @@ class FilterFragment : Fragment() {
                         cpiLoading.isVisible = false
                         nsContent.isVisible = false
                         tvError.isVisible = true
-                        tvError.text = state.message
+                        tvError.text = getString(R.string.error_no_internet)
                     }
                 }
             }

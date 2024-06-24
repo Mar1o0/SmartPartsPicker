@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.smart.parts.picker.R
 import com.smart.parts.picker.core.adapter.recycler.FingerprintAdapter
 import com.smart.parts.picker.databinding.FragmentCatalogBinding
 import com.smart.parts.picker.core.adapter.recycler.decorations.VerticalDividerItemDecoration
@@ -84,6 +85,7 @@ class CatalogFragment : Fragment() {
                         cpiLoading.isVisible = false
                         nsContent.isVisible = false
                         tvError.isVisible = true
+                        tvError.text = getString(R.string.error_no_internet)
                     }
                 }
             }
