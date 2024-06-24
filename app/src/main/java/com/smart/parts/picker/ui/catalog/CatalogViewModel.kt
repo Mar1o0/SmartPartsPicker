@@ -3,6 +3,7 @@ package com.smart.parts.picker.ui.catalog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.smart.parts.picker.core.adapter.recycler.fingerprints.CategoryItem
+import com.smart.parts.picker.data.MainRepository
 import com.smart.parts.picker.models.types.ProductType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,7 @@ sealed interface CatalogState {
 
 @HiltViewModel
 class CatalogViewModel @Inject constructor(
-//    private val mainRepository: MainRepository
+    private val mainRepository: MainRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CatalogState>(CatalogState.Loading)
@@ -28,6 +29,12 @@ class CatalogViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
+            
+            if (!mainRepository.apiClient.ping()) {
+                _state.value = CatalogState.Error
+                return@launch
+            }
+            
             val categories = ProductType.entries.map { productType ->
                 when (productType) {
                     ProductType.GPU -> CategoryItem(

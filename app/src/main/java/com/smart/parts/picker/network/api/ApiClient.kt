@@ -67,4 +67,16 @@ class ApiClient @Inject constructor(
             apiService.searchProducts(productType, query)
         }.getOrNull()
     }
+
+    suspend fun ping(): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val resp = apiService.ping("https://pzt35vip.uk/").execute()
+            when (resp.code()) {
+                200, 403, 404 -> true
+                else -> false
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
 }

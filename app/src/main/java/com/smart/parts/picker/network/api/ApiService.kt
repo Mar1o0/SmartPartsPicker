@@ -4,11 +4,12 @@ import com.smart.parts.picker.models.Budget
 import com.smart.parts.picker.models.types.ProductId
 import com.smart.parts.picker.models.Filter
 import com.smart.parts.picker.models.Product
-import com.smart.parts.picker.models.ProductSpec
 import com.smart.parts.picker.models.types.ProductType
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface ApiService {
 
@@ -45,4 +46,9 @@ interface ApiService {
         @Path("productType") productType: ProductType,
         @Query("search") search: String,
     ): List<Product>?
+
+    @GET
+    fun ping(
+        @Url url: String
+    ): Call<Unit>
 }
