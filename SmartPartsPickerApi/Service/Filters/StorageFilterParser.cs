@@ -27,7 +27,7 @@ namespace SmartPartsPickerApi.Service.Filters
                 var mfr = product.full_name.Split(' ').First().Trim();
                 var size = product.description_list.FirstOrDefault(x => x.Contains(" ТБ", StringComparison.InvariantCultureIgnoreCase) || x.Contains(" ГБ", StringComparison.InvariantCultureIgnoreCase));
                 var interfaceType = product.description_list.FirstOrDefault(x => x.Contains("SATA", StringComparison.InvariantCultureIgnoreCase) || x.Contains("PCI Express", StringComparison.InvariantCultureIgnoreCase));
-                var formFactor = product.description_list.FirstOrDefault(x => x.Contains("M.2", StringComparison.InvariantCultureIgnoreCase) || x.Contains("2.5\"", StringComparison.InvariantCultureIgnoreCase));
+                var formFactor = product.description_list.FirstOrDefault(x => x.Contains("M.2", StringComparison.InvariantCultureIgnoreCase) || x.Contains("2.5\\\"", StringComparison.InvariantCultureIgnoreCase) || x.Contains("3.5\\\"", StringComparison.InvariantCultureIgnoreCase));
                 var speed = product.description_list.FirstOrDefault(x => x.Contains("об/мин", StringComparison.InvariantCultureIgnoreCase));
 
                 AddToHashSet(mfrVariants, mfr);
