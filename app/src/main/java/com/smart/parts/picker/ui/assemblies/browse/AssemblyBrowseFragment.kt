@@ -84,6 +84,7 @@ class AssemblyBrowseFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
+                if (_binding == null) return@collect
                 when (state) {
                     AssemblyBrowseState.Loading -> with(binding) {
                         cpiLoading.isVisible = true

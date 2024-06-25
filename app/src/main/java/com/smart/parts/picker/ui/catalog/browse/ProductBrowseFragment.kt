@@ -125,6 +125,7 @@ class ProductBrowseFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
+                if (_binding == null) return@collect
                 when (state) {
                     BrowseState.Loading -> with(binding) {
                         cpiLoading.isVisible = true

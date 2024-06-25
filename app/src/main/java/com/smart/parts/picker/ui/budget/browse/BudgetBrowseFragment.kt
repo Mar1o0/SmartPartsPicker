@@ -71,6 +71,7 @@ class BudgetBrowseFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
+                if (_binding == null) return@collect
                 when (state) {
                     BudgetBrowseState.Loading -> with(binding) {
                         cpiLoading.isVisible = true

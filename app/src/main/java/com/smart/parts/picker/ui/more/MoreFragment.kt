@@ -41,6 +41,7 @@ class MoreFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
+                if (_binding == null) return@collect
                 when (state) {
                     MoreState.Loading -> {}
 

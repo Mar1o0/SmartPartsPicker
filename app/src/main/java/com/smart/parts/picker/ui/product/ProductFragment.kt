@@ -63,6 +63,7 @@ class ProductFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
+                if (_binding == null) return@collect
                 when (state) {
                     ProductState.Loading -> with(binding) {
                         cpiLoading.isVisible = true

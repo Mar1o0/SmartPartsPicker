@@ -66,6 +66,7 @@ class CatalogFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
+                if (_binding == null) return@collect
                 when (state) {
                     CatalogState.Loading -> with(binding) {
                         cpiLoading.isVisible = true

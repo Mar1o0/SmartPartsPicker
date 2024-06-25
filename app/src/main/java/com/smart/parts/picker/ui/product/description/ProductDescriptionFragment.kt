@@ -93,6 +93,7 @@ class ProductDescriptionFragment(
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
+                if (_binding == null) return@collect
                 when (state) {
                     ProductDescriptionState.Loading -> with(binding) {
                         cpiLoading.isVisible = true
