@@ -58,7 +58,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/urbanist_regular"
         android:maxLines="2"
-        android:text="Товары актуальны на 20.02.2024"
+        android:text="Товары актуальны на 25.06.2024"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tvAuthor"
