@@ -36,5 +36,7 @@
         android:textAllCaps="false"
         android:textColor="@color/secondary_white"
         android:textSize="12sp"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        android:visibility="gone"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+        tools:visibility="visible" />
 </LinearLayout>

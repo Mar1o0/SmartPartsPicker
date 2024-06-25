@@ -3,6 +3,7 @@ package com.smart.parts.picker.core.adapter.recycler.fingerprints.filter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.Keep
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.smart.parts.picker.R
@@ -15,6 +16,8 @@ import com.smart.parts.picker.core.util.toPx
 import com.smart.parts.picker.databinding.ItemFilterSelectBinding
 import kotlinx.parcelize.Parcelize
 import kotlin.math.roundToInt
+
+private const val VARIANTS_LIMIT = 5
 
 @Keep
 @Parcelize
@@ -76,24 +79,34 @@ class FilterSelectViewHolder(
             )
         )
 
-        setVariants()
-
-        binding.btnShowAll.setOnClickListener {
-            isExpanded = !isExpanded
+        if (item.variants.size > VARIANTS_LIMIT) {
+            binding.btnShowAll.isVisible = true
             binding.btnShowAll.text = if (isExpanded) {
                 context.getString(R.string.hide_all)
             } else {
                 context.getString(R.string.show_all, item.variants.size)
             }
-            setVariants()
+            binding.btnShowAll.setOnClickListener {
+                isExpanded = !isExpanded
+                binding.btnShowAll.text = if (isExpanded) {
+                    context.getString(R.string.hide_all)
+                } else {
+                    context.getString(R.string.show_all, item.variants.size)
+                }
+                setVariants()
+            }
+        } else {
+            isExpanded = true
         }
+
+        setVariants()
     }
 
     private fun setVariants() {
         if (isExpanded) {
             adapter.submitList(item.variants)
         } else {
-            adapter.submitList(item.variants.take(5))
+            adapter.submitList(item.variants.take(VARIANTS_LIMIT))
         }
     }
 }
